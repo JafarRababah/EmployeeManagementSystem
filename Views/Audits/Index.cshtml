@@ -1,0 +1,59 @@
+﻿@model IEnumerable<EmployeesManagment.Models.Audit>
+
+@{
+    ViewData["Title"] = "System Audit Logs";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">System Audit Logs List</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TableName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AuditType)
+                    </th>
+             
+                  
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TableName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuditType)
+                        </td>
+                     
+                      
+                        <td>
+                            <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Id"><i class="fa fa-eye"></i> View</a> |
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

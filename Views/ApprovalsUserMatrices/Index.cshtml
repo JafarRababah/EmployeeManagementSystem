@@ -1,0 +1,87 @@
+﻿@model IEnumerable<EmployeesManagment.Models.ApprovalsUserMatrix>
+
+@{
+    ViewData["Title"] = "Approval Matrix";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="mb-3 float-end">
+            <a asp-action="Create" class="btn btn-primary"><i class="bi bi-file-plus-fill"></i>Add Approval Matrix</a>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DocumentType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkFlowUserGroup)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Active)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedById)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedOn)
+                    </th>
+                    <th>Edit</th>
+                    <th>View</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DocumentType.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkFlowUserGroup.Description)
+                        </td>
+                        <td>
+                            @if(item.Active){
+                            <span class="budge rounded-pill bg-success">
+                                yes
+                            </span>
+                            }
+                           else{
+                            <span class="budge rounded-pill bg-gradiant-warning">
+                                No
+                            </span>
+                           }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedById)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedOn)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</a>
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-eye"></i>View</a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

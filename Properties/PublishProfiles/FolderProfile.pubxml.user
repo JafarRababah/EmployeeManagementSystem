@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\Jafar\MyGitHub\EmployeesManagment\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2025-05-08T10:05:08.3130032Z||;True|2025-05-08T11:09:27.9260433+03:00||;True|2025-05-08T10:49:36.0386530+03:00||;True|2025-05-06T09:14:23.4024720+03:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=localhost%3bDatabase=EmployeesManagment%3bIntegrated Security=True%3bEncrypt=False%3bUser Id=sa %3bPassword = 123 %3bTrusted_Connection=True%3bTrustServerCertificate=True%3bConnection Timeout=30%3bMultipleActiveResultSets=true%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,51 @@
+﻿@model EmployeesManagment.ViewModels.RoleViewModel
+
+@{
+    ViewData["Title"] = "Add Role";
+}
+
+<div class="row">
+    <div class="col-md-12 mx-auto">
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="card-body">
+                <div class="border p-4 rouded">
+                    <div class="card-title d-flex align-items-counter">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-info"></i>
+                        </div>
+                        <h5 class="mb-0 text-info"> Add New Role</h5>
+                    </div><br />
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div class="row g-3">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="RoleName" class="control-label"></label>
+                                            <input asp-for="RoleName" class="form-control" />
+                                            <span asp-validation-for="RoleName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group">
+                                    <a asp-action="Index" class="btn btn-warning float-start"><i class="bi bi-skip-backward-fill"></i> Back to List</a>
+                                    <button type="submit" class="btn btn-primary float-end"><i class="bi bi-save"></i> Register Role</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

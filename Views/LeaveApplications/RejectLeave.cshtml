@@ -1,0 +1,129 @@
+﻿@model EmployeesManagment.Models.LeaveApplication
+
+@{
+    ViewData["Title"] = "Reject Leave";
+}
+
+
+
+<form asp-action="RejectLeave" method="post">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Reject Leave Applications Details</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Employee)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Employee.Id)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.NoOfDays)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NoOfDays)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.StartDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EndDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Duration)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Duration.Id)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.LeaveType)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.LeaveType.Id)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Attachment)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Attachment)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Status.Id)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ApprovedById)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ApprovedById)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ApprovedOn)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ApprovedOn)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CreatedById)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreatedById)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CreatedOn)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ModifiedById)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ModifiedById)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ModifiedOn)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ModifiedOn)
+                </dd>
+            </dl>
+        </div>
+        <div></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        <label asp-for="ApprovalNotes" class="control-label"></label>
+                      <input asp-for="ApprovalNotes" class="form-control" />
+            <div class="card-footer">
+                <div class="clearfix">
+
+                    <a asp-action="Index" class="btn btn-danger push-left">Back to List</a>
+                    <input type="submit" value="Reject Leave Application" class="btn btn-danger" />
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

@@ -1,0 +1,53 @@
+﻿@model EmployeesManagment.Models.City
+
+@{
+    ViewData["Title"] = "Add New City";
+}
+
+<div class="row">
+    <div class="col-md-12 mx-auto">
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="card-body">
+                <div class="border p-4 rouded">
+                    <div class="card-title d-flex align-items-counter">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-info"></i>
+                        </div>
+                        <h5 class="mb-0 text-info"> Add New City</h5>
+                    </div><br />
+                        <div class="col-md-12">
+                            <form asp-action="Create">
+                            <div class="row g-3">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Code" class="control-label"></label>
+                                    <input asp-for="Code" class="form-control" />
+                                    <span asp-validation-for="Code" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CountryId" class="control-label"></label>
+                                    <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId"></select>
+                                </div>
+                                <div class="form-group">
+                                    <a asp-action="Index" class="btn btn-warning float-start">Back to List</a>
+                                    <input type="submit" value="Register City" class="btn btn-primary float-end" />
+                                </div></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

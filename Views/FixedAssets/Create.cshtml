@@ -1,0 +1,86 @@
+﻿@model EmployeesManagment.Models.FixedAsset
+
+@{
+    ViewData["Title"] = "Add New Asset";
+}
+
+<div class="row">
+    <div class="col-md-12 mx-auto">
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="card-body">
+                <div class="border p-4 rouded">
+                    <div class="card-title d-flex align-items-counter">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-info"></i>
+                        </div>
+                        <h5 class="mb-0 text-info"> Add New Asset</h5>
+                    </div><br />
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div class="row g-3">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="AssetNo" class="control-label"></label>
+                                    <input asp-for="AssetNo" class="form-control" />
+                                    <span asp-validation-for="AssetNo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Description" class="control-label"></label>
+                                    <input asp-for="Description" class="form-control" />
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CategoryId" class="control-label"></label>
+                                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="SerialNo" class="control-label"></label>
+                                    <input asp-for="SerialNo" class="form-control" />
+                                    <span asp-validation-for="SerialNo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Model" class="control-label"></label>
+                                    <input asp-for="Model" class="form-control" />
+                                    <span asp-validation-for="Model" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="StatusId" class="control-label"></label>
+                                    <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="ResponsibleEmployeeId" class="control-label"></label>
+                                    <select asp-for="ResponsibleEmployeeId" class="form-control" asp-items="ViewBag.ResponsibleEmployeeId"></select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Photo" class="control-label"></label>
+                                    <input asp-for="Photo" class="form-control" />
+                                    <span asp-validation-for="Photo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Notes" class="control-label"></label>
+                                    <input asp-for="Notes" class="form-control" />
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="PurchaseDate" class="control-label"></label>
+                                    <input asp-for="PurchaseDate" class="form-control" />
+                                    <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+                                </div>
+                                <div class="clearix">
+                                    <a asp-action="Index" class="btn btn-danger push-left">Back to List</a>
+                                    <input type="submit" value="Register Asset" class="btn btn-primary" />
+                                </div></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

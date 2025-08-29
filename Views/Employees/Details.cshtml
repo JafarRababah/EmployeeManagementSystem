@@ -1,0 +1,63 @@
+﻿@model EmployeesManagment.Models.Employee
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<h2>Employee Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.EmpNo)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.EmpNo)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.FirstName)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.FirstName)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.MiddleName)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.MiddleName)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.LastName)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.LastName)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.PhoneNumber)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.PhoneNumber)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.EmailAddress)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.EmailAddress)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Country)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Country)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.DateOfBirth)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.DateOfBirth)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Address)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Address)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Department)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Department)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Designation)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.Designation)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.CreatedById)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.CreatedById)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.CreatedOn)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.CreatedOn)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.ModifiedById)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.ModifiedById)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(m => m.ModifiedOn)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(m => m.ModifiedOn)</dd>
+        </dl>
+
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

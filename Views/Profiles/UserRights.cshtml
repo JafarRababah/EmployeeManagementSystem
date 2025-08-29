@@ -1,0 +1,94 @@
+﻿@model EmployeesManagment.ViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Assign User Rights";
+}
+
+
+<div class="card">
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <form asp-action="UserGroupRights" method="post">
+                <input type="hidden" name="RoleId" value="@Model.RoleId" />
+                <table class="table table-bordered table-striped table-hover table-fixed-header">
+                    <thead class="header" style="margin: 0px auto; width: 1200px;">
+                        <tr>
+                            <th> Module</th>
+                            <th> SubModule</th>
+                            <th> View.</th>
+                            <th> Add</th>
+                            <th> Edit</th>
+                            <th> Delete</th>
+                            <th> Approve</th>
+                            <th> Reject</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Profiles != null)
+                        {
+                            @foreach (var module in Model.Profiles.Where(x => x.ProfileId is null))
+                            {
+                                <tr>
+                                    <th>@module.Name</th>
+                                    @if (module.Children.Any())
+                                    {
+                                        @foreach (var submodule in module.Children)
+                                        {
+                                        <tr>
+                                            <th></th>
+                                            <td>
+                                                <input type="hidden" name="RolesProfilesIds[]" value="@submodule.Id" />@submodule.Name
+                                            </td>
+                                            <td>
+                                                <label class="">
+                                                    <input type="checkbox" name="Ids[]" value="@submodule.Id" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="">
+                                                    <input type="checkbox" name="Ids[]" value="@submodule.Id" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="">
+                                                    <input type="checkbox" name="Ids[]" value="@submodule.Id" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="">
+                                                    <input type="checkbox" name="Ids[]" value="@submodule.Id" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="">
+                                                    <input type="checkbox" name="Ids[]" value="@submodule.Id" />
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="">
+                                                    <input type="checkbox" name="Ids[]" value="@submodule.Id" />
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <div class="clearix">
+                                <a asp-action="Index" class="btn btn-danger push-left">Back to List</a>
+                                <input type="submit" value="Assign Rights" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
