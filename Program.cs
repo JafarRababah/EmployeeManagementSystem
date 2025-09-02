@@ -1,41 +1,77 @@
-using EmployeesManagment.Data;
+﻿using EmployeesManagment.Data;
+using EmployeesManagment.Data.Seed;
+using EmployeesManagment.Infrastructure;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
 using EmployeesManagment.Views.Profiles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using static EmployeesManagment.Data.ApplicationDbContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// ----------------- Add Services -----------------
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+// Identity configuration with ApplicationUser
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
+// Razor Pages & MVC
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
+
+// Authentication & Authorization
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
-var config = new AutoMapper.MapperConfiguration(
-    options =>
-    {
-        options.AllowNullDestinationValues = true;
-        options.AllowNullCollections = true;
-        options.AddProfile(new AutomapperProfiles());
-    });
+
+// AutoMapper
+var config = new AutoMapper.MapperConfiguration(options =>
+{
+    options.AllowNullDestinationValues = true;
+    options.AllowNullCollections = true;
+    options.AddProfile(new AutomapperProfiles());
+});
 var mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
-builder.Services.AddTransient<IExtensionService,ExtensionService>();
 
+// Custom services
+builder.Services.AddTransient<IExtensionService, ExtensionService>();
+
+// Reporting service
+builder.Services.AddScoped<EmployeesManagment.Services.Reporting.IReportService, EmployeesManagment.Services.Reporting.ReportService>();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
+// ----------------- Build App -----------------
 var app = builder.Build();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-// Configure the HTTP request pipeline.
+//    await DbSeeder.SeedAdminUserAsync(userManager, roleManager);
+//}
+using (var scope = app.Services.CreateScope())
+{
+    var sp = scope.ServiceProvider;
+    await DbSeeder.SeedRolesAndUsersAsync(sp);
+    await FakeDataSeeder.SeedAsync(sp);
+}
+
+
+// ----------------- Configure Middleware -----------------
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -43,13 +79,11 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -60,4 +94,6 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 
+
+// ----------------- Run App -----------------
 app.Run();

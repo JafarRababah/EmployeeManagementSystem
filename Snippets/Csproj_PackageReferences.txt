@@ -1,0 +1,5 @@
+<!-- Add these inside an <ItemGroup> of your .csproj -->
+<PackageReference Include="EPPlus" Version="7.*" />
+<PackageReference Include="QuestPDF" Version="2024.*" />
+<PackageReference Include="Bogus" Version="35.*" />
+<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.*" />

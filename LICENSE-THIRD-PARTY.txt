@@ -1,0 +1,7 @@
+Third-Party Licenses & Notes
+
+- EPPlus (LGPL/commercial dual license). We use it to create basic Excel files.
+  Verify your distribution/usage model complies. https://epplussoftware.com/en/LicenseOverview
+- QuestPDF (commercial-friendly license). See https://www.questpdf.com/
+
+This pack prepared in 2025. You are responsible for final license compliance when selling/distributing your product.

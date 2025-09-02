@@ -94,6 +94,10 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> Create(EmployeeViewModel newemployee,IFormFile employeephoto)
         {
             var employee = new Employee();
+            
+
+            employee.CreatedById = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            employee.CreatedOn = DateTime.Now;
             try
             {
                 
@@ -175,6 +179,8 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,Employee employee)
         {
+            
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id != employee.Id)
             {

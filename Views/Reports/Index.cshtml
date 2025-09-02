@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Reports";
+}
+
+<h2 class="mb-4">Reports</h2>
+
+<div class="container">
+
+    <!-- Employees Reports Card -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Employees Reports</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Index" id="employeesFilters" class="mb-3">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="empName" placeholder="Search by name">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="empDept" placeholder="Search by department">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-secondary w-100" onclick="applyEmployeeFilters()">Apply Filters</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="d-flex gap-2">
+                <a class="btn btn-success" id="downloadEmpExcel" href="/reports/employees/excel">Download Excel</a>
+                <a class="btn btn-danger" id="downloadEmpPdf" href="/reports/employees/pdf">Download PDF</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaves Reports Card -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Leaves Reports</h4>
+        </div>
+        <div class="card-body">
+            <form id="leavesFilters" class="mb-3">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="leaveEmpName" placeholder="Employee Name">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" id="leaveStartDate" placeholder="Start Date">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" id="leaveEndDate" placeholder="End Date">
+                    </div>
+                </div>
+            </form>
+
+            <div class="d-flex gap-2 mt-2">
+                <a class="btn btn-success" id="downloadLeavesExcel" href="/reports/leaves/excel">Download Excel</a>
+                <a class="btn btn-danger" id="downloadLeavesPdf" href="/reports/leaves/pdf">Download PDF</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        function applyEmployeeFilters() {
+            const name = document.getElementById('empName').value;
+            const dept = document.getElementById('empDept').value;
+            let url = '/reports/employees/excel';
+            if(name || dept){
+                url += '?fullName=' + encodeURIComponent(name) + '&department=' + encodeURIComponent(dept);
+            }
+            window.location.href = url;
+        }
+
+        // Similar filter can be applied for leaves if needed
+    </script>
+}
