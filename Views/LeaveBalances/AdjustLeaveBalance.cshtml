@@ -18,58 +18,60 @@
                     <div class="col-md-12">
                         <form asp-action="AdjustLeaveBalance">
                             <div class="row g-3">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row">
-                    
-                <div class="col-md-6">
-                    <div class="form-group col-md-6">
-                        <label asp-for="LeavePeriodId" class="control-label"></label>
-                        <select asp-for="LeavePeriodId" class="form-control" asp-items="ViewBag.LeavePeriodId"></select>
-                        <span asp-validation-for="LeavePeriodId" class="text-danger"></span>
-                    </div>
-                </div>
-                    <div class="col-md-6">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
                                         <div class="form-group col-md-6">
-                            <label asp-for="EmployeeId" class="control-label"></label>
-                            <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
+                                            <label asp-for="LeavePeriodId" class="control-label"></label>
+                                            <select asp-for="LeavePeriodId" class="form-control" required asp-items="ViewBag.LeavePeriodId"></select>
+                                            <span asp-validation-for="LeavePeriodId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group col-md-6">
-                            <label asp-for="NoOfDays" class="control-label"></label>
-                            <input asp-for="NoOfDays" value="0.00" class="form-control" />
-                            <span asp-validation-for="NoOfDays" class="text-danger"></span>
-                        </div></div>
+                                            <label asp-for="EmployeeId" class="control-label"></label>
+                                            <select asp-for="EmployeeId" class="form-control" required asp-items="ViewBag.EmployeeId"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-6">
+                                            <label asp-for="NoOfDays" class="control-label"></label>
+                                            <input asp-for="NoOfDays" required value="0.00" class="form-control" />
+                                            <span asp-validation-for="NoOfDays" class="text-danger"></span>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6 col-md-6">
-                                <div class="form-group">
-                                    <label asp-for="LeaveAdjusmentDate" class="control-label"></label>
-                                    <input asp-for="LeaveAdjusmentDate" class="form-control" />
-                                    <span asp-validation-for="LeaveAdjusmentDate" class="text-danger"></span>
-                                </div>
-                            </div>
+                                        <div class="form-group">
+                                            <label asp-for="LeaveAdjusmentDate" class="control-label"></label>
+                                            <input asp-for="LeaveAdjusmentDate" required value="@DateTime.Today.ToString("yyyy-MM-dd")" type="date" class="form-control" />
+                                            <span asp-validation-for="LeaveAdjusmentDate" class="text-danger"></span>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6 col-md-6">
-                                <div class="form-group">
-                                    <label asp-for="AdjustmentDescription" class="control-label"></label>
-                                    <input asp-for="AdjustmentDescription" class="form-control" />
-                                    <span asp-validation-for="AdjustmentDescription" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="AdjustmentDescription" class="control-label"></label>
+                                            <input asp-for="AdjustmentDescription" required class="form-control" />
+                                            <span asp-validation-for="AdjustmentDescription" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group col-md-6">
-                                    <label asp-for="AdjustmentTypeId" class="control-label"></label>
-                                    <select asp-for="AdjustmentTypeId" class="form-control" asp-items="ViewBag.AdjustmentTypeId"></select>
+                                            <label asp-for="AdjustmentTypeId" class="control-label"></label>
+                                            <select asp-for="AdjustmentTypeId" class="form-control" required asp-items="ViewBag.AdjustmentTypeId"></select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div></div>
                                 <div class="form-group">
                                     <a asp-action="Index" class="btn btn-warning float-start">Back to List</a>
                                     <input type="submit" value="adjust Leave" class="btn btn-primary float-end" />
                                 </div>
                             </div>
-                       
-                    
-        </form>
-    </div>
-</div>
+
+
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

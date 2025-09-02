@@ -1,10 +1,13 @@
-﻿namespace EmployeesManagment.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EmployeesManagment.Models
 {
     public class LeaveAdjustmentEntry: UserActivity
     {
         public int Id { get; set; }
         public int? LeavePeriodId { get; set; }
         public LeavePeriod LeavePeriod { get; set; }
+        [Required (ErrorMessage = "Please select an employee")]
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
         public Decimal NoOfDays { get; set; }
@@ -12,6 +15,7 @@
         public DateTime? LeaveStartDate { get; set; }
         public DateTime? LeaveEndDate { get;  set; }
         public string AdjustmentDescription { get; set; }
+        [Required (ErrorMessage = "Please select adjustment type")]
         public int AdjustmentTypeId { get; set; }
         public SystemCodeDetail AdjustmentType { get; set; }
 

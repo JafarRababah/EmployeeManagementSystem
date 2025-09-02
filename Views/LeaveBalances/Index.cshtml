@@ -15,16 +15,16 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.EmpNo)
+                        @Html.DisplayNameFor(model => model.First().EmpNo)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstName+model.LastName)
+                        @Html.DisplayNameFor(model => model.First().FullName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.AllocatedLeaveDays)
+                        @Html.DisplayNameFor(model => model.First().AllocatedLeaveDays)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.LeaveOutStandingBalance)
+                        @Html.DisplayNameFor(model => model.First().LeaveOutStandingBalance)
                     </th>
 
                     <th>
@@ -40,10 +40,10 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.EmpNo)
+                            @Html.DisplayNameFor(modelItem => item.EmpNo)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
+                            @Html.DisplayFor(modelItem => item.FullName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.AllocatedLeaveDays)

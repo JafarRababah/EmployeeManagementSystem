@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "n2FMH81p6zU=",
+  "dgSpecHash": "pHYIF6s+YPc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Jafar\\MyGitHub\\EmployeesManagment\\EmployeesManagment.csproj",
+  "projectFilePath": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\EmployeesManagment.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jafar\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Jafar\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

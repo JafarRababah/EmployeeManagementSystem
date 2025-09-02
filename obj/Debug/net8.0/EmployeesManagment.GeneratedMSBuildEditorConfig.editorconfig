@@ -17,713 +17,713 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EmployeesManagment
 build_property.RootNamespace = EmployeesManagment
-build_property.ProjectDir = C:\Users\Jafar\MyGitHub\EmployeesManagment\
+build_property.ProjectDir = C:\Users\Jafar\MyGitHub\EmployeeManagementSystem\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Jafar\MyGitHub\EmployeesManagment
+build_property.MSBuildProjectDirectory = C:\Users\Jafar\MyGitHub\EmployeeManagementSystem
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/AccessDenied.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/ConfirmEmail.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/ConfirmEmail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/ConfirmEmailChange.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/ConfirmEmailChange.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxDb25maXJtRW1haWxDaGFuZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/ExternalLogin.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/ExternalLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxFeHRlcm5hbExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/ForgotPasswordConfirmation.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/ForgotPasswordConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxGb3Jnb3RQYXNzd29yZENvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Lockout.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Lockout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2Nrb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Login.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/LoginWith2fa.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/LoginWith2fa.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbldpdGgyZmEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/LoginWithRecoveryCode.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/LoginWithRecoveryCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbldpdGhSZWNvdmVyeUNvZGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Logout.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/DeletePersonalData.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/DeletePersonalData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRGVsZXRlUGVyc29uYWxEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/Disable2fa.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/Disable2fa.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRGlzYWJsZTJmYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRG93bmxvYWRQZXJzb25hbERhdGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/Email.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/Email.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRW5hYmxlQXV0aGVudGljYXRvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/ExternalLogins.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/ExternalLogins.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRXh0ZXJuYWxMb2dpbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/GenerateRecoveryCodes.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/GenerateRecoveryCodes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcR2VuZXJhdGVSZWNvdmVyeUNvZGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcUGVyc29uYWxEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/ResetAuthenticator.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/ResetAuthenticator.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcUmVzZXRBdXRoZW50aWNhdG9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcU2V0UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/ShowRecoveryCodes.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/ShowRecoveryCodes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcU2hvd1JlY292ZXJ5Q29kZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcVHdvRmFjdG9yQXV0aGVudGljYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1N0YXR1c01lc3NhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/Register.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3RlckNvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/ResendEmailConfirmation.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/ResendEmailConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNlbmRFbWFpbENvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/ResetPassword.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/ResetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/ResetPasswordConfirmation.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/ResetPasswordConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNldFBhc3N3b3JkQ29uZmlybWF0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/_StatusMessage.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/_StatusMessage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfU3RhdHVzTWVzc2FnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/Error.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/_ViewImports.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Account/AccessDenied.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalEntries/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalEntries/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxFbnRyaWVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalEntries/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalEntries/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxFbnRyaWVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalEntries/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalEntries/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxFbnRyaWVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalEntries/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalEntries/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxFbnRyaWVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalEntries/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalEntries/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxFbnRyaWVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalsUserMatrices/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalsUserMatrices/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxzVXNlck1hdHJpY2VzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalsUserMatrices/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalsUserMatrices/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxzVXNlck1hdHJpY2VzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalsUserMatrices/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalsUserMatrices/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxzVXNlck1hdHJpY2VzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalsUserMatrices/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalsUserMatrices/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxzVXNlck1hdHJpY2VzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/ApprovalsUserMatrices/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/ApprovalsUserMatrices/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxzVXNlck1hdHJpY2VzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Audits/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Audits/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Audits/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Audits/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Audits/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Audits/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Audits/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Audits/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Audits/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Audits/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXVkaXRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Banks/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Banks/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFua3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Banks/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Banks/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFua3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Banks/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Banks/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFua3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Banks/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Banks/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFua3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Banks/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Banks/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFua3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Cities/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Cities/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0aWVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Cities/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Cities/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0aWVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Cities/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Cities/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0aWVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Cities/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Cities/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0aWVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Cities/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Cities/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0aWVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Clients/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Clients/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Clients/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Clients/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Clients/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Clients/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Clients/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Clients/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Clients/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Clients/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/CompanyInformations/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/CompanyInformations/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueUluZm9ybWF0aW9uc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/CompanyInformations/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/CompanyInformations/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueUluZm9ybWF0aW9uc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/CompanyInformations/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/CompanyInformations/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueUluZm9ybWF0aW9uc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/CompanyInformations/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/CompanyInformations/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueUluZm9ybWF0aW9uc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/CompanyInformations/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/CompanyInformations/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueUluZm9ybWF0aW9uc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Countries/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Countries/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291bnRyaWVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Countries/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Countries/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291bnRyaWVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Countries/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Countries/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291bnRyaWVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Countries/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Countries/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291bnRyaWVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Countries/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Countries/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291bnRyaWVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Departments/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Departments/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Departments/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Departments/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Departments/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Departments/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Departments/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Departments/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Departments/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Departments/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Designations/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Designations/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVzaWduYXRpb25zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Designations/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Designations/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVzaWduYXRpb25zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Designations/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Designations/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVzaWduYXRpb25zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Designations/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Designations/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVzaWduYXRpb25zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Designations/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Designations/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVzaWduYXRpb25zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Employees/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Employees/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Employees/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Employees/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Employees/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Employees/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Employees/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Employees/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Employees/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Employees/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/FixedAssets/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/FixedAssets/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4ZWRBc3NldHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/FixedAssets/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/FixedAssets/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4ZWRBc3NldHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/FixedAssets/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/FixedAssets/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4ZWRBc3NldHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/FixedAssets/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/FixedAssets/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4ZWRBc3NldHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/FixedAssets/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/FixedAssets/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4ZWRBc3NldHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Holidays/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Holidays/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9saWRheXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Holidays/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Holidays/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9saWRheXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Holidays/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Holidays/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9saWRheXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Holidays/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Holidays/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9saWRheXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Holidays/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Holidays/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9saWRheXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Home/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Home/Privacy.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveAdjustmentEntries/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveAdjustmentEntries/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBZGp1c3RtZW50RW50cmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveAdjustmentEntries/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveAdjustmentEntries/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBZGp1c3RtZW50RW50cmllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveAdjustmentEntries/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveAdjustmentEntries/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBZGp1c3RtZW50RW50cmllc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveAdjustmentEntries/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveAdjustmentEntries/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBZGp1c3RtZW50RW50cmllc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveAdjustmentEntries/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveAdjustmentEntries/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBZGp1c3RtZW50RW50cmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/ApprovedLeave.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/ApprovedLeave.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcQXBwcm92ZWRMZWF2ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/ApprovedLeaveApplications.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/ApprovedLeaveApplications.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcQXBwcm92ZWRMZWF2ZUFwcGxpY2F0aW9ucy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/RejectedLeaveApplications.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/RejectedLeaveApplications.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcUmVqZWN0ZWRMZWF2ZUFwcGxpY2F0aW9ucy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveApplications/RejectLeave.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveApplications/RejectLeave.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcUmVqZWN0TGVhdmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveBalances/AdjustLeaveBalance.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveBalances/AdjustLeaveBalance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVCYWxhbmNlc1xBZGp1c3RMZWF2ZUJhbGFuY2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveBalances/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveBalances/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVCYWxhbmNlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeavePeriods/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeavePeriods/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVQZXJpb2RzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeavePeriods/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeavePeriods/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVQZXJpb2RzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeavePeriods/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeavePeriods/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVQZXJpb2RzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeavePeriods/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeavePeriods/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVQZXJpb2RzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeavePeriods/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeavePeriods/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVQZXJpb2RzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveTypes/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveTypes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVUeXBlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveTypes/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveTypes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVUeXBlc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveTypes/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveTypes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVUeXBlc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveTypes/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveTypes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVUeXBlc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/LeaveTypes/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/LeaveTypes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVUeXBlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Profiles/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Profiles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Profiles/UserRights.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Profiles/UserRights.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZXNcVXNlclJpZ2h0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Reports/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Reports/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Roles/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Roles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Roles/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Roles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Roles/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Roles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Shared/Error.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Shared/_ExportButtons.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Shared/_ExportButtons.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9FeHBvcnRCdXR0b25zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodeDetails/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodeDetails/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZURldGFpbHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodeDetails/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodeDetails/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZURldGFpbHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodeDetails/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodeDetails/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZURldGFpbHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodeDetails/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodeDetails/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZURldGFpbHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodeDetails/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodeDetails/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZURldGFpbHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodes/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodes/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodes/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodes/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodes/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodes/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemCodes/SystemCodeDetail.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemCodes/SystemCodeDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtQ29kZXNcU3lzdGVtQ29kZURldGFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemProfiles/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemProfiles/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtUHJvZmlsZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemProfiles/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemProfiles/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtUHJvZmlsZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemProfiles/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemProfiles/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtUHJvZmlsZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemProfiles/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemProfiles/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtUHJvZmlsZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/SystemProfiles/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/SystemProfiles/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lzdGVtUHJvZmlsZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Users/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Users/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Users/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroupMembers/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroupMembers/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBNZW1iZXJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroupMembers/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroupMembers/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBNZW1iZXJzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroupMembers/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroupMembers/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBNZW1iZXJzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroupMembers/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroupMembers/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBNZW1iZXJzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroupMembers/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroupMembers/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBNZW1iZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroups/Create.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroups/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroups/Delete.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroups/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroups/Details.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroups/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroups/Edit.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroups/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/WorkFlowUserGroups/Index.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/WorkFlowUserGroups/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0Zsb3dVc2VyR3JvdXBzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/_ViewImports.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/_ViewStart.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Jafar/MyGitHub/EmployeesManagment/Views/Shared/_Layout.cshtml]
+[C:/Users/Jafar/MyGitHub/EmployeeManagementSystem/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-e1ockb3h7g
