@@ -1,59 +1,58 @@
 ﻿@model EmployeesManagment.Models.ApprovalEntry
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Update Approve Entry";
 }
 
-<h1>Edit</h1>
-
-<h4>ApprovalEntry</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-12 mx-auto">
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="card-body">
+                <div class="border p-4 rouded">
+                    <div class="card-title d-flex align-items-counter">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-info"></i>
+                        </div>
+                        <h5 class="mb-0 text-info"> Update Approve Entry</h5>
+                    </div><br />
+                    <div class="col-md-12">
+                        <form asp-action="Edit">
+                            <div class="row g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+ 
+            <div class="form-group col-md-6">
                 <label asp-for="RecordId" class="control-label"></label>
                 <input asp-for="RecordId" class="form-control" />
                 <span asp-validation-for="RecordId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="DocumentTypeId" class="control-label"></label>
                 <select asp-for="DocumentTypeId" class="form-control" asp-items="ViewBag.DocumentTypeId"></select>
                 <span asp-validation-for="DocumentTypeId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="SequenceNo" class="control-label"></label>
                 <input asp-for="SequenceNo" class="form-control" />
                 <span asp-validation-for="SequenceNo" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="ApproverId" class="control-label"></label>
                 <select asp-for="ApproverId" class="form-control" asp-items="ViewBag.ApproverId"></select>
                 <span asp-validation-for="ApproverId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="StatusId" class="control-label"></label>
                 <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
                 <span asp-validation-for="StatusId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="DateSentForApproval" class="control-label"></label>
                 <input asp-for="DateSentForApproval" class="form-control" />
                 <span asp-validation-for="DateSentForApproval" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LastModifiedOn" class="control-label"></label>
-                <input asp-for="LastModifiedOn" class="form-control" />
-                <span asp-validation-for="LastModifiedOn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastModifiedId" class="control-label"></label>
-                <input asp-for="LastModifiedId" class="form-control" />
-                <span asp-validation-for="LastModifiedId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+
+                                <div class="form-group col-md-6">
                 <label asp-for="Comments" class="control-label"></label>
                 <input asp-for="Comments" class="form-control" />
                 <span asp-validation-for="Comments" class="text-danger"></span>
@@ -61,11 +60,14 @@
             <div class="form-group">
                 <a asp-action="Index" class="btn btn-warning float-start">Back to List</a>
                 <input type="submit" value="Save" class="btn btn-primary float-end" />
-            </div>
+            </div></div>
         </form>
     </div>
 </div>
-
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts {

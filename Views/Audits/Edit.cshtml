@@ -1,69 +1,81 @@
 ﻿@model EmployeesManagment.Models.Audit
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Update Audits";
 }
 
-<h1>Edit</h1>
-
-<h4>Audit</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
+    <div class="col-md-12 mx-auto">
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="card-body">
+                <div class="border p-4 rouded">
+                    <div class="card-title d-flex align-items-counter">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-info"></i>
+                        </div>
+                        <h5 class="mb-0 text-info"> Update Audits</h5>
+                    </div><br />
+                    <div class="col-md-12">
+                        <form asp-action="Edit">
+                            <div class="row g-3">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <div class="form-group col-md-6">
+                                    <label asp-for="UserId" class="control-label"></label>
+                                    <input asp-for="UserId" class="form-control" />
+                                    <span asp-validation-for="UserId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="TableName" class="control-label"></label>
+                                    <input asp-for="TableName" class="form-control" />
+                                    <span asp-validation-for="TableName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="DateTime" class="control-label"></label>
+                                    <input asp-for="DateTime" class="form-control" />
+                                    <span asp-validation-for="DateTime" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="OldValues" class="control-label"></label>
+                                    <input asp-for="OldValues" class="form-control" />
+                                    <span asp-validation-for="OldValues" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="NewValues" class="control-label"></label>
+                                    <input asp-for="NewValues" class="form-control" />
+                                    <span asp-validation-for="NewValues" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="AffectedColumns" class="control-label"></label>
+                                    <input asp-for="AffectedColumns" class="form-control" />
+                                    <span asp-validation-for="AffectedColumns" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="PrimaryKey" class="control-label"></label>
+                                    <input asp-for="PrimaryKey" class="form-control" />
+                                    <span asp-validation-for="PrimaryKey" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="AuditType" class="control-label"></label>
+                                    <select asp-for="AuditType" class="form-control"></select>
+                                    <span asp-validation-for="AuditType" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <a asp-action="Index" class="btn btn-warning float-start">Back to List</a>
+                                    <input type="submit" value="Save" class="btn btn-primary float-end" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="TableName" class="control-label"></label>
-                <input asp-for="TableName" class="form-control" />
-                <span asp-validation-for="TableName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateTime" class="control-label"></label>
-                <input asp-for="DateTime" class="form-control" />
-                <span asp-validation-for="DateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OldValues" class="control-label"></label>
-                <input asp-for="OldValues" class="form-control" />
-                <span asp-validation-for="OldValues" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewValues" class="control-label"></label>
-                <input asp-for="NewValues" class="form-control" />
-                <span asp-validation-for="NewValues" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AffectedColumns" class="control-label"></label>
-                <input asp-for="AffectedColumns" class="form-control" />
-                <span asp-validation-for="AffectedColumns" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrimaryKey" class="control-label"></label>
-                <input asp-for="PrimaryKey" class="form-control" />
-                <span asp-validation-for="PrimaryKey" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AuditType" class="control-label"></label>
-                <select asp-for="AuditType" class="form-control"></select>
-                <span asp-validation-for="AuditType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

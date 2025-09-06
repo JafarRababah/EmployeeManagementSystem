@@ -1,70 +1,46 @@
 ﻿@model IEnumerable<EmployeesManagment.Models.LeaveAdjustmentEntry>
 
 @{
-    ViewData["Title"] = "Leave Adjustment";
+    ViewData["Title"] = "Leave Adjustments";
 }
-
 
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Employees Leave Adjustments</h3>
     </div>
-    <!-- /.card-header -->
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LeavePeriod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoOfDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LeaveAdjusmentDate)
-            </th>
-          
-            <th>
-                @Html.DisplayNameFor(model => model.AdjustmentDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdjustmentType)
-            </th>
-            <th>View</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeavePeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoOfDays)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveAdjusmentDate)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.AdjustmentDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdjustmentType.Description)
-            </td>
-            <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success"><i class="fa fa-eye"></i>View</a>
+                    <th>@Html.DisplayNameFor(model => model.NoOfDays)</th>
+                    <th>@Html.DisplayNameFor(model => model.LeaveAdjusmentDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.AdjustmentDescription)</th>
 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</div>
+                    <!-- للعناوين الخاصة بالـ Navigation Properties -->
+                    <th>Leave Period</th>
+                    <th>Employee</th>
+                    <th>Adjustment Type</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.NoOfDays</td>
+                        <td>@item.LeaveAdjusmentDate.ToString("dd/MM/yyyy")</td>
+                        <td>@item.AdjustmentDescription</td>
+                        <td>@item.LeavePeriod?.Name</td>
+                        <td>@item.Employee?.FullName</td>
+                        <td>@item.AdjustmentType?.Description</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">
+                                <i class="fa fa-eye"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

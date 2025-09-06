@@ -1,7 +1,7 @@
 ﻿@model EmployeesManagment.Models.SystemCodeDetail
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add System Code Detail";
 }
 
 <div class="row">
@@ -15,10 +15,9 @@
                         </div>
                         <h5 class="mb-0 text-info"> Add New System Code Detail</h5>
                     </div>             
-                <div class="row g-3">
                         <div class="col-md-12">
-                    
                             <form asp-action="Create">
+                            <div class="row g-3">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -54,6 +53,7 @@
                                     <a asp-action="Index" class="btn btn-warning float-start">Back to List</a>
                                     <input type="submit" value="Register System Code Detail" class="btn btn-primary float-end" />
                                 </div>
+                            </div>
                             </form>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 @section Scripts {
     @{

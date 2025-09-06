@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EmployeesManagment.Data;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
-using EmployeesManagment.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
@@ -50,9 +52,9 @@ namespace EmployeesManagment.Controllers
         // GET: ApprovalEntries/Create
         public IActionResult Create()
         {
-            ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id");
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id");
+            ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "FullName");
+            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "DocumentTypes"), "Id", "Description");
+            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "LeaveApprovalStatus"), "Id", "Description");
             return View();
         }
 
@@ -61,18 +63,28 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RecordId,DocumentTypeId,SequenceNo,ApproverId,StatusId,DateSentForApproval,LastModifiedOn,LastModifiedId,Comments")] ApprovalEntry approvalEntry)
+        public async Task<IActionResult> Create(ApprovalEntry approvalEntry)
         {
-            if (ModelState.IsValid)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            try
             {
+                approvalEntry.LastModifiedId = User.GetUserId();
+                approvalEntry.LastModifiedOn = DateTime.Now;
                 _context.Add(approvalEntry);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Approve Entry created successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "Id", approvalEntry.ApproverId);
-            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", approvalEntry.DocumentTypeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", approvalEntry.StatusId);
-            return View(approvalEntry);
+               catch (Exception ex)
+            {
+                TempData["Error"] = "Error creating Approve Entry " + ex.Message;
+                ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "FullName", approvalEntry.ApproverId);
+                ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "DocumentTypes"), "Id", "Description", approvalEntry.DocumentTypeId);
+                ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "LeaveApprovalStatus"), "Id", "Description", approvalEntry.StatusId);
+                return View(approvalEntry);
+            }
+            
+           
         }
 
         // GET: ApprovalEntries/Edit/5
@@ -88,9 +100,9 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-            ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "Id", approvalEntry.ApproverId);
-            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", approvalEntry.DocumentTypeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", approvalEntry.StatusId);
+            ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "FullName", approvalEntry.ApproverId);
+            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "DocumentTypes"), "Id", "Description", approvalEntry.DocumentTypeId);
+            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "LeaveApprovalStatus"), "Id", "Description", approvalEntry.StatusId);
             return View(approvalEntry);
         }
 
@@ -99,37 +111,38 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RecordId,DocumentTypeId,SequenceNo,ApproverId,StatusId,DateSentForApproval,LastModifiedOn,LastModifiedId,Comments")] ApprovalEntry approvalEntry)
+        public async Task<IActionResult> Edit(int id, ApprovalEntry approvalEntry)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id != approvalEntry.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!ApprovalEntryExists(approvalEntry.Id))
             {
-                try
-                {
-                    _context.Update(approvalEntry);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ApprovalEntryExists(approvalEntry.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                return NotFound();
+            }
+
+            try
+            {
+                approvalEntry.LastModifiedId = User.GetUserName();
+                approvalEntry.LastModifiedOn = DateTime.UtcNow;
+                _context.Update(approvalEntry);
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Approve Entry updated successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "Id", approvalEntry.ApproverId);
-            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", approvalEntry.DocumentTypeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", approvalEntry.StatusId);
-            return View(approvalEntry);
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error updated Approve Entry " + ex.Message;
+                ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "FullName", approvalEntry.ApproverId);
+                ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x=>x.SystemCodeValue).Where(y=>y.SystemCodeValue.Code== "DocumentTypes"), "Id", "Description", approvalEntry.DocumentTypeId);
+                ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x=>x.SystemCodeValue).Where(y=>y.SystemCodeValue.Code== "LeaveApprovalStatus"), "Id", "Description", approvalEntry.StatusId);
+                return View(approvalEntry);
+            }                
+                
+            
+            
         }
 
         // GET: ApprovalEntries/Delete/5
@@ -158,13 +171,14 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var approvalEntry = await _context.ApprovalEntries.FindAsync(id);
             if (approvalEntry != null)
             {
                 _context.ApprovalEntries.Remove(approvalEntry);
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
             return RedirectToAction(nameof(Index));
         }
 

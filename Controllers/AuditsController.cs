@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EmployeesManagment.Data;
+using EmployeesManagment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
-using EmployeesManagment.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
@@ -58,15 +59,22 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,TableName,DateTime,OldValues,NewValues,AffectedColumns,PrimaryKey,AuditType")] Audit audit)
+        public async Task<IActionResult> Create(Audit audit)
         {
-            if (ModelState.IsValid)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            try
             {
                 _context.Add(audit);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Audit created successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            return View(audit);
+
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error creating Audit " + ex.Message;
+                return View(audit);
+            }
         }
 
         // GET: Audits/Edit/5
@@ -90,39 +98,41 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,TableName,DateTime,OldValues,NewValues,AffectedColumns,PrimaryKey,AuditType")] Audit audit)
+        public async Task<IActionResult> Edit(int id, Audit audit)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id != audit.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!AuditExists(id))
             {
-                try
+                return NotFound();
+            }
+
+            try
                 {
                     _context.Update(audit);
-                    await _context.SaveChangesAsync();
+                    TempData["Message"] = "Audit updated successfully ";
+                    await _context.SaveChangesAsync(userId);
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!AuditExists(audit.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                   
+                    TempData["Error"] = "Error updated Audit " + ex.Message;
+
+                return View(audit);
             }
-            return View(audit);
+                
+            
+            
         }
 
         // GET: Audits/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -143,13 +153,14 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var audit = await _context.AuditLogs.FindAsync(id);
             if (audit != null)
             {
                 _context.AuditLogs.Remove(audit);
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
             return RedirectToAction(nameof(Index));
         }
 
