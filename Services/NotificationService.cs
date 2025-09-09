@@ -16,6 +16,9 @@ public class NotificationService
 
     public async Task AddNotificationAsync(string userId, string message, string url = null)
     {
+        if (string.IsNullOrEmpty(userId))
+            throw new ArgumentNullException(nameof(userId));
+
         var notification = new Notification
         {
             UserId = userId,
@@ -27,5 +30,14 @@ public class NotificationService
 
         _context.Notifications.Add(notification);
         await _context.SaveChangesAsync();
+
+        // إرسال الإشعار مباشرة عبر SignalR
+        await _hubContext.Clients.User(userId).SendAsync("ReceiveNotification", new
+        {
+            message = message,
+            url = url,
+            createdOn = notification.CreatedOn.ToString("g")
+        });
     }
+
 }
