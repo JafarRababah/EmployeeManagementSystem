@@ -1,0 +1,43 @@
+﻿@model IEnumerable<EmployeesManagment.Models.Notification>
+
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<h2>Notifications</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Message</th>
+            <th>Link</th>
+            <th>Status</th>
+            <th>Created On</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@(item.IsRead ? "" : "table-warning")">
+                <td>@item.Message</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Url))
+                    {
+                        <a href="@item.Url" target="_blank">Open</a>
+                    }
+                </td>
+                <td>
+                    @(item.IsRead ? "Read" : "Unread")
+                </td>
+                <td>@item.CreatedOn.ToString("g")</td>
+                <td>
+                    @if (!item.IsRead)
+                    {
+                        <a asp-action="MarkAsRead" asp-route-id="@item.Id" class="btn btn-sm btn-success">Mark as read</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
