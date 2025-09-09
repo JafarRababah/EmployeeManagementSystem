@@ -2,8 +2,10 @@
 using EmployeesManagment.Data.Migrations;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System;
@@ -11,7 +13,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR;
 namespace EmployeesManagment.Controllers
 {
     public class LeaveApplicationsController : Controller
@@ -20,14 +21,16 @@ namespace EmployeesManagment.Controllers
         private readonly IConfiguration _configuration;
         private readonly NotificationService _notificationService;
         private readonly ILogger<LeaveApplicationsController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-
-        public LeaveApplicationsController(ApplicationDbContext context, IConfiguration configuration, NotificationService notificationService, ILogger<LeaveApplicationsController> logger)
+        public LeaveApplicationsController(ApplicationDbContext context, IConfiguration configuration, 
+            NotificationService notificationService, ILogger<LeaveApplicationsController> logger, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _configuration = configuration;
             _notificationService = notificationService;
             _logger = logger;
+            _userManager = userManager;
         }
 
 
@@ -249,6 +252,9 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> Create(LeaveApplication leaveApplication, IFormFile leaveAttachment)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var manager = await _userManager.GetUsersInRoleAsync("Admin");
+            var managerId = manager.FirstOrDefault()?.Id;
+
 
             // --- التحقق من الحقول المطلوبة ---
             if (leaveApplication.EmployeeId == 0)
@@ -327,10 +333,10 @@ namespace EmployeesManagment.Controllers
                 await _context.SaveChangesAsync(userId);
 
                 // --- إرسال إشعار للمدير/الآدمن ---
-                var managerId = await _context.Users
-                    .Where(u => u.RoleId == "Admin")
-                    .Select(u => u.Id)
-                    .FirstOrDefaultAsync();
+                //var managerId = await _context.Users
+                //    .Where(u => u.RoleId == "Admin")
+                //    .Select(u => u.Id)
+                //    .FirstOrDefaultAsync();
 
                 if (!string.IsNullOrEmpty(managerId))
                 {

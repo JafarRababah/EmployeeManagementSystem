@@ -2,6 +2,7 @@
 using EmployeesManagment.Hubs;
 using EmployeesManagment.Models;
 using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
 
 public class NotificationService
 {
@@ -29,15 +30,8 @@ public class NotificationService
         };
 
         _context.Notifications.Add(notification);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(userId);
 
-        // إرسال الإشعار مباشرة عبر SignalR
-        await _hubContext.Clients.User(userId).SendAsync("ReceiveNotification", new
-        {
-            message = message,
-            url = url,
-            createdOn = notification.CreatedOn.ToString("g")
-        });
     }
 
 }

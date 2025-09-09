@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
@@ -92,10 +93,11 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Notification notification)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
                 _context.Add(notification);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(userId);
                 return RedirectToAction(nameof(Index));
             }
                
@@ -129,6 +131,7 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Message,Url,IsRead,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Notification notification)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id != notification.Id)
             {
                 return NotFound();
@@ -139,7 +142,7 @@ namespace EmployeesManagment.Controllers
                 try
                 {
                     _context.Update(notification);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(userId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -180,13 +183,14 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var notification = await _context.Notifications.FindAsync(id);
             if (notification != null)
             {
                 _context.Notifications.Remove(notification);
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
             return RedirectToAction(nameof(Index));
         }
 
