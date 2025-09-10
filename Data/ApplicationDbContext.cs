@@ -84,25 +84,43 @@ namespace EmployeesManagment.Data
                 AuditLogs.Add(auditEntry.ToAudit());
             }
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<LeaveApplication>()
-                .HasOne(l => l.Status)
-                .WithMany()
-                .HasForeignKey(l => l.StatusId)
-                .OnDelete(DeleteBehavior.Cascade); // default for Status
+        //    modelBuilder.Entity<LeaveApplication>()
+        //        .HasOne(l => l.Status)
+        //        .WithMany()
+        //        .HasForeignKey(l => l.StatusId)
+        //        .OnDelete(DeleteBehavior.Cascade); // default for Status
 
-            modelBuilder.Entity<LeaveApplication>()
-                .HasOne(l => l.Duration)
-                .WithMany()
-                .HasForeignKey(l => l.DurationId)
-                .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
-        }
+        //    modelBuilder.Entity<LeaveApplication>()
+        //        .HasOne(l => l.Duration)
+        //        .WithMany()
+        //        .HasForeignKey(l => l.DurationId)
+        //        .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
+        //}
         
         public DbSet<EmployeesManagment.Models.SystemProfile> SystemProfile { get; set; } = default!;
-       
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.AllocatedLeaveDays)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.LeaveOutStandingBalance)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<LeaveAdjustmentEntry>()
+                .Property(l => l.NoOfDays)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<LeaveType>()
+                .Property(l => l.Days)
+                .HasPrecision(18, 2);
+        }
 
     }
 
