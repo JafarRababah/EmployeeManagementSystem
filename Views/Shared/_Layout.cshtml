@@ -78,6 +78,16 @@
                         </form>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" asp-action="Index" asp-controller="Notifications" id="notificationDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell"></i>
+                        <span id="notification-count" class="badge bg-danger"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="notificationDropdown" id="notification-list">
+                        <li><a class="dropdown-item text-muted">لا توجد إشعارات</a></li>
+                    </ul>
+                </li>
 
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
@@ -570,6 +580,34 @@
     <script src="~/AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="~/AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="~/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script>
+        async function loadNotifications() {
+            const res = await fetch('/Notifications/GetUserNotifications');
+            const data = await res.json();
+
+            const countEl = document.getElementById('notification-count');
+            const listEl = document.getElementById('notification-list');
+
+            countEl.textContent = data.unreadCount;
+
+            listEl.innerHTML = '';
+
+            if (data.notifications.length === 0) {
+                listEl.innerHTML = '<li><a class="dropdown-item text-muted">لا توجد إشعارات</a></li>';
+                return;
+            }
+
+            data.notifications.forEach(n => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a class="dropdown-item" href="${n.url ?? '#'}">${n.message} <small class="text-muted">${n.CreatedOn}</small></a>`;
+                listEl.appendChild(li);
+            });
+        }
+
+        // تحميل الإشعارات عند فتح الصفحة
+        loadNotifications();
+    </script>
     <script>
         $(function () {
           $("#example1").DataTable({

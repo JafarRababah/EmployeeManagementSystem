@@ -6,7 +6,8 @@ using EmployeesManagment.Services;
 using EmployeesManagment.Views.Profiles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.SignalR;
+using EmployeesManagment.Hubs;
 var builder = WebApplication.CreateBuilder(args);
 
 // ----------------- Add Services -----------------
@@ -19,7 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Identity configuration with ApplicationUser
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedAccount = false;
 })
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
@@ -31,7 +32,14 @@ builder.Services.AddControllersWithViews();
 // Authentication & Authorization
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+// ✅ إضافة SignalR
+builder.Services.AddSignalR();
 
+// ✅ UserIdProvider
+builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
+
+// ✅ NotificationService
+builder.Services.AddScoped<NotificationService>();
 // AutoMapper
 var config = new AutoMapper.MapperConfiguration(options =>
 {
@@ -81,16 +89,19 @@ else
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
+app.MapHub<NotificationHub>("/notificationHub");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+name: "default",
+pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 
