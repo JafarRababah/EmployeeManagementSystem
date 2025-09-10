@@ -89,7 +89,6 @@ else
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-app.MapHub<NotificationHub>("/notificationHub");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
@@ -103,7 +102,7 @@ app.MapControllerRoute(
 name: "default",
 pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-
+app.MapHub<NotificationHub>("/notificationHub");
 
 
 // ----------------- Run App -----------------

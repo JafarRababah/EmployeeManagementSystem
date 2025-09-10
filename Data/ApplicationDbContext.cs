@@ -35,7 +35,7 @@ namespace EmployeesManagment.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<FixedAsset> FixedAssets { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public virtual async Task<int> SaveChangesAsync(string userId = null)
+        public virtual async Task<int> SaveChangesAsync(string userId=null)
         {
             OnBeforeSavingChanges(userId);
             var result=await base.SaveChangesAsync();
@@ -95,12 +95,26 @@ namespace EmployeesManagment.Data
         //        .HasForeignKey(l => l.StatusId)
         //        .OnDelete(DeleteBehavior.Cascade); // default for Status
 
+<<<<<<< HEAD
         //    modelBuilder.Entity<LeaveApplication>()
         //        .HasOne(l => l.Duration)
         //        .WithMany()
         //        .HasForeignKey(l => l.DurationId)
         //        .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
         //}
+=======
+            modelBuilder.Entity<LeaveApplication>()
+                .HasOne(l => l.Duration)
+                .WithMany()
+                .HasForeignKey(l => l.DurationId)
+                .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
+                                                    // ✅ إعداد Notification
+            modelBuilder.Entity<Notification>()
+        .Property(n => n.Message)
+        .IsRequired()
+        .HasMaxLength(500);
+        }
+>>>>>>> 4dc8a78 (Add updating for layout and signlur and notificationhub)
         
         public DbSet<EmployeesManagment.Models.SystemProfile> SystemProfile { get; set; } = default!;
 

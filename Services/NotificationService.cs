@@ -31,6 +31,8 @@ public class NotificationService
 
         _context.Notifications.Add(notification);
         await _context.SaveChangesAsync(userId);
+        await _hubContext.Clients.User(userId)
+    .SendAsync("ReceiveNotification", notification.Message, notification.Url);
 
     }
 

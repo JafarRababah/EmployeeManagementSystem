@@ -13,7 +13,7 @@
             <th>Link</th>
             <th>Status</th>
             <th>Created On</th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Message)</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +21,7 @@
         {
             <tr class="@(item.IsRead ? "" : "table-warning")">
                 <td>@item.Message</td>
+                <td>@Html.DisplayFor(modelItem => item.Message)</td>
                 <td>
                     @if (!string.IsNullOrEmpty(item.Url))
                     {

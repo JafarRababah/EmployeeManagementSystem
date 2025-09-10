@@ -342,7 +342,7 @@ namespace EmployeesManagment.Controllers
                 {
                     await _notificationService.AddNotificationAsync(
                         managerId,
-                        $"📢 طلب إجازة جديد من {leaveApplication.Employee?.FullName ?? "موظف"}",
+                        $"📢 Leave Application {leaveApplication.Employee?.FullName ?? "Employee"}",
                         Url.Action("Details", "LeaveApplications", new { id = leaveApplication.Id })
                     );
                 }

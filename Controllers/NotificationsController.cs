@@ -1,7 +1,9 @@
 ﻿using EmployeesManagment.Data;
 using EmployeesManagment.Models;
+using EmployeesManagment.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -35,6 +37,7 @@ namespace EmployeesManagment.Controllers
                 .ToListAsync();
 
             return View(notifications); // بيرجع للـ Index.cshtml
+           
         }
 
         [HttpGet]
@@ -60,6 +63,17 @@ namespace EmployeesManagment.Controllers
                 .CountAsync(n => n.UserId == userId && !n.IsRead);
 
             return Json(new { notifications, unreadCount });
+        }
+        [HttpGet]
+        public IActionResult MarkAsRead(int id)
+        {
+            var notification = _context.Notifications.Find(id);
+            if (notification != null)
+            {
+                notification.IsRead = true;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Notifications/Details/5
