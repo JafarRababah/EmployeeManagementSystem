@@ -1,66 +1,71 @@
 ﻿@model EmployeesManagment.Models.Notification
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Notification Details";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">
+                <i class="bi bi-bell-fill me-2"></i> Notification Details
+            </h4>
+            <a asp-action="Index" class="btn btn-light btn-sm">
+                <i class="bi bi-arrow-left-circle"></i> Back to List
+            </a>
+        </div>
 
-<div>
-    <h4>Notification</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Message)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Message)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Url)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Url)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsRead)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsRead)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedById)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedById)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedById)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedById)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModifiedOn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModifiedOn)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        <div class="card-body">
+            <h5 class="card-title text-secondary mb-3">
+                @Model.Message
+            </h5>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>User:</strong> @Model.UserId?
+                </li>
+                <li class="list-group-item">
+                    <strong>Link:</strong>
+                    @if (!string.IsNullOrEmpty(Model.Url))
+                    {
+                        <a href="@Model.Url" class="btn btn-sm btn-outline-primary ms-2" target="_blank">
+                            <i class="bi bi-box-arrow-up-right"></i> Open
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No Link</span>
+                    }
+                </li>
+                <li class="list-group-item">
+                    <strong>Status:</strong>
+                    @if (Model.IsRead)
+                    {
+                        <span class="badge bg-success">Read</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Unread</span>
+                    }
+                </li>
+                <li class="list-group-item">
+                    <strong>Created By:</strong> @Model.UserId?
+                </li>
+                <li class="list-group-item">
+                    <strong>Created On:</strong> @Model.CreatedOn.ToString("dd/MM/yyyy hh:mm tt")
+                </li>
+               
+               
+            </ul>
+        </div>
+
+        <div class="card-footer d-flex justify-content-end">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary me-2">
+                <i class="bi bi-pencil-square"></i> Edit
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-list-ul"></i> Back to List
+            </a>
+        </div>
+    </div>
 </div>

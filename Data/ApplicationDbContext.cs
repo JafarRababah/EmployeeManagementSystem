@@ -85,57 +85,57 @@ namespace EmployeesManagment.Data
                 AuditLogs.Add(auditEntry.ToAudit());
             }
         }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //    modelBuilder.Entity<LeaveApplication>()
-        //        .HasOne(l => l.Status)
-        //        .WithMany()
-        //        .HasForeignKey(l => l.StatusId)
-        //        .OnDelete(DeleteBehavior.Cascade); // default for Status
+            modelBuilder.Entity<LeaveApplication>()
+                .HasOne(l => l.Status)
+                .WithMany()
+                .HasForeignKey(l => l.StatusId)
+                .OnDelete(DeleteBehavior.Cascade); // default for Status
 
-<<<<<<< HEAD
-        //    modelBuilder.Entity<LeaveApplication>()
-        //        .HasOne(l => l.Duration)
-        //        .WithMany()
-        //        .HasForeignKey(l => l.DurationId)
-        //        .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
-        //}
-=======
+
             modelBuilder.Entity<LeaveApplication>()
                 .HasOne(l => l.Duration)
                 .WithMany()
                 .HasForeignKey(l => l.DurationId)
                 .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
-                                                    // ✅ إعداد Notification
+        
+
+            modelBuilder.Entity<LeaveApplication>()
+                .HasOne(l => l.Duration)
+                .WithMany()
+                .HasForeignKey(l => l.DurationId)
+                .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
+                                                    
             modelBuilder.Entity<Notification>()
         .Property(n => n.Message)
         .IsRequired()
         .HasMaxLength(500);
         }
->>>>>>> 4dc8a78 (Add updating for layout and signlur and notificationhub)
-        
+//4dc8a78(Add updating for layout and signlur and notificationhub);
+
         public DbSet<EmployeesManagment.Models.SystemProfile> SystemProfile { get; set; } = default!;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.AllocatedLeaveDays)
-                .HasPrecision(18, 2);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Employee>()
+        //        .Property(e => e.AllocatedLeaveDays)
+        //        .HasPrecision(18, 2);
 
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.LeaveOutStandingBalance)
-                .HasPrecision(18, 2);
+        //    modelBuilder.Entity<Employee>()
+        //        .Property(e => e.LeaveOutStandingBalance)
+        //        .HasPrecision(18, 2);
 
-            modelBuilder.Entity<LeaveAdjustmentEntry>()
-                .Property(l => l.NoOfDays)
-                .HasPrecision(18, 2);
+        //    modelBuilder.Entity<LeaveAdjustmentEntry>()
+        //        .Property(l => l.NoOfDays)
+        //        .HasPrecision(18, 2);
 
-            modelBuilder.Entity<LeaveType>()
-                .Property(l => l.Days)
-                .HasPrecision(18, 2);
-        }
+        //    modelBuilder.Entity<LeaveType>()
+        //        .Property(l => l.Days)
+        //        .HasPrecision(18, 2);
+        //}
 
     }
 

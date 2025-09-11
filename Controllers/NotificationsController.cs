@@ -1,10 +1,11 @@
 ﻿using EmployeesManagment.Data;
-using EmployeesManagment.Models;
+using EmployeesManagment.Data.Migrations;
 using EmployeesManagment.Hubs;
+using EmployeesManagment.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,13 +32,23 @@ namespace EmployeesManagment.Controllers
         {
             var userId = _userManager.GetUserId(User);
 
-            var notifications = await _context.Notifications
-                .Where(n => n.UserId == userId)
-                .OrderByDescending(n => n.CreatedOn)
-                .ToListAsync();
+            _context.Notifications.Add(new Notification
+            {
+                UserId = userId,
+                Message = "Welcome! This is your first notification.",
+                Url = "/Home/Index",
+                IsRead = true,
+                CreatedOn = DateTime.Now
+            });
 
-            return View(notifications); // بيرجع للـ Index.cshtml
-           
+            await _context.SaveChangesAsync(userId);
+
+            var notifications = await _context.Notifications
+       .Where(n => n.UserId == userId)
+       .OrderByDescending(n => n.CreatedOn)
+       .ToListAsync();
+
+            return View(notifications);
         }
 
         [HttpGet]
@@ -143,7 +154,7 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Message,Url,IsRead,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Notification notification)
+        public async Task<IActionResult> Edit(int id,  Notification notification)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id != notification.Id)
