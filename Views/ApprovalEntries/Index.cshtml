@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<EmployeesManagment.Models.ApprovalEntry>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Approval Entry";
 }
 
 
 
-<p>
+@* <p>
     <a asp-action="Create" class="btn btn-primary"><i class="fa fa-plus"></i>Add New Approval</a>
-</p>
+</p> *@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Approval Entry List</h3>
@@ -39,8 +39,6 @@
           
             <th>View</th>
             <th>Open</th>
-            <th>Approve</th>
-            <th>Reject</th>
         </tr>
     </thead>
     <tbody>
@@ -64,19 +62,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DateSentForApproval)
             </td>
-                        @* LeaveApplications *@
                         <td>
                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-eye"></i> View</a>
                         </td>
                         <td>
                             <a asp-action="Details" asp-route-id="@item.RecordId" asp-controller="@item.ControllerName" class="btn btn-secondary"><i class="fa fa-folder"></i> Open</a>
                         </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-check"></i> Approve</a>
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-eye"></i> Reject</a>
-                        </td>
+                      
         </tr>
 }
     </tbody>

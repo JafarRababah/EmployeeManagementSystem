@@ -253,8 +253,11 @@ namespace EmployeesManagment.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var manager = await _userManager.GetUsersInRoleAsync("Admin");
-            var managerId = manager.FirstOrDefault()?.Id;
-
+           // var managerId = manager.FirstOrDefault()?.Id;
+             var managerId = await _context.Users
+                    .Where(u => u.RoleId == "Admin")
+                    .Select(u => u.Id)
+                    .FirstOrDefaultAsync();
 
             // --- التحقق من الحقول المطلوبة ---
             if (leaveApplication.EmployeeId == 0)

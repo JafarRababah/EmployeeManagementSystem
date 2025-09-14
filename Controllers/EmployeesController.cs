@@ -98,6 +98,8 @@ namespace EmployeesManagment.Controllers
 
             employee.CreatedById = User.FindFirstValue(ClaimTypes.NameIdentifier);
             employee.CreatedOn = DateTime.Now;
+            employee.ModifiedById = User.Identity.Name;
+            employee.ModifiedOn = DateTime.Now;
             try
             {
                 
@@ -169,7 +171,7 @@ namespace EmployeesManagment.Controllers
             ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", employee.BankId);
             ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "EmploymentTerms"), "Id", "Description", employee.EmploymentTermsId);
             ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "DisabilityTypes"), "Id", "Description", employee.DisabilityId);
-            return View(employee);
+            return View(newEmployee);
         }
 
         // POST: Employees/Edit/5
@@ -219,9 +221,9 @@ namespace EmployeesManagment.Controllers
                     }
                     else
                     {
-                        throw;
+                        TempData["Error"] = "Employee details not updated" + ex.Message;
                     }
-                    TempData["Error"] = "Employee details updated Successfuly " + ex.Message;
+                   
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -258,14 +260,24 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee != null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            try
             {
-                _context.Employees.Remove(employee);
-            }
+                var employee = await _context.Employees.FindAsync(id);
+                if (employee != null)
+                {
+                    _context.Employees.Remove(employee);
+                }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Employee details deleted Successfuly ";
+                return RedirectToAction(nameof(Index));
+            }
+           catch (Exception ex)
+            {
+                TempData["Error"] = "Employee details not deleted" + ex.Message;
+                return View();
+            }
         }
 
         private bool EmployeeExists(int id)
