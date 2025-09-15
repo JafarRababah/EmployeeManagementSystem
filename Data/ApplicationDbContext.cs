@@ -35,7 +35,7 @@ namespace EmployeesManagment.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<FixedAsset> FixedAssets { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public virtual async Task<int> SaveChangesAsync(string userId = null)
+        public virtual async Task<int> SaveChangesAsync(string userId=null)
         {
             OnBeforeSavingChanges(userId);
             var result=await base.SaveChangesAsync();
@@ -95,12 +95,53 @@ namespace EmployeesManagment.Data
                 .HasForeignKey(l => l.StatusId)
                 .OnDelete(DeleteBehavior.Cascade); // default for Status
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5fcad6af1d758731dade0cde647377d9957c35a5
             modelBuilder.Entity<LeaveApplication>()
                 .HasOne(l => l.Duration)
                 .WithMany()
                 .HasForeignKey(l => l.DurationId)
                 .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
+<<<<<<< HEAD
+=======
+        
+
+            modelBuilder.Entity<LeaveApplication>()
+                .HasOne(l => l.Duration)
+                .WithMany()
+                .HasForeignKey(l => l.DurationId)
+                .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
+                                                    
+            modelBuilder.Entity<Notification>()
+        .Property(n => n.Message)
+        .IsRequired()
+        .HasMaxLength(500);
+>>>>>>> 5fcad6af1d758731dade0cde647377d9957c35a5
         }
+//4dc8a78(Add updating for layout and signlur and notificationhub);
+
+        public DbSet<EmployeesManagment.Models.SystemProfile> SystemProfile { get; set; } = default!;
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Employee>()
+        //        .Property(e => e.AllocatedLeaveDays)
+        //        .HasPrecision(18, 2);
+
+        //    modelBuilder.Entity<Employee>()
+        //        .Property(e => e.LeaveOutStandingBalance)
+        //        .HasPrecision(18, 2);
+
+        //    modelBuilder.Entity<LeaveAdjustmentEntry>()
+        //        .Property(l => l.NoOfDays)
+        //        .HasPrecision(18, 2);
+
+        //    modelBuilder.Entity<LeaveType>()
+        //        .Property(l => l.Days)
+        //        .HasPrecision(18, 2);
+        //}
 
         public DbSet<EmployeesManagment.Models.SystemProfile> SystemProfile { get; set; } = default!;
 

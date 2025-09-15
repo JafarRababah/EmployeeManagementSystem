@@ -1,42 +1,42 @@
 ﻿@model IEnumerable<EmployeesManagment.Models.Notification>
 
-@{
-    ViewData["Title"] = "Notifications";
-}
-
-<h2>Notifications</h2>
-
-<table class="table table-bordered table-striped">
-    <thead>
+<table class="table table-hover table-bordered text-center">
+    <thead class="table-dark">
         <tr>
             <th>Message</th>
             <th>Link</th>
             <th>Status</th>
             <th>Created On</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="@(item.IsRead ? "" : "table-warning")">
-                <td>@item.Message</td>
+            <tr>
                 <td>
-                    @if (!string.IsNullOrEmpty(item.Url))
+                    <i class="bi bi-bell-fill text-primary"></i>
+                    @item.Message
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-box-arrow-up-right"></i> Open
+                    </a>
+                </td>
+                <td>
+                    @if (item.IsRead)
                     {
-                        <a href="@item.Url" target="_blank">Open</a>
+                        <span class="badge bg-success">
+                            <i class="bi bi-check-circle-fill"></i> Read
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">
+                            <i class="bi bi-envelope-fill"></i> Unread
+                        </span>
                     }
                 </td>
-                <td>
-                    @(item.IsRead ? "Read" : "Unread")
-                </td>
-                <td>@item.CreatedOn.ToString("g")</td>
-                <td>
-                    @if (!item.IsRead)
-                    {
-                        <a asp-action="MarkAsRead" asp-route-id="@item.Id" class="btn btn-sm btn-success">Mark as read</a>
-                    }
-                </td>
+                <td>@item.CreatedOn.ToString("dd/MM/yyyy hh:mm tt")</td>
             </tr>
         }
     </tbody>

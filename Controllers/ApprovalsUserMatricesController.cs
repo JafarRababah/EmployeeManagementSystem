@@ -1,4 +1,5 @@
 ﻿using EmployeesManagment.Data;
+using EmployeesManagment.Data.Migrations;
 using EmployeesManagment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -54,7 +55,7 @@ namespace EmployeesManagment.Controllers
         // GET: ApprovalsUserMatrices/Create
         public IActionResult Create()
         {
-            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description");
+            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "DocumentTypes"), "Id", "Description");
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName");
             ViewData["workFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Description");
             return View();
@@ -68,20 +69,25 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> Create(ApprovalsUserMatrix approvalsUserMatrix)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!ModelState.IsValid)
+            try
             {
                 approvalsUserMatrix.CreatedById = User.Identity.Name;
                 approvalsUserMatrix.CreatedOn = DateTime.Now;
                 approvalsUserMatrix.ModifiedOn = DateTime.Now;
-                approvalsUserMatrix.ModifiedById= User.Identity.Name;
+                approvalsUserMatrix.ModifiedById = User.Identity.Name;
                 _context.Add(approvalsUserMatrix);
                 await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Approval Successfuly ";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x=>x.SystemCodeValue).Where(y=>y.SystemCodeValue.Code=="DocumentTypes"), "Id", "Description", approvalsUserMatrix.DocumentTypeId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName", approvalsUserMatrix.UserId);
-            ViewData["workFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Description", approvalsUserMatrix.workFlowUserGroupId);
-            return View(approvalsUserMatrix);
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Approval not Success" + ex.Message;
+                ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "DocumentTypes"), "Id", "Description", approvalsUserMatrix.DocumentTypeId);
+                ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName", approvalsUserMatrix.UserId);
+                ViewData["workFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Description", approvalsUserMatrix.workFlowUserGroupId);
+                return View(approvalsUserMatrix);
+            }
         }
 
         // GET: ApprovalsUserMatrices/Edit/5
@@ -108,40 +114,37 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,ApprovalsUserMatrix approvalsUserMatrix)
+        public async Task<IActionResult> Edit(int id, ApprovalsUserMatrix approvalsUserMatrix)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (id != approvalsUserMatrix.Id)
             {
                 return NotFound();
             }
-
-            if (!ModelState.IsValid)
+            if (!ApprovalsUserMatrixExists(approvalsUserMatrix.Id))
             {
-                try
-                {
-                    approvalsUserMatrix.ModifiedById = User.Identity.Name;
-                    approvalsUserMatrix.ModifiedOn = DateTime.Now;
-                    _context.Update(approvalsUserMatrix);
-                    await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ApprovalsUserMatrixExists(approvalsUserMatrix.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                return NotFound();
+            }
+            try
+            {
+                approvalsUserMatrix.ModifiedById = User.Identity.Name;
+                approvalsUserMatrix.ModifiedOn = DateTime.Now;
+                _context.Update(approvalsUserMatrix);
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Approval Updated Successfuly ";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "DocumentTypes"), "Id", "Description", approvalsUserMatrix.DocumentTypeId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName", approvalsUserMatrix.UserId);
-            ViewData["workFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Description", approvalsUserMatrix.workFlowUserGroupId);
-            return View(approvalsUserMatrix);
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Approval updated not Success" + ex.Message;
+                ViewData["DocumentTypeId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(y => y.SystemCodeValue.Code == "DocumentTypes"), "Id", "Description", approvalsUserMatrix.DocumentTypeId);
+                ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName", approvalsUserMatrix.UserId);
+                ViewData["workFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Description", approvalsUserMatrix.workFlowUserGroupId);
+                return View(approvalsUserMatrix);
+            }
+
+
+
         }
 
         // GET: ApprovalsUserMatrices/Delete/5
@@ -170,13 +173,14 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var approvalsUserMatrix = await _context.ApprovalsUserMatrixes.FindAsync(id);
             if (approvalsUserMatrix != null)
             {
                 _context.ApprovalsUserMatrixes.Remove(approvalsUserMatrix);
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
             return RedirectToAction(nameof(Index));
         }
 

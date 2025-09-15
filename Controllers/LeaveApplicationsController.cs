@@ -253,8 +253,11 @@ namespace EmployeesManagment.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var manager = await _userManager.GetUsersInRoleAsync("Admin");
-            var managerId = manager.FirstOrDefault()?.Id;
-
+           // var managerId = manager.FirstOrDefault()?.Id;
+             var managerId = await _context.Users
+                    .Where(u => u.RoleId == "Admin")
+                    .Select(u => u.Id)
+                    .FirstOrDefaultAsync();
 
             // --- التحقق من الحقول المطلوبة ---
             if (leaveApplication.EmployeeId == 0)
@@ -342,7 +345,7 @@ namespace EmployeesManagment.Controllers
                 {
                     await _notificationService.AddNotificationAsync(
                         managerId,
-                        $"📢 طلب إجازة جديد من {leaveApplication.Employee?.FullName ?? "موظف"}",
+                        $"📢 Leave Application {leaveApplication.Employee?.FullName ?? "Employee"}",
                         Url.Action("Details", "LeaveApplications", new { id = leaveApplication.Id })
                     );
                 }
