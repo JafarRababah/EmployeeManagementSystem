@@ -7,6 +7,7 @@ namespace EmployeesManagment.Services
     public interface IExtensionService
     {
         Task<string> GenerateEmployeeNumber();
+        Task<string> GenerateBankNumber();
     }
     public class ExtensionService : IExtensionService
     {
@@ -28,6 +29,19 @@ namespace EmployeesManagment.Services
             }while(exists);
             return employeeNumber;
         }
-     
+        public async Task<string> GenerateBankNumber()
+        {
+            string bankNumber;
+            bool exists;
+            Random _randomizer = new Random();
+            do
+            {
+                int randomnumber = _randomizer.Next(100, 9999);
+                bankNumber=$"BNK{randomnumber}";
+                exists=await _context.Banks.AnyAsync(e => e.Code==bankNumber);
+            } while (exists);
+            return bankNumber;
+        }
+
     }
 }

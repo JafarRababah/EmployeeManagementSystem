@@ -1,5 +1,7 @@
-﻿using EmployeesManagment.Data;
+﻿using AutoMapper;
+using EmployeesManagment.Data;
 using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +16,13 @@ namespace EmployeesManagment.Controllers
     public class BanksController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public BanksController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        private readonly IExtensionService _extesionService;
+        public BanksController(ApplicationDbContext context,IMapper mapper,IExtensionService extensionService)
         {
             _context = context;
+            _mapper=mapper;
+            _extesionService=extensionService;
         }
 
         // GET: Banks
@@ -62,22 +67,21 @@ namespace EmployeesManagment.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
-                if (ModelState.IsValid)
-                {
-                    bank.CreatedOn = DateTime.Now;
+                //_mapper.Map(bank);
+                bank.Code = await _extesionService.GenerateBankNumber();
+                bank.CreatedOn = DateTime.Now;
                     bank.CreatedById = User.Identity.Name;
                     _context.Add(bank);
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "bank created successfully ";
                     return RedirectToAction(nameof(Index));
-                }
+                
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "Error creating bank " + ex.Message;
                 return View(bank);
             }
-            return View(bank);
         }
 
         // GET: Banks/Edit/5
@@ -108,30 +112,28 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!BankExists(bank.Id))
             {
-                try
+                return NotFound();
+            }
+
+            try
                 {
                     bank.ModifiedOn = DateTime.Now;
                     bank.ModifiedById = User.Identity.Name;
                     _context.Update(bank);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BankExists(bank.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "bank updated successfully ";
                 return RedirectToAction(nameof(Index));
+
             }
-            return View(bank);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Error updated bank " + ex.Message;
+                return View(bank);
+            }
+            
+            
         }
 
         // GET: Banks/Delete/5
@@ -165,6 +167,7 @@ namespace EmployeesManagment.Controllers
             }
 
             await _context.SaveChangesAsync(userId);
+            TempData["Message"] = "bank account deleted successfully ";
             return RedirectToAction(nameof(Index));
         }
 
