@@ -165,6 +165,7 @@ namespace EmployeesManagment.Controllers
             }
 
             await _context.SaveChangesAsync(userId);
+            TempData["Message"] = "Country deleted successfully ";
             return RedirectToAction(nameof(Index));
         }
 

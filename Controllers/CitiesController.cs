@@ -103,36 +103,32 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Code,Name,CountryId")] City city)
+        public async Task<IActionResult> Edit(int id, City city)
         {
             if (id != city.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!CityExists(city.Id))
             {
-                try
+                return NotFound();
+            }
+            try
                 {
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _context.Update(city);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CityExists(city.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
-            return View(city);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Error updated City " + ex.Message;
+                ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
+                return View(city);
+                }
+            
+            
         }
 
         // GET: Cities/Delete/5
@@ -159,13 +155,15 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var city = await _context.Cities.FindAsync(id);
             if (city != null)
             {
                 _context.Cities.Remove(city);
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(userId);
+            TempData["Message"] = "City deleted successfully ";
             return RedirectToAction(nameof(Index));
         }
 
