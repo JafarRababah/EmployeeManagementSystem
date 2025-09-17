@@ -165,10 +165,17 @@ namespace EmployeesManagment.Controllers
             {
                 _context.Banks.Remove(bank);
             }
-
-            await _context.SaveChangesAsync(userId);
-            TempData["Message"] = "Bank account deleted successfully ";
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Bank account deleted successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete bank " + ex.Message;
+                return View(bank);
+            }
         }
 
         private bool BankExists(int id)

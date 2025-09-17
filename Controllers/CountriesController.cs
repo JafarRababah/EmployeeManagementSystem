@@ -1,5 +1,7 @@
-﻿using EmployeesManagment.Data;
+﻿using AutoMapper;
+using EmployeesManagment.Data;
 using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +16,13 @@ namespace EmployeesManagment.Controllers
     public class CountriesController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public CountriesController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        private readonly IExtensionService _extesionService;
+        public CountriesController(ApplicationDbContext context,IMapper mapper,IExtensionService extensionService)
         {
             _context = context;
+            _mapper = mapper;
+            _extesionService = extensionService;
         }
 
         // GET: Countries
@@ -61,22 +66,20 @@ namespace EmployeesManagment.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
-                if (ModelState.IsValid)
-                {
+                    country.Code = await _extesionService.GenerateCountryNumber();
                     country.CreatedById = User.Identity.Name;
                     country.CreatedOn = DateTime.Now;
                     _context.Add(country);
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "Country created successfully ";
                     return RedirectToAction(nameof(Index));
-                }
+                
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "Error creating Country " + ex.Message;
                 return View(country);
             }
-            return View(country);
         }
 
         // GET: Countries/Edit/5
@@ -107,31 +110,29 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
+            if (!CountryExists(country.Id))
+            {
+                return NotFound();
+            }
             ModelState.Remove("CreatedById");
             ModelState.Remove("ModifiedOn");
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
                     country.ModifiedOn = DateTime.Now;
                     country.ModifiedById = User.Identity.Name;
                     _context.Update(country);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CountryExists(country.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "Country updated successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            return View(country);
+            catch (Exception ex)
+                {
+                    
+                TempData["Error"] = "Error updated Country " + ex.Message;
+                return View(country);
+            }
+
         }
 
         // GET: Countries/Delete/5
@@ -163,10 +164,17 @@ namespace EmployeesManagment.Controllers
             {
                 _context.Countries.Remove(country);
             }
-
-            await _context.SaveChangesAsync(userId);
-            TempData["Message"] = "Country deleted successfully ";
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Country deleted successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete country " + ex.Message;
+                return View(country);
+            }
         }
 
         private bool CountryExists(int id)

@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using EmployeesManagment.Data;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
-using EmployeesManagment.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
@@ -15,9 +17,13 @@ namespace EmployeesManagment.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public DesignationsController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        private readonly IExtensionService _extesionService;
+        public DesignationsController(ApplicationDbContext context, IMapper mapper, IExtensionService extensionService)
         {
             _context = context;
+            _mapper = mapper;
+            _extesionService = extensionService;
         }
 
         // GET: Designations
@@ -60,9 +66,8 @@ namespace EmployeesManagment.Controllers
             try
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (ModelState.IsValid)
-                {
-                    designation.CreatedOn = DateTime.Now;
+                designation.Code = await _extesionService.GenerateDesignationNumber();
+                designation.CreatedOn = DateTime.Now;
                     designation.CreatedById = User.Identity.Name;
                     designation.ModifiedOn = DateTime.Now;
                     designation.ModifiedById = User.Identity.Name;
@@ -70,14 +75,13 @@ namespace EmployeesManagment.Controllers
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "Designation created successfully ";
                     return RedirectToAction(nameof(Index));
-                }
+                
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "Error creating designation " + ex.Message;
                 return View(designation);
             }
-            return View(designation);
         }
 
         // GET: Designations/Edit/5
@@ -108,9 +112,11 @@ namespace EmployeesManagment.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!DesignationExists(designation.Id))
             {
-                try
+                return NotFound();
+            }
+            try
                 {
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     var userName = User.Identity.Name;
@@ -118,21 +124,16 @@ namespace EmployeesManagment.Controllers
                     designation.ModifiedOn = DateTime.Now;
                     _context.Update(designation);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DesignationExists(designation.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "Designation updated successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            return View(designation);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Error updated designation " + ex.Message;
+                return View(designation);
+
+            }
+
         }
 
         // GET: Designations/Delete/5
@@ -164,9 +165,17 @@ namespace EmployeesManagment.Controllers
             {
                 _context.Designations.Remove(designation);
             }
-
-            await _context.SaveChangesAsync(userId);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Designation deleted successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+           catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete designation " + ex.Message;
+                return View(designation);
+            }
         }
 
         private bool DesignationExists(int id)

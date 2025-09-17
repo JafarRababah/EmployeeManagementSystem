@@ -63,16 +63,20 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FixedAsset fixedAsset)
         {
-            if (ModelState.IsValid)
+            try
             {
                 _context.Add(fixedAsset);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.CategoryId);
-            ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.StatusId);
-            return View(fixedAsset);
+            catch(Exception ex)
+            {
+                ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.CategoryId);
+                ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
+                ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.StatusId);
+                return View(fixedAsset);
+            }
+           
         }
 
         // GET: FixedAssets/Edit/5
@@ -88,9 +92,9 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", fixedAsset.CategoryId);
-            ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "Id", fixedAsset.ResponsibleEmployeeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", fixedAsset.StatusId);
+            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.CategoryId);
+            ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
+            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.StatusId);
             return View(fixedAsset);
         }
 
@@ -99,7 +103,7 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AssetNo,Description,CategoryId,SerialNo,Model,StatusId,ResponsibleEmployeeId,Photo,Notes,PurchaseDate,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] FixedAsset fixedAsset)
+        public async Task<IActionResult> Edit(int id,  FixedAsset fixedAsset)
         {
             if (id != fixedAsset.Id)
             {
@@ -126,9 +130,9 @@ namespace EmployeesManagment.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", fixedAsset.CategoryId);
-            ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "Id", fixedAsset.ResponsibleEmployeeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", fixedAsset.StatusId);
+            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.CategoryId);
+            ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
+            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.StatusId);
             return View(fixedAsset);
         }
 

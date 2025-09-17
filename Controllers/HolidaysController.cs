@@ -123,31 +123,28 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
+            if (!HolidayExists(holiday.Id))
+            {
+                return NotFound();
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userName=User.Identity.Name;
             holiday.ModifiedById = userName;
             holiday.ModifiedOn = DateTime.Now;
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
                     _context.Update(holiday);
                     await _context.SaveChangesAsync(userId);
+                    TempData["Error"] = "Holiday could be created Successfuly ";
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception ex)
                 {
-                    if (!HolidayExists(holiday.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    TempData["Error"] = "Holiday could be created Successfuly ";
+                    return View(holiday);
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(holiday);
+            
         }
 
         // GET: Holidays/Delete/5
@@ -179,9 +176,16 @@ namespace EmployeesManagment.Controllers
             {
                 _context.Holidays.Remove(holiday);
             }
-
-            await _context.SaveChangesAsync(userId);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete holiday " + ex.Message;
+                return View(holiday);
+            }
         }
 
         private bool HolidayExists(int id)

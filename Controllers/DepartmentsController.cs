@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using EmployeesManagment.Data;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
-using EmployeesManagment.Models;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
@@ -15,9 +18,13 @@ namespace EmployeesManagment.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public DepartmentsController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        private readonly IExtensionService _extesionService;
+        public DepartmentsController(ApplicationDbContext context, IMapper mapper, IExtensionService extensionService)
         {
             _context = context;
+            _mapper = mapper;
+            _extesionService = extensionService;
         }
 
         // GET: Departments
@@ -61,9 +68,8 @@ namespace EmployeesManagment.Controllers
             try
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                department.Code = await _extesionService.GenerateDepartmentNumber();
                 var userName = User.Identity.Name;
-                if (ModelState.IsValid)
-                {
                     department.CreatedById = userName;
                     department.ModifiedById = userName;
                     department.CreatedOn = DateTime.Now;
@@ -72,14 +78,13 @@ namespace EmployeesManagment.Controllers
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "Department created successfully ";
                     return RedirectToAction(nameof(Index));
-                }
+                
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "Error creating department " + ex.Message;
                 return View(department);
             }
-            return View(department);
         }
 
         // GET: Departments/Edit/5
@@ -110,30 +115,29 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!DepartmentExists(department.Id))
             {
+                return NotFound();
+            }
+
+            
                 try
                 {
                     department.ModifiedById = User.Identity.Name;
                     department.ModifiedOn = DateTime.Now;
                     _context.Update(department);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DepartmentExists(department.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "Department updated successfully ";
                 return RedirectToAction(nameof(Index));
-            }
-            return View(department);
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = "Error creating department " + ex.Message;
+
+                    return View(department);
+
+                }
+            
         }
 
         // GET: Departments/Delete/5
@@ -165,9 +169,18 @@ namespace EmployeesManagment.Controllers
             {
                 _context.Departments.Remove(department);
             }
-
-            await _context.SaveChangesAsync(userId);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Department deleted successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+           
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete department " + ex.Message;
+                return View(department);
+            }
         }
 
         private bool DepartmentExists(int id)

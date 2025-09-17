@@ -1,5 +1,7 @@
-﻿using EmployeesManagment.Data;
+﻿using AutoMapper;
+using EmployeesManagment.Data;
 using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +17,13 @@ namespace EmployeesManagment.Controllers
     public class CitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public CitiesController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        private readonly IExtensionService _extesionService;
+        public CitiesController(ApplicationDbContext context, IMapper mapper, IExtensionService extensionService)
         {
             _context = context;
+            _mapper = mapper;
+            _extesionService = extensionService;
         }
 
         // GET: Cities
@@ -66,7 +71,7 @@ namespace EmployeesManagment.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
-                
+                city.Code = await _extesionService.GenerateCountryNumber();
                 _context.Add(city);
                 await _context.SaveChangesAsync(userId);
                 TempData["Message"] = "City created successfully ";
@@ -119,6 +124,7 @@ namespace EmployeesManagment.Controllers
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _context.Update(city);
                     await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "City updated successfully ";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -161,10 +167,18 @@ namespace EmployeesManagment.Controllers
             {
                 _context.Cities.Remove(city);
             }
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "City deleted successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete city " + ex.Message;
+                return View(city);
+            }
 
-            await _context.SaveChangesAsync(userId);
-            TempData["Message"] = "City deleted successfully ";
-            return RedirectToAction(nameof(Index));
         }
 
         private bool CityExists(int id)
