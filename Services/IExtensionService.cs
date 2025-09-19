@@ -13,6 +13,7 @@ namespace EmployeesManagment.Services
         Task<string> GenerateDepartmentNumber();
         Task<string> GenerateDesignationNumber();
         Task<string> GenerateAssetNumber();
+        Task<string> GenerateLeaveTypeNumber();
     }
     public class ExtensionService : IExtensionService
     {
@@ -111,6 +112,19 @@ namespace EmployeesManagment.Services
                 exists = await _context.FixedAssets.AnyAsync(e => e.AssetNo == assetNumber);
             } while (exists);
             return assetNumber;
+        }
+        public async Task<string> GenerateLeaveTypeNumber()
+        {
+            string leaveTypeNumber;
+            bool exists;
+            Random _randomizer = new Random();
+            do
+            {
+                int randomnumber = _randomizer.Next(10, 99);
+                leaveTypeNumber = $"LT{randomnumber}";
+                exists = await _context.LeaveTypes.AnyAsync(e => e.Code == leaveTypeNumber);
+            } while (exists);
+            return leaveTypeNumber;
         }
     }
 }

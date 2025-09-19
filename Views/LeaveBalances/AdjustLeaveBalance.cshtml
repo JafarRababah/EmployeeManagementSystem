@@ -20,7 +20,7 @@
                             <div class="row g-3">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="row">
-
+                                    <input type="hidden" asp-for="EmployeeId" />
                                     <div class="col-md-6">
                                         <div class="form-group col-md-6">
                                             <label asp-for="LeavePeriodId" class="control-label"></label>
@@ -31,7 +31,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group col-md-6">
                                             <label asp-for="EmployeeId" class="control-label"></label>
-                                            <select asp-for="EmployeeId" class="form-control" required asp-items="ViewBag.EmployeeId"></select>
+                                            <select asp-for="EmployeeId" disabled class="form-control" required asp-items="ViewBag.EmployeeId"></select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">

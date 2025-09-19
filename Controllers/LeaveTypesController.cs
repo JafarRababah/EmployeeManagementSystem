@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using EmployeesManagment.Data;
+using EmployeesManagment.Data.Migrations;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
-using EmployeesManagment.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
@@ -15,9 +18,13 @@ namespace EmployeesManagment.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public LeaveTypesController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        private readonly IExtensionService _extesionService;
+        public LeaveTypesController(ApplicationDbContext context, IMapper mapper, IExtensionService extensionService)
         {
             _context = context;
+            _mapper = mapper;
+            _extesionService = extensionService;
         }
 
         // GET: LeaveTypes
@@ -59,9 +66,8 @@ namespace EmployeesManagment.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                leaveType.Code = await _extesionService.GenerateLeaveTypeNumber();
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     leaveType.CreatedOn = DateTime.Now;
                     leaveType.CreatedById = User.Identity.Name;
                     leaveType.ModifiedById= User.Identity.Name;
@@ -70,14 +76,13 @@ namespace EmployeesManagment.Controllers
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "Leave type created successfully ";
                     return RedirectToAction(nameof(Index));
-                }
+                
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "Error creating Leave Type " + ex.Message;
                 return View(leaveType);
             }
-            return View(leaveType);
         }
 
         // GET: LeaveTypes/Edit/5
@@ -107,10 +112,12 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!LeaveTypeExists(leaveType.Id))
             {
-                try
+                return NotFound();
+            }
+
+            try
                 {
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     var oldLeaveType = await _context.LeaveTypes.FindAsync(id);
@@ -119,22 +126,16 @@ namespace EmployeesManagment.Controllers
                     _context.Entry(oldLeaveType).CurrentValues.SetValues(leaveType);
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "Leave type updated successfully ";
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    if (!LeaveTypeExists(leaveType.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                    TempData["Error"] = "Error update Leave type " + ex.Message ;
-                }
                 return RedirectToAction(nameof(Index));
             }
-            return View(leaveType);
+            catch (Exception ex)
+                {
+                   
+                TempData["Error"] = "Error update Leave type " + ex.Message;
+                return View(leaveType);
+
+            }
+
         }
 
         // GET: LeaveTypes/Delete/5
@@ -166,8 +167,17 @@ namespace EmployeesManagment.Controllers
                 _context.LeaveTypes.Remove(leaveType);
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _context.SaveChangesAsync(userId);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete leave type" + ex.Message;
+                return View(leaveType);
+            }
         }
 
         private bool LeaveTypeExists(int id)

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
 using System.Security.Claims;
+using EmployeesManagment.Services;
 
 namespace EmployeesManagment.Controllers
 {
@@ -97,34 +98,32 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,StartDate,EndDate,Closed,Locked,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] LeavePeriod leavePeriod)
+        public async Task<IActionResult> Edit(int id,  LeavePeriod leavePeriod)
         {
+            var userId = User.GetUserId();
             if (id != leavePeriod.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!LeavePeriodExists(leavePeriod.Id))
             {
-                try
+                return NotFound();
+            }
+
+            try
                 {
                     _context.Update(leavePeriod);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LeavePeriodExists(leavePeriod.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "Leave period updated successfully ";
+                await _context.SaveChangesAsync(userId);
                 return RedirectToAction(nameof(Index));
             }
-            return View(leavePeriod);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Error updated Leave period " + ex.Message;
+                return View(leavePeriod);
+
+            }
+            
         }
 
         // GET: LeavePeriods/Delete/5
@@ -151,13 +150,23 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var leavePeriod = await _context.LeavePeriods.FindAsync(id);
+            var userId=User.GetUserId();
             if (leavePeriod != null)
             {
                 _context.LeavePeriods.Remove(leavePeriod);
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Leave period deleted successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+           
+              catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete leave period" + ex.Message;
+                return View(leavePeriod);
+            }
         }
 
         private bool LeavePeriodExists(int id)

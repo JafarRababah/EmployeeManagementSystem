@@ -63,22 +63,19 @@ namespace EmployeesManagment.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                
                     _context.Add(leaveAdjustmentEntry);
                     await _context.SaveChangesAsync();
-                    TempData["Message"] = "Leave type created successfully ";
+                    TempData["Message"] = "Leave Adjustment created successfully ";
                     return RedirectToAction(nameof(Index));
-                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Error creating Leave Adjustment " + ex.Message;
                 ViewData["AdjustmentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description");
                 ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
                 ViewData["AdjustmentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", leaveAdjustmentEntry.AdjustmentTypeId);
                 ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", leaveAdjustmentEntry.EmployeeId);
-                return View(leaveAdjustmentEntry);
-            }
-            catch (Exception ex)
-            {
-                TempData["Error"] = "Error creating Leave Type " + ex.Message;
                 return View(leaveAdjustmentEntry);
             }
            
@@ -97,8 +94,8 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-            ViewData["AdjustmentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", leaveAdjustmentEntry.AdjustmentTypeId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", leaveAdjustmentEntry.EmployeeId);
+            ViewData["AdjustmentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", leaveAdjustmentEntry.AdjustmentTypeId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", leaveAdjustmentEntry.EmployeeId);
             return View(leaveAdjustmentEntry);
         }
 
@@ -107,38 +104,35 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,LeavePeriod,EmployeeId,NoOfDays,LeaveAdjusmentDate,LeaveStartDate,LeaveEndDate,AdjustmentDescription,AdjustmentTypeId")] LeaveAdjustmentEntry leaveAdjustmentEntry)
+        public async Task<IActionResult> Edit(int id,LeaveAdjustmentEntry leaveAdjustmentEntry)
         {
             if (id != leaveAdjustmentEntry.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!LeaveAdjustmentEntryExists(leaveAdjustmentEntry.Id))
             {
-                try
-                {
+                return NotFound();
+            }
+
+            try
+            {
                     _context.Update(leaveAdjustmentEntry);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LeaveAdjustmentEntryExists(leaveAdjustmentEntry.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "Leave Adjustment updated successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AdjustmentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
-            ViewData["AdjustmentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", leaveAdjustmentEntry.AdjustmentTypeId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", leaveAdjustmentEntry.EmployeeId);
-            return View(leaveAdjustmentEntry);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Error updated Leave Adjustment " + ex.Message;
+                ViewData["AdjustmentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description");
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+                ViewData["AdjustmentTypeId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", leaveAdjustmentEntry.AdjustmentTypeId);
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", leaveAdjustmentEntry.EmployeeId);
+                return View(leaveAdjustmentEntry);
+            }
+            
+           
         }
 
         // GET: LeaveAdjustmentEntries/Delete/5
@@ -171,9 +165,18 @@ namespace EmployeesManagment.Controllers
             {
                 _context.LeaveAdjustmentEntries.Remove(leaveAdjustmentEntry);
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync();
+                TempData["Message"] = "LeaveAdjust Entry deleted successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+           
+             catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete leaveAdjust Entry " + ex.Message;
+                return View(leaveAdjustmentEntry);
+            }
         }
 
         private bool LeaveAdjustmentEntryExists(int id)

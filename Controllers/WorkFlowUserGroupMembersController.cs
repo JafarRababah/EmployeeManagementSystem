@@ -65,16 +65,21 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> Create(WorkFlowUserGroupMember workFlowUserGroupMember)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!ModelState.IsValid)
+            try
             {
                 _context.Add(workFlowUserGroupMember);
                 await _context.SaveChangesAsync(userId);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "FullName", workFlowUserGroupMember.ApproverId);
-            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "FullName", workFlowUserGroupMember.SenderId);
-            ViewData["WorkFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Description", workFlowUserGroupMember.WorkFlowUserGroupId);
-            return View(workFlowUserGroupMember);
+
+            catch (Exception ex)
+            {
+                ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "FullName", workFlowUserGroupMember.ApproverId);
+                ViewData["SenderId"] = new SelectList(_context.Users, "Id", "FullName", workFlowUserGroupMember.SenderId);
+                ViewData["WorkFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Description", workFlowUserGroupMember.WorkFlowUserGroupId);
+                return View(workFlowUserGroupMember);
+            }
+         
         }
 
         // GET: WorkFlowUserGroupMembers/Edit/5
@@ -108,31 +113,28 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!WorkFlowUserGroupMemberExists(workFlowUserGroupMember.Id))
             {
-                try
+                return NotFound();
+            }
+
+            try
                 {
                     _context.Update(workFlowUserGroupMember);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!WorkFlowUserGroupMemberExists(workFlowUserGroupMember.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
+
             }
-            ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "Id", workFlowUserGroupMember.ApproverId);
-            ViewData["SenderId"] = new SelectList(_context.Users, "Id", "Id", workFlowUserGroupMember.SenderId);
-            ViewData["WorkFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Id", workFlowUserGroupMember.WorkFlowUserGroupId);
-            return View(workFlowUserGroupMember);
+            catch (Exception ex)
+                {
+                   
+                ViewData["ApproverId"] = new SelectList(_context.Users, "Id", "FullName", workFlowUserGroupMember.ApproverId);
+                ViewData["SenderId"] = new SelectList(_context.Users, "Id", "FullName", workFlowUserGroupMember.SenderId);
+                ViewData["WorkFlowUserGroupId"] = new SelectList(_context.WorkFlowUserGroups, "Id", "Description", workFlowUserGroupMember.WorkFlowUserGroupId);
+                return View(workFlowUserGroupMember);
+                }
+            
+           
         }
 
         // GET: WorkFlowUserGroupMembers/Delete/5

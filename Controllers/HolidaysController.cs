@@ -179,6 +179,7 @@ namespace EmployeesManagment.Controllers
             try
             {
                 await _context.SaveChangesAsync(userId);
+                TempData["Error"] = "Holiday could be deleted Successfuly ";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

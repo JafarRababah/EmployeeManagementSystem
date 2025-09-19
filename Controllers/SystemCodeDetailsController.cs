@@ -65,8 +65,7 @@ namespace EmployeesManagment.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
+                
                     // repopulate dropdowns
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     systemCodeDetail.CreatedOn = DateTime.Now;
@@ -77,7 +76,7 @@ namespace EmployeesManagment.Controllers
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "System code detail created successfully ";
                     return RedirectToAction(nameof(Index));
-                }
+                
             }
 
             catch (Exception ex)
@@ -86,7 +85,6 @@ namespace EmployeesManagment.Controllers
                 ViewData["SystemCodeId"] = new SelectList(_context.SystemCodes, "Id", "Description", systemCodeDetail.SystemCodeId);
                 return View(systemCodeDetail);
             }
-            return View(systemCodeDetail);
 
         }
 
@@ -124,9 +122,12 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-            ViewData["SystemCodeId"] = new SelectList(_context.SystemCodes, "Id", "Description", systemCodeDetail.SystemCodeId);
-            if (!ModelState.IsValid)
+            if (!SystemCodeDetailExists(systemCodeDetail.Id))
             {
+                return NotFound();
+            }
+            ViewData["SystemCodeId"] = new SelectList(_context.SystemCodes, "Id", "Description", systemCodeDetail.SystemCodeId);
+            
                 try
                 {
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -134,21 +135,17 @@ namespace EmployeesManagment.Controllers
                     systemCodeDetail.ModifiedById = User.Identity.Name;
                     _context.Update(systemCodeDetail);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SystemCodeDetailExists(systemCodeDetail.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "System code detail updated successfully ";
                 return RedirectToAction(nameof(Index));
+
             }
-            return View(systemCodeDetail);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Error updated System Code detail ";
+                return View(systemCodeDetail);
+
+            }
+            
         }
 
         // GET: SystemCodeDetails/Delete/5
@@ -180,9 +177,18 @@ namespace EmployeesManagment.Controllers
             {
                 _context.SystemCodeDetails.Remove(systemCodeDetail);
             }
-
-            await _context.SaveChangesAsync(userId);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "System code detail updated successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+           
+              catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete system Code details" + ex.Message;
+                return View(systemCodeDetail);
+            }
         }
 
         private bool SystemCodeDetailExists(int id)

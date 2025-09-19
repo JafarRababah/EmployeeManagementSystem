@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
 using System.Security.Claims;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using EmployeesManagment.Services;
 
 namespace EmployeesManagment.Controllers
 {
@@ -79,8 +81,8 @@ namespace EmployeesManagment.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["ProfileId"] = new SelectList(_context.SystemProfile, "Id", "Name", systemProfile.ProfileId);
                 TempData["Error"] = "Error created System Profile ";
+                ViewData["ProfileId"] = new SelectList(_context.SystemProfile, "Id", "Name", systemProfile.ProfileId);
                 return View(systemProfile);
             }
         }
@@ -114,9 +116,11 @@ namespace EmployeesManagment.Controllers
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (!SystemProfileExists(systemProfile.Id))
             {
-                try
+                return NotFound();
+            }
+            try
                 {
                     var userId= User.FindFirstValue(ClaimTypes.NameIdentifier);
                     systemProfile.ModifiedOn = DateTime.Now;
@@ -124,23 +128,17 @@ namespace EmployeesManagment.Controllers
                     _context.Update(systemProfile);
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "System profile updated successfully ";
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SystemProfileExists(systemProfile.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        TempData["Error"] = "Error updated System Profile ";
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProfileId"] = new SelectList(_context.SystemProfile, "Id", "Name", systemProfile.ProfileId);
-            return View(systemProfile);
+            catch (Exception ex)
+                {
+                  
+                TempData["Error"] = "Error updated System Profile "+ex.Message;
+                ViewData["ProfileId"] = new SelectList(_context.SystemProfile, "Id", "Name", systemProfile.ProfileId);
+                return View(systemProfile);
+            }
+            
+       
         }
 
         // GET: SystemProfiles/Delete/5
@@ -167,14 +165,24 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = User.GetUserId();
             var systemProfile = await _context.SystemProfile.FindAsync(id);
             if (systemProfile != null)
             {
                 _context.SystemProfile.Remove(systemProfile);
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "System profile updated successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+           
+              catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete profile" + ex.Message;
+                return View(systemProfile);
+            }
         }
 
         private bool SystemProfileExists(int id)

@@ -1,6 +1,7 @@
 ﻿using EmployeesManagment.Data;
 using EmployeesManagment.Data.Migrations;
 using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -66,8 +67,7 @@ namespace EmployeesManagment.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     systemCode.CreatedOn = DateTime.Now;
                     systemCode.CreatedById = User.Identity.Name;
@@ -77,14 +77,13 @@ namespace EmployeesManagment.Controllers
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "System code created successfully ";
                     return RedirectToAction(nameof(Index));
-                }
+                
             }
             catch (Exception ex)
             {
                 TempData["Error"] = "Error created System Code ";
                 return View(systemCode);
             }
-            return View(systemCode);
         }
 
         // GET: SystemCodes/Edit/5
@@ -115,30 +114,27 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!SystemCodeExists(systemCode.Id))
             {
-                try
+                return NotFound();
+            }
+
+            try
                 {
                     systemCode.ModifiedOn = DateTime.Now;
                     systemCode.ModifiedById = User.Identity.Name;
                     _context.Update(systemCode);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SystemCodeExists(systemCode.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "System code updated successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            return View(systemCode);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Error updated System Code ";
+                return View(systemCode);
+
+            }
+            
         }
 
         // GET: SystemCodes/Delete/5
@@ -165,13 +161,22 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var systemCode = await _context.SystemCodes.FindAsync(id);
+            var userId = User.GetUserId();
             if (systemCode != null)
             {
                 _context.SystemCodes.Remove(systemCode);
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                return RedirectToAction(nameof(Index));
+            }
+           
+             catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete system Code" + ex.Message;
+                return View(systemCode);
+            }
         }
 
         private bool SystemCodeExists(int id)

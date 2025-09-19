@@ -75,6 +75,8 @@ namespace EmployeesManagment.Controllers
             fixedAsset.AssetNo = await _extesionService.GenerateAssetNumber();
             fixedAsset.CreatedById = User.GetUserName();
             fixedAsset.CreatedOn = DateTime.Now;
+            fixedAsset.ModifiedById = User.GetUserName();
+            fixedAsset.ModifiedOn = DateTime.Now;
             fixedAsset.StatusId = fixedAssetStatus.Id;
             try
             {
@@ -85,7 +87,7 @@ namespace EmployeesManagment.Controllers
             }
             catch(Exception ex)
             {
-                TempData["Error"] = "Error creating bank " + ex.Message;
+                TempData["Error"] = "Error creating asset " + ex.Message;
                 ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetCategories"), "Id", "Description", fixedAsset.CategoryId);
                 ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
                 ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetStatus"), "Id", "Description", fixedAsset.StatusId);
@@ -125,32 +127,30 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!FixedAssetExists(fixedAsset.Id))
             {
+                return NotFound();
+            }
+            
                 try
                 {
+                fixedAsset.ModifiedById = User.GetUserName();
+                fixedAsset.ModifiedOn = DateTime.Now;
                     _context.Update(fixedAsset);
-
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FixedAssetExists(fixedAsset.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "Fixed Asset updated successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetCategories"), "Id", "Description", fixedAsset.CategoryId);
-            ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetStatus"), "Id", "Description", fixedAsset.StatusId);
-            return View(fixedAsset);
+            catch (Exception ex)
+                {
+                    TempData["Error"] = "Error updated asset " + ex.Message;
+                ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetCategories"), "Id", "Description", fixedAsset.CategoryId);
+                ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
+                ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetStatus"), "Id", "Description", fixedAsset.StatusId);
+                return View(fixedAsset);
+            }
+            
+           
         }
 
         // GET: FixedAssets/Delete/5
@@ -180,13 +180,25 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var fixedAsset = await _context.FixedAssets.FindAsync(id);
+            var userId = User.GetUserId();
             if (fixedAsset != null)
             {
                 _context.FixedAssets.Remove(fixedAsset);
             }
+            try
+            {
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Fixed Asset deleted successfully ";
+                return RedirectToAction(nameof(Index));
+            }
+           
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+           
+             catch (Exception ex)
+            {
+                TempData["Error"] = "Error delete asset " + ex.Message;
+                return View(fixedAsset);
+            }
         }
 
         private bool FixedAssetExists(int id)
