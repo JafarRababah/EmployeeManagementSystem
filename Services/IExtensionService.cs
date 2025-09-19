@@ -12,6 +12,7 @@ namespace EmployeesManagment.Services
         Task<string> GenerateCityNumber();
         Task<string> GenerateDepartmentNumber();
         Task<string> GenerateDesignationNumber();
+        Task<string> GenerateAssetNumber();
     }
     public class ExtensionService : IExtensionService
     {
@@ -97,6 +98,19 @@ namespace EmployeesManagment.Services
                 exists = await _context.Designations.AnyAsync(e => e.Code == designationNumber);
             } while (exists);
             return designationNumber;
+        }
+        public async Task<string> GenerateAssetNumber()
+        {
+            string assetNumber;
+            bool exists;
+            Random _randomizer = new Random();
+            do
+            {
+                int randomnumber = _randomizer.Next(100, 9999);
+                assetNumber = $"DS{randomnumber}";
+                exists = await _context.FixedAssets.AnyAsync(e => e.AssetNo == assetNumber);
+            } while (exists);
+            return assetNumber;
         }
     }
 }

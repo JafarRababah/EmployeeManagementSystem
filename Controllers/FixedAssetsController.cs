@@ -1,22 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using EmployeesManagment.Data;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
-using EmployeesManagment.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
     public class FixedAssetsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public FixedAssetsController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        private readonly IExtensionService _extesionService;
+        public FixedAssetsController(ApplicationDbContext context, IMapper mapper, IExtensionService extensionService)
         {
             _context = context;
+            _mapper = mapper;
+            _extesionService = extensionService;
         }
 
         // GET: FixedAssets
@@ -50,9 +55,9 @@ namespace EmployeesManagment.Controllers
         // GET: FixedAssets/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description");
+            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails.Include(x=>x.SystemCodeValue).Where(x=>x.SystemCodeValue.Code=="AssetCategories"), "Id", "Description");
             ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
-           ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description");
+           ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetStatus"), "Id", "Description");
             return View();
         }
 
@@ -63,17 +68,27 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FixedAsset fixedAsset)
         {
+            var fixedAssetStatus = await _context.SystemCodeDetails
+                .Include(x => x.SystemCodeValue)
+                .Where(x => x.SystemCodeValue.Code == "AssetStatus" && x.Code == "Active").FirstOrDefaultAsync();
+            var userId = User.GetUserId();
+            fixedAsset.AssetNo = await _extesionService.GenerateAssetNumber();
+            fixedAsset.CreatedById = User.GetUserName();
+            fixedAsset.CreatedOn = DateTime.Now;
+            fixedAsset.StatusId = fixedAssetStatus.Id;
             try
             {
                 _context.Add(fixedAsset);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Fixed Asset created successfully ";
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception ex)
             {
-                ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.CategoryId);
+                TempData["Error"] = "Error creating bank " + ex.Message;
+                ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetCategories"), "Id", "Description", fixedAsset.CategoryId);
                 ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
-                ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.StatusId);
+                ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetStatus"), "Id", "Description", fixedAsset.StatusId);
                 return View(fixedAsset);
             }
            
@@ -92,9 +107,9 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetCategories"), "Id", "Description", fixedAsset.CategoryId);
             ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.StatusId);
+            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetStatus"), "Id", "Description", fixedAsset.StatusId);
             return View(fixedAsset);
         }
 
@@ -105,6 +120,7 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,  FixedAsset fixedAsset)
         {
+            var userId = User.GetUserId();
             if (id != fixedAsset.Id)
             {
                 return NotFound();
@@ -115,7 +131,8 @@ namespace EmployeesManagment.Controllers
                 try
                 {
                     _context.Update(fixedAsset);
-                    await _context.SaveChangesAsync();
+
+                    await _context.SaveChangesAsync(userId);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -130,9 +147,9 @@ namespace EmployeesManagment.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetCategories"), "Id", "Description", fixedAsset.CategoryId);
             ViewData["ResponsibleEmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", fixedAsset.ResponsibleEmployeeId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Description", fixedAsset.StatusId);
+            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "AssetStatus"), "Id", "Description", fixedAsset.StatusId);
             return View(fixedAsset);
         }
 
