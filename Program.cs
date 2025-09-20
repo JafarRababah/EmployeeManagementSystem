@@ -1,13 +1,14 @@
 ﻿using EmployeesManagment.Data;
 using EmployeesManagment.Data.Seed;
+using EmployeesManagment.Hubs;
 using EmployeesManagment.Infrastructure;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
 using EmployeesManagment.Views.Profiles;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.SignalR;
-using EmployeesManagment.Hubs;
+using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 var builder = WebApplication.CreateBuilder(args);
 
 // ----------------- Add Services -----------------
@@ -60,6 +61,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/Account/Login";
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
+
+
+
+// ضبط الترخيص لمرة واحدة فقط
+ExcelPackage.License.SetNonCommercialPersonal("Your Name Here");
+builder.Services.AddControllersWithViews();
 
 // ----------------- Build App -----------------
 var app = builder.Build();

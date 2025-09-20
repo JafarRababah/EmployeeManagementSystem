@@ -1,123 +1,108 @@
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using EmployeesManagment.Infrastructure;
-using EmployeesManagment.Services.Reporting;
-using EmployeesManagment.ViewModels.Reports;
-
-// NOTE: Replace with your actual DbContext / Entities
 using EmployeesManagment.Data;
+using EmployeesManagment.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Drawing;
 
 namespace EmployeesManagment.Controllers
 {
-    [Authorize(Roles = Roles.Admin + "," + Roles.HR)]
     public class ReportsController : Controller
     {
-        private readonly IReportService _reports;
-        private readonly ApplicationDbContext _db; // change if your DbContext has a different name
+        private readonly ApplicationDbContext _context;
 
-        public ReportsController(IReportService reports, ApplicationDbContext db)
+        public ReportsController(ApplicationDbContext context)
         {
-            _reports = reports;
-            _db = db;
+            _context = context;
         }
-        [Authorize(Roles = Roles.Admin + "," + Roles.HR)]
+
+        // ⁄—÷ ’›Õ… Reports
         public IActionResult Index()
         {
-            return View(); // Ì⁄—÷ Reports/Index.cshtml
+            // ··‹ DropDownList
+            ViewBag.DepartmentId = _context.Departments
+                                           .Select(d => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+                                           {
+                                               Value = d.Id.ToString(),
+                                               Text = d.Name
+                                           })
+                                           .ToList();
+
+            return View();
         }
 
-        [HttpGet("/reports/employees/excel")]
-        public async Task<IActionResult> EmployeesExcel()
+        // ⁄—÷ «·„ÊŸ›Ì‰ Õ”» «·›· —
+        public IActionResult Employees(string? fullName, int? departmentId)
         {
-            var rows = await _db.Employees
-    .Include(e => e.Department)
-    .Include(e => e.Designation)
-    .Select(e => new EmployeeReportRow
-    {
-        FullName = e.FirstName + " " + e.MiddleName + " " + e.LastName,
-        Department = e.Department.Name,
-        JobTitle = e.Designation.Name,
-        Email = e.EmailAddress,
-        Phone = e.PhoneNumber.ToString(),
-        HiredOn = e.EmploymentDate
-    })
-    .ToListAsync();
+            var query = _context.Employees.Include(e => e.Department).AsEnumerable();
 
+            if (!string.IsNullOrEmpty(fullName))
+            {
+                query = query.Where(e =>
+                    e.FirstName.Contains(fullName) ||
+                    e.MiddleName.Contains(fullName) ||
+                    e.LastName.Contains(fullName)
+                );
+            }
 
+            if (departmentId.HasValue)
+            {
+                query = query.Where(e => e.DepartmentId == departmentId.Value);
+            }
 
-            var bytes = await _reports.EmployeesToExcelAsync(rows);
-            return File(bytes, _reports.EmployeesExcelContentType, "employees.xlsx");
+            var model = query.ToList();
+            return View(model); // Ì„ﬂ‰ﬂ «” Œœ«„ ‰›” View ·⁄—÷ «·‰ «∆Ã ⁄·Ï «·’›Õ…
         }
 
-        [HttpGet("/reports/employees/pdf")]
-        public async Task<IActionResult> EmployeesPdf()
+        //  ‰“Ì· Excel
+        public IActionResult EmployeesExcel(string? fullName, int? departmentId)
         {
-            var rows = await _db.Employees
-    .Include(e => e.Department)
-    .Include(e => e.Designation)
-    .Select(e => new EmployeeReportRow
-    {
-        FullName = e.FirstName + " " + e.MiddleName + " " + e.LastName,
-        Department = e.Department.Name,
-        JobTitle = e.Designation.Name,
-        Email = e.EmailAddress,
-        Phone = e.PhoneNumber.ToString(),
-        HiredOn = e.EmploymentDate
-    })
-    .ToListAsync();
+            var query = _context.Employees.Include(e => e.Department).AsQueryable();
+
+            if (!string.IsNullOrEmpty(fullName))
+            {
+                query = query.Where(e =>
+                    e.FirstName.Contains(fullName) ||
+                    e.MiddleName.Contains(fullName) ||
+                    e.LastName.Contains(fullName)
+                );
+            }
+
+            if (departmentId.HasValue)
+            {
+                query = query.Where(e => e.DepartmentId == departmentId.Value);
+            }
+
+            var employees = query.ToList();
 
 
-            var bytes = await _reports.EmployeesToPdfAsync(rows);
-            return File(bytes, _reports.PdfContentType, "employees.pdf");
-        }
+            using var package = new ExcelPackage();
+            var ws = package.Workbook.Worksheets.Add("Employees");
 
-        [HttpGet("/reports/leaves/excel")]
-        public async Task<IActionResult> LeavesExcel()
-        {
-            var rows = await _db.LeaveApplications
-    .Include(l => l.Employee)
-    .Include(l => l.LeaveType)
-    .Select(l => new LeaveReportRow
-    {
-        EmployeeName = l.Employee.FirstName + " " + l.Employee.MiddleName + " " + l.Employee.LastName,
-        LeaveType = l.LeaveType.Name,
-        StartDate = l.StartDate,
-        EndDate = l.EndDate,
-        TotalDays = l.NoOfDays,
-        Status = l.Status.ToString(),
-        //Notes = l.Notes
-    })
-    .ToListAsync();
+            var headers = new[] { "Full Name", "Department", "Email", "Phone", "Employment Date" };
+            for (int i = 0; i < headers.Length; i++)
+            {
+                ws.Cells[1, i + 1].Value = headers[i];
+                ws.Cells[1, i + 1].Style.Font.Bold = true;
+                ws.Cells[1, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                ws.Cells[1, i + 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+            }
 
+            int row = 2;
+            foreach (var e in employees)
+            {
+                ws.Cells[row, 1].Value = $"{e.FirstName} {e.MiddleName} {e.LastName}".Trim();
+                ws.Cells[row, 2].Value = e.Department?.Name;
+                ws.Cells[row, 3].Value = e.EmailAddress;
+                ws.Cells[row, 4].Value = e.PhoneNumber.ToString();
+                ws.Cells[row, 5].Value = e.EmploymentDate?.ToString("yyyy-MM-dd");
+                row++;
+            }
 
-            var bytes = await _reports.LeavesToExcelAsync(rows);
-            return File(bytes, _reports.EmployeesExcelContentType, "leaves.xlsx");
-        }
-
-        [HttpGet("/reports/leaves/pdf")]
-        public async Task<IActionResult> LeavesPdf()
-        {
-            var rows = await _db.LeaveApplications
-    .Include(l => l.Employee)
-    .Include(l => l.LeaveType)
-    .Select(l => new LeaveReportRow
-    {
-        EmployeeName = l.Employee.FirstName + " " + l.Employee.MiddleName + " " + l.Employee.LastName,
-        LeaveType = l.LeaveType.Name,
-        StartDate = l.StartDate,
-        EndDate = l.EndDate,
-        TotalDays = l.NoOfDays,
-        Status = l.Status.ToString(),
-        //Notes = l.Notes
-    })
-    .ToListAsync();
-
-
-            var bytes = await _reports.LeavesToPdfAsync(rows);
-            return File(bytes, _reports.PdfContentType, "leaves.pdf");
+            ws.Cells.AutoFitColumns();
+            var fileBytes = package.GetAsByteArray();
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Employees.xlsx");
         }
     }
 }

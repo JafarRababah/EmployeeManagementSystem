@@ -17,7 +17,7 @@ namespace EmployeesManagment.Services.Reporting
         // ---------------- Excel Reports ----------------
         public async Task<byte[]> EmployeesToExcelAsync(IEnumerable<EmployeeReportRow> rows)
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using var package = new ExcelPackage();
             var ws = package.Workbook.Worksheets.Add("Employees");
 

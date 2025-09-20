@@ -18,10 +18,12 @@
                         <input type="text" class="form-control" id="empName" placeholder="Search by name">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="empDept" placeholder="Search by department">
+                        <select type="text" asp-for="DepartmentId" class="form-control" id="empDept" asp-items="ViewBag.DepartmentId">
+                            <option value="">Search by department</option>
+                        </select>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-secondary w-100" onclick="applyEmployeeFilters()">Apply Filters</button>
+                        <button type="submit" class="btn btn-secondary w-100" onclick="applyEmployeeFilters()">Apply Filters</button>
                     </div>
                 </div>
             </form>
@@ -54,8 +56,8 @@
             </form>
 
             <div class="d-flex gap-2 mt-2">
-                <a class="btn btn-success" id="downloadLeavesExcel" href="/reports/leaves/excel">Download Excel</a>
-                <a class="btn btn-danger" id="downloadLeavesPdf" href="/reports/leaves/pdf">Download PDF</a>
+                <a class="btn btn-success" id="downloadLeavesExcel" onclick="downloadEmployees('excel')" href="/reports/leaves/excel">Download Excel</a>
+                <a class="btn btn-danger" id="downloadLeavesPdf" onclick="downloadEmployees('pdf') href="/reports/leaves/pdf">Download PDF</a>
             </div>
         </div>
     </div>
@@ -64,16 +66,52 @@
 
 @section Scripts {
     <script>
-        function applyEmployeeFilters() {
-            const name = document.getElementById('empName').value;
-            const dept = document.getElementById('empDept').value;
-            let url = '/reports/employees/excel';
-            if(name || dept){
-                url += '?fullName=' + encodeURIComponent(name) + '&department=' + encodeURIComponent(dept);
+               function downloadEmployees(format) {
+            const name = document.getElementById('empName').value.trim();
+            const dept = document.getElementById('empDept').value.trim();
+            let url = `/reports/employees/${format}`;
+            const params = [];
+            if (name) params.push(`fullName=${encodeURIComponent(name)}`);
+            if (dept) params.push(`department=${encodeURIComponent(dept)}`);
+            if (params.length > 0) {
+                url += '?' + params.join('&');
             }
             window.location.href = url;
         }
 
+        
+
         // Similar filter can be applied for leaves if needed
+    </script>
+<script>
+                function applyEmployeeFilters() {
+            const name = document.getElementById('empName').value.trim();
+            const deptId = document.getElementById('empDept').value; // رقم أو فارغ
+            let url = '/reports/employees';
+            const params = [];
+            if (name) params.push(`fullName=${encodeURIComponent(name)}`);
+            if (deptId) params.push(`departmentId=${deptId}`);
+            if (params.length > 0) {
+                url += '?' + params.join('&');
+            }
+            window.location.href = url; // إعادة تحميل الصفحة مع الفلترة
+        }
+
+    </script>
+    <script>
+                function downloadLeaves(format) {
+            const name = document.getElementById('leaveEmpName').value.trim();
+            const startDate = document.getElementById('leaveStartDate').value;
+            const endDate = document.getElementById('leaveEndDate').value;
+            let url = `/reports/leaves/${format}`;
+            const params = [];
+            if (name) params.push(`employeeName=${encodeURIComponent(name)}`);
+            if (startDate) params.push(`startDate=${encodeURIComponent(startDate)}`);
+            if (endDate) params.push(`endDate=${encodeURIComponent(endDate)}`);
+            if (params.length > 0) {
+                url += '?' + params.join('&');
+            }
+            window.location.href = url;
+        }
     </script>
 }
