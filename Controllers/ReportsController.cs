@@ -1,6 +1,9 @@
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
+using EmployeesManagment.ViewModels;
+using EmployeesManagment.ViewModels.Reports;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -20,40 +23,87 @@ namespace EmployeesManagment.Controllers
         // ÚÑÖ ÕİÍÉ Reports
         public IActionResult Index()
         {
-            // ááÜ DropDownList
-            ViewBag.DepartmentId = _context.Departments
-                                           .Select(d => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
-                                           {
-                                               Value = d.Id.ToString(),
-                                               Text = d.Name
-                                           })
-                                           .ToList();
+            var vm = new EmployeeReportFilterVM
+            {
+                Departments = _context.Departments
+                                      .Select(d => new SelectListItem
+                                      {
+                                          Value = d.Id.ToString(),
+                                          Text = d.Name
+                                      }).ToList()
+            };
 
-            return View();
+            return View(vm);
         }
 
-        // ÚÑÖ ÇáãæÙİíä ÍÓÈ ÇáİáÊÑ
+        // ÚÑÖ ÇáãæÙİíä ãÚ ÇáİáÊÑÉ
         public IActionResult Employees(string? fullName, int? departmentId)
         {
-            var query = _context.Employees.Include(e => e.Department).AsEnumerable();
+            var query = _context.Employees
+                                .Include(e => e.Department)
+                                .AsQueryable();
 
             if (!string.IsNullOrEmpty(fullName))
             {
                 query = query.Where(e =>
                     e.FirstName.Contains(fullName) ||
                     e.MiddleName.Contains(fullName) ||
-                    e.LastName.Contains(fullName)
-                );
+                    e.LastName.Contains(fullName));
             }
+
 
             if (departmentId.HasValue)
+                query = query.Where(e => e.DepartmentId == departmentId);
+
+            var vm = new EmployeeReportFilterVM
             {
-                query = query.Where(e => e.DepartmentId == departmentId.Value);
+                FullName = fullName,
+                DepartmentId = departmentId,
+                Employees = query.ToList(),
+                Departments = _context.Departments
+                                      .Select(d => new SelectListItem
+                                      {
+                                          Value = d.Id.ToString(),
+                                          Text = d.Name
+                                      }).ToList()
+            };
+
+            return View("Index", vm); // äÑÌÚ áäİÓ ÇáÕİÍÉ ãÚ ÇáÈíÇäÇÊ
+        }
+        public IActionResult Leaves(string? employeeName, DateTime? startDate, DateTime? endDate)
+        {
+            var query = _context.LeaveApplications
+                                .Include(l => l.Employee)
+                                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(employeeName))
+            {
+                query = query.Where(l =>
+                    l.Employee.FirstName.Contains(employeeName) ||
+                    l.Employee.LastName.Contains(employeeName));
             }
 
-            var model = query.ToList();
-            return View(model); // íãßäß ÇÓÊÎÏÇã äİÓ View áÚÑÖ ÇáäÊÇÆÌ Úáì ÇáÕİÍÉ
+            if (startDate.HasValue)
+            {
+                query = query.Where(l => l.StartDate >= startDate.Value);
+            }
+
+            if (endDate.HasValue)
+            {
+                query = query.Where(l => l.EndDate <= endDate.Value);
+            }
+
+            var vm = new LeaveReportFilterVM
+            {
+                EmployeeName = employeeName,
+                StartDate = startDate,
+                EndDate = endDate,
+                LeaveApplications = query.ToList()
+            };
+
+            return View(vm);
         }
+
 
         // ÊäÒíá Excel
         public IActionResult EmployeesExcel(string? fullName, int? departmentId)

@@ -2,6 +2,7 @@
 using EmployeesManagment.Data.Migrations;
 using EmployeesManagment.Hubs;
 using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -121,6 +122,8 @@ namespace EmployeesManagment.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
+                notification.CreatedOn = DateTime.Now;
+                notification.CreatedById = User.GetUserId();
                 _context.Add(notification);
                 await _context.SaveChangesAsync(userId);
                 return RedirectToAction(nameof(Index));
@@ -161,28 +164,27 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!NotificationExists(notification.Id))
             {
-                try
+                return NotFound();
+            }
+
+            try
                 {
+                notification.ModifiedOn = DateTime.Now;
+                notification.ModifiedById = User.GetUserName();
                     _context.Update(notification);
                     await _context.SaveChangesAsync(userId);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NotificationExists(notification.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["Message"] = "updated notification successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            return View(notification);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Error updating notification " + ex.Message;
+                return View(notification);
+                }
+            
+            
         }
 
         // GET: Notifications/Delete/5

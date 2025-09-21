@@ -1,0 +1,99 @@
+﻿@model EmployeesManagment.ViewModels.Reports.LeaveReportFilterVM
+@{
+    ViewData["Title"] = "Leave Applications Report";
+}
+
+<h2 class="mb-4">Leave Applications Report</h2>
+
+<!-- Filters Card -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0">Filters</h4>
+    </div>
+    <div class="card-body">
+        <form id="leavesFilters" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="employeeName" class="form-control" placeholder="Employee Name" value="@Model.EmployeeName" />
+            </div>
+            <div class="col-md-3">
+                <input type="date" name="startDate" class="form-control" value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" />
+            </div>
+            <div class="col-md-3">
+                <input type="date" name="endDate" class="form-control" value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary w-100">Apply Filters</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Results -->
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Results</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.LeaveApplications != null && Model.LeaveApplications.Any())
+                {
+                    foreach (var leave in Model.LeaveApplications)
+                    {
+                        <tr>
+                            <td>@leave.Employee.FullName</td>
+                            <td>@leave.LeaveType</td>
+                            <td>@leave.StartDate.ToString("yyyy-MM-dd")</td>
+                            <td>@leave.EndDate.ToString("yyyy-MM-dd")</td>
+                            <td>@leave.Status</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">No results found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Export Buttons -->
+        <div class="d-flex gap-2 mt-3">
+            <button type="button" class="btn btn-success" onclick="downloadLeaves('excel')">Download Excel</button>
+            <button type="button" class="btn btn-danger" onclick="downloadLeaves('pdf')">Download PDF</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function downloadLeaves(format) {
+            const name = document.querySelector('input[name="employeeName"]').value.trim();
+            const startDate = document.querySelector('input[name="startDate"]').value;
+            const endDate = document.querySelector('input[name="endDate"]').value;
+
+            let url = `/reports/leaves/${format}`;
+            const params = [];
+
+            if (name) params.push(`employeeName=${encodeURIComponent(name)}`);
+            if (startDate) params.push(`startDate=${encodeURIComponent(startDate)}`);
+            if (endDate) params.push(`endDate=${encodeURIComponent(endDate)}`);
+
+            if (params.length > 0) {
+                url += '?' + params.join('&');
+            }
+
+            window.location.href = url;
+        }
+    </script>
+}

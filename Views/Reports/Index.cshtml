@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EmployeesManagment.ViewModels.Reports.EmployeeReportFilterVM
+@{
     ViewData["Title"] = "Reports";
 }
 
@@ -12,102 +13,93 @@
             <h4 class="mb-0">Employees Reports</h4>
         </div>
         <div class="card-body">
-            <form asp-action="Index" id="employeesFilters" class="mb-3">
+            <form id="employeesFilters" class="mb-3">
                 <div class="row g-2">
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="empName" placeholder="Search by name">
+                        <input type="text" class="form-control" id="empName"
+                               name="fullName" value="@Model.FullName"
+                               placeholder="Search by name">
                     </div>
                     <div class="col-md-4">
-                        <select type="text" asp-for="DepartmentId" class="form-control" id="empDept" asp-items="ViewBag.DepartmentId">
+                        <select id="empDept" name="departmentId" asp-for="DepartmentId"
+                                class="form-control" asp-items="Model.Departments">
                             <option value="">Search by department</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-secondary w-100" onclick="applyEmployeeFilters()">Apply Filters</button>
+                        <button type="button" class="btn btn-secondary w-100"
+                                onclick="applyEmployeeFilters()">
+                            Apply Filters
+                        </button>
                     </div>
                 </div>
             </form>
 
             <div class="d-flex gap-2">
-                <a class="btn btn-success" id="downloadEmpExcel" href="/reports/employees/excel">Download Excel</a>
-                <a class="btn btn-danger" id="downloadEmpPdf" href="/reports/employees/pdf">Download PDF</a>
+                <a class="btn btn-success" id="downloadEmpExcel" href="#" onclick="downloadEmployees('excel')">Download Excel</a>
+                <a class="btn btn-danger" id="downloadEmpPdf" href="#" onclick="downloadEmployees('pdf')">Download PDF</a>
+            </div>
+
+            <!-- جدول عرض الموظفين -->
+            <div class="mt-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Emp No</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Employees != null && Model.Employees.Any())
+                        {
+                            foreach (var emp in Model.Employees)
+                            {
+                                <tr>
+                                    <td>@emp.EmpNo</td>
+                                    <td>@emp.FullName</td>
+                                    <td>@emp.Department?.Name</td>
+                                    <td>@emp.EmailAddress</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center">No employees found</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
+
     </div>
-
-    <!-- Leaves Reports Card -->
-    <div class="card mb-4 shadow-sm">
-        <div class="card-header bg-info text-white">
-            <h4 class="mb-0">Leaves Reports</h4>
-        </div>
-        <div class="card-body">
-            <form id="leavesFilters" class="mb-3">
-                <div class="row g-2">
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" id="leaveEmpName" placeholder="Employee Name">
-                    </div>
-                    <div class="col-md-4">
-                        <input type="date" class="form-control" id="leaveStartDate" placeholder="Start Date">
-                    </div>
-                    <div class="col-md-4">
-                        <input type="date" class="form-control" id="leaveEndDate" placeholder="End Date">
-                    </div>
-                </div>
-            </form>
-
-            <div class="d-flex gap-2 mt-2">
-                <a class="btn btn-success" id="downloadLeavesExcel" onclick="downloadEmployees('excel')" href="/reports/leaves/excel">Download Excel</a>
-                <a class="btn btn-danger" id="downloadLeavesPdf" onclick="downloadEmployees('pdf') href="/reports/leaves/pdf">Download PDF</a>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 @section Scripts {
     <script>
-               function downloadEmployees(format) {
+        function applyEmployeeFilters() {
             const name = document.getElementById('empName').value.trim();
-            const dept = document.getElementById('empDept').value.trim();
-            let url = `/reports/employees/${format}`;
-            const params = [];
-            if (name) params.push(`fullName=${encodeURIComponent(name)}`);
-            if (dept) params.push(`department=${encodeURIComponent(dept)}`);
-            if (params.length > 0) {
-                url += '?' + params.join('&');
-            }
-            window.location.href = url;
-        }
-
-        
-
-        // Similar filter can be applied for leaves if needed
-    </script>
-<script>
-                function applyEmployeeFilters() {
-            const name = document.getElementById('empName').value.trim();
-            const deptId = document.getElementById('empDept').value; // رقم أو فارغ
-            let url = '/reports/employees';
+            const deptId = document.getElementById('empDept').value;
+            let url = '/Reports/Employees';
             const params = [];
             if (name) params.push(`fullName=${encodeURIComponent(name)}`);
             if (deptId) params.push(`departmentId=${deptId}`);
             if (params.length > 0) {
                 url += '?' + params.join('&');
             }
-            window.location.href = url; // إعادة تحميل الصفحة مع الفلترة
+            window.location.href = url;
         }
 
-    </script>
-    <script>
-                function downloadLeaves(format) {
-            const name = document.getElementById('leaveEmpName').value.trim();
-            const startDate = document.getElementById('leaveStartDate').value;
-            const endDate = document.getElementById('leaveEndDate').value;
-            let url = `/reports/leaves/${format}`;
+        function downloadEmployees(format) {
+            const name = document.getElementById('empName').value.trim();
+            const deptId = document.getElementById('empDept').value;
+            let url = `/Reports/Employees${format === 'excel' ? 'Excel' : 'Pdf'}`;
             const params = [];
-            if (name) params.push(`employeeName=${encodeURIComponent(name)}`);
-            if (startDate) params.push(`startDate=${encodeURIComponent(startDate)}`);
-            if (endDate) params.push(`endDate=${encodeURIComponent(endDate)}`);
+            if (name) params.push(`fullName=${encodeURIComponent(name)}`);
+            if (deptId) params.push(`departmentId=${deptId}`);
             if (params.length > 0) {
                 url += '?' + params.join('&');
             }
