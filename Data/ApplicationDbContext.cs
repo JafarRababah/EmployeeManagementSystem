@@ -35,6 +35,7 @@ namespace EmployeesManagment.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<FixedAsset> FixedAssets { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<License> Licenses { get; set; }
         public virtual async Task<int> SaveChangesAsync(string userId=null)
         {
             OnBeforeSavingChanges(userId);

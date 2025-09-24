@@ -990,6 +990,33 @@ namespace EmployeesManagment.Data.Migrations
                     b.ToTable("LeaveTypes");
                 });
 
+            modelBuilder.Entity("EmployeesManagment.Models.License", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LicenseKey")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Licenses");
+                });
+
             modelBuilder.Entity("EmployeesManagment.Models.Notification", b =>
                 {
                     b.Property<int>("Id")
@@ -1009,7 +1036,8 @@ namespace EmployeesManagment.Data.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ModifiedById")
                         .HasColumnType("nvarchar(max)");

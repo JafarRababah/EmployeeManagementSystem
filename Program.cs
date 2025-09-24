@@ -28,8 +28,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 // Razor Pages & MVC
 builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews();
-
+//builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<LicenseFilter>();
+});
+builder.Services.AddScoped<LicenseService>();
+builder.Services.AddSession();
 // Authentication & Authorization
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
@@ -70,6 +75,9 @@ builder.Services.AddControllersWithViews();
 
 // ----------------- Build App -----------------
 var app = builder.Build();
+app.UseSession();
+
+
 //using (var scope = app.Services.CreateScope())
 //{
 //    var services = scope.ServiceProvider;

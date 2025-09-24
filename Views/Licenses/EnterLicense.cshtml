@@ -1,0 +1,24 @@
+﻿@model EmployeesManagment.Models.License
+@{
+    ViewData["Title"] = "Enter License Key";
+}
+
+<h2>Enter License Key</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label>License Key</label>
+        <input type="text" name="licenseKey" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="text-danger mt-2">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
