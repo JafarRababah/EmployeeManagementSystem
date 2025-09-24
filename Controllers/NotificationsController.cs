@@ -123,7 +123,7 @@ namespace EmployeesManagment.Controllers
             try
             {
                 notification.CreatedOn = DateTime.Now;
-                notification.CreatedById = User.GetUserId();
+                notification.CreatedById = User.GetUserName();
                 _context.Add(notification);
                 await _context.SaveChangesAsync(userId);
                 return RedirectToAction(nameof(Index));
@@ -173,18 +173,21 @@ namespace EmployeesManagment.Controllers
                 {
                 notification.ModifiedOn = DateTime.Now;
                 notification.ModifiedById = User.GetUserName();
+                notification.Message = "Done";
                     _context.Update(notification);
                     await _context.SaveChangesAsync(userId);
                 TempData["Message"] = "updated notification successfully ";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
-                {
-                TempData["Error"] = "Error updating notification " + ex.Message;
+            {
+                TempData["Error"] = "Error updating notification " + ex.Message +
+                                    (ex.InnerException != null ? " | Inner: " + ex.InnerException.Message : "");
                 return View(notification);
-                }
-            
-            
+            }
+
+
+
         }
 
         // GET: Notifications/Delete/5

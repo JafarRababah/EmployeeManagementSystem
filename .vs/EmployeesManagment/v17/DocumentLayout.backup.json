@@ -62,8 +62,7 @@
               "RelativeToolTip": "Views\\LeaveApplications\\Index.cshtml",
               "ViewState": "AgIAADYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-21T14:27:25.956Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-21T14:27:25.956Z"
             },
             {
               "$type": "Document",
@@ -73,7 +72,7 @@
               "RelativeDocumentMoniker": "Controllers\\NotificationsController.cs",
               "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\NotificationsController.cs",
               "RelativeToolTip": "Controllers\\NotificationsController.cs",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAgwLAAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAJMAAAAAAAAAAAAgwLAAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-21T13:48:39.031Z",
               "EditorCaption": ""
@@ -86,7 +85,7 @@
               "RelativeDocumentMoniker": "Views\\Notifications\\Edit.cshtml",
               "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Notifications\\Edit.cshtml",
               "RelativeToolTip": "Views\\Notifications\\Edit.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAACYAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAkwB0AAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-09-21T13:45:19.861Z",
               "EditorCaption": ""
@@ -101,8 +100,7 @@
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAEQBAAAAAAAAAAAAAEkBAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-21T13:32:32.253Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-21T13:32:32.253Z"
             },
             {
               "$type": "Document",
@@ -114,8 +112,7 @@
               "RelativeToolTip": "Views\\Reports\\Leaves.cshtml",
               "ViewState": "AgIAAFcAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-21T12:06:20.402Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-21T12:06:20.402Z"
             },
             {
               "$type": "Document",
@@ -127,8 +124,7 @@
               "RelativeToolTip": "ViewModels\\Reports\\LeaveReportFilterVM.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAYAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T11:47:29.907Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-21T11:47:29.907Z"
             },
             {
               "$type": "Document",
@@ -140,8 +136,7 @@
               "RelativeToolTip": "ViewModels\\Reports\\EmployeeReportFilterVM.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-21T05:38:34.683Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-21T05:38:34.683Z"
             },
             {
               "$type": "Document",
@@ -153,8 +148,7 @@
               "RelativeToolTip": "Controllers\\ReportsController.cs",
               "ViewState": "AgIAAD4AAAAAAAAAAAAwwEMAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-20T16:44:35.29Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-20T16:44:35.29Z"
             },
             {
               "$type": "Document",
@@ -166,8 +160,7 @@
               "RelativeToolTip": "Views\\Reports\\Index.cshtml",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAA8AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-20T16:41:53.259Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-20T16:41:53.259Z"
             },
             {
               "$type": "Document",
@@ -179,8 +172,7 @@
               "RelativeToolTip": "Views\\Departments\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-20T16:41:04.339Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-20T16:41:04.339Z"
             }
           ]
         }
