@@ -1,110 +1,86 @@
-# Employee Management System – Upgrade Pack (Roles + Reports + Demo Data)
+# نظام إدارة الموظفين (Employee Management System)
 
-This pack adds:
-- Role-based access (**Admin**, **HR**, **Employee**) with seeding.
-- Beautiful, detailed **Excel** and **PDF** reports (Employees & Leaves).
-- **Demo data** + **demo users** for immediate testing.
-- A partial view with export buttons.
-- Snippets to wire everything quickly without guessing.
+## 📘 مقدمة
 
-> This pack is additive and non-destructive. It **does not overwrite** your existing files. You can copy/paste or merge pieces as needed.
+نظام لإدارة الموظفين والإجازات داخل الشركات الصغيرة والمتوسطة.  
+يوفر النظام واجهة سهلة الاستخدام لإضافة الموظفين، متابعة الإجازات، وتوليد تقارير PDF وExcel.
 
 ---
 
-## 1) Install NuGet packages
+## 🛠 المتطلبات (Requirements)
 
-Add these to your `.csproj` (see `Snippets/Csproj_PackageReferences.txt`):
-
-- `EPPlus` (for Excel)
-- `QuestPDF` (for PDF)
-- `Bogus` (for generating fake demo data)
-- `Microsoft.AspNetCore.Identity.UI` (if not already present)
-
-After editing the csproj, run:
-```
-dotnet restore
-```
+- .NET 8 (أو .NET 7)
+- SQL Server 2019 أو أحدث
+- IIS أو Kestrel لتشغيل التطبيق
+- مكتبات NuGet:
+  - Entity Framework Core
+  - EPPlus (توليد تقارير Excel)
+  - Rotativa / iTextSharp (توليد تقارير PDF)
 
 ---
 
-## 2) Register services & seed roles/users + demo data
+## 🚀 التثبيت (Installation)
 
-Open your `Program.cs` and add the registrations in **ConfigureServices** section (before `builder.Build()`), then call the seeders **after** `app` is built.
+1. استورد قاعدة البيانات:
 
-See `Snippets/Program_Additions.cs` for copy-paste safe code. In short:
+   - افتح SQL Server Management Studio
+   - اضغط يمين على **Databases → Restore Database**
+   - اختر ملف النسخة الاحتياطية `EmployeeManagement.bak`
 
-```csharp
-builder.Services.AddScoped<Services.Reporting.IReportService, Services.Reporting.ReportService>();
-// ... QuestPDF settings are handled inside service
+2. عدل ملف `appsettings.json`:
 
-var app = builder.Build();
+   ```json
+   "ConnectionStrings": {
+       "DefaultConnection": "Server=.;Database=EmployeeManagement;User Id=sa;Password=yourpassword;"
+   }
+   ```
 
-using (var scope = app.Services.CreateScope())
-{
-    var sp = scope.ServiceProvider;
-    await Infrastructure.DbSeeder.SeedRolesAndUsersAsync(sp);
-    await Data.Seed.FakeDataSeeder.SeedAsync(sp);
-}
-```
+3. شغل التطبيق:
 
-> Replace namespaces if your project root namespace is not `EmployeesManagment`.
+   ```bash
+   dotnet run
+   ```
 
----
-
-## 3) Add export buttons to your pages
-
-Render the partial where Admin/HR can see it (e.g., Index pages):
-
-```
-@await Html.PartialAsync("~/Views/Shared/_ExportButtons.cshtml")
-```
-
-The partial points to:
-- `GET /reports/employees/excel`
-- `GET /reports/employees/pdf`
-- `GET /reports/leaves/excel`
-- `GET /reports/leaves/pdf`
+4. الدخول الافتراضي:
+   - **Email**: `admin@system.com`
+   - **Password**: `123456`
 
 ---
 
-## 4) Protect your controllers/actions
+## 👥 الأدوار (Roles & Permissions)
 
-Examples in `Snippets/Auth_Attributes_Examples.cs` show how to use:
-```csharp
-[Authorize(Roles = Roles.Admin + "," + Roles.HR)]
-```
-
----
-
-## 5) Demo accounts
-
-On first run, seeding creates:
-
-- **Admin**: `admin@demo.local` / `Admin#12345`
-- **HR**: `hr@demo.local` / `Hr#12345`
-- **Employee**: `employee@demo.local` / `Emp#12345`
-
-> Change passwords immediately in production.
+- **Admin**: تحكم كامل (إدارة موظفين، أقسام، صلاحيات، تقارير).
+- **Manager**: الموافقة على الإجازات ومتابعة الموظفين.
+- **Employee**: تقديم طلبات إجازة، عرض بياناته الشخصية.
 
 ---
 
-## 6) License notes
+## 📊 المزايا (Features)
 
-See `LICENSE-THIRD-PARTY.txt`. EPPlus is LGPL/commercial; we use basic features acceptable for typical internal use.
-QuestPDF is licensed under a permissive license for many scenarios; verify compliance for your distribution model.
-
----
-
-## 7) Troubleshooting
-
-- If your `ApplicationUser` or `DbContext` types have different names, update the usings and generic types in:
-  - `Infrastructure/DbSeeder.cs`
-  - `Data/Seed/FakeDataSeeder.cs`
-  - `Controllers/ReportsController.cs`
-  - `Services/Reporting` files
-
-- If you don’t use ASP.NET Identity yet, scaffold Identity and ensure services are registered.
+- إدارة الموظفين (إضافة، تعديل، حذف).
+- إدارة الأقسام والوظائف.
+- نظام طلبات إجازة (تقديم، موافقة/رفض).
+- تقارير Excel وPDF:
+  - Employee Report
+  - Leave Applications Report
+- إشعارات داخلية (Notifications).
 
 ---
 
-© 2025 – Prepared upgrade pack.
+## 📝 المشاكل الشائعة (Troubleshooting)
+
+- **مشكلة قاعدة البيانات**: تحقق من Connection String.
+- **خطأ EPPlus License**: أضف
+  ```csharp
+  ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+  ```
+  داخل Program.cs
+- **كلمة مرور SQL Server منسية**: أعد تعيينها من SQL Server Management Studio.
+
+---
+
+## 🔮 التطوير المستقبلي (Future Enhancements)
+
+- إضافة حضور وانصراف.
+- دعم اللغتين (عربي/إنجليزي).
+- تكامل مع البريد الإلكتروني للإشعارات.
