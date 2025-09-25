@@ -1007,6 +1007,10 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LicenseHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LicenseKey")
                         .IsRequired()
                         .HasMaxLength(50)

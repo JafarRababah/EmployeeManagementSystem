@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LicensesGenerator": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
