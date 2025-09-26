@@ -86,57 +86,78 @@ namespace EmployeesManagment.Data
                 AuditLogs.Add(auditEntry.ToAudit());
             }
         }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+
+        //    modelBuilder.Entity<LeaveApplication>()
+        //        .HasOne(l => l.Status)
+        //        .WithMany()
+        //        .HasForeignKey(l => l.StatusId)
+        //        .OnDelete(DeleteBehavior.Cascade); // default for Status
+
+        //    modelBuilder.Entity<LeaveApplication>()
+        //        .HasOne(l => l.Duration)
+        //        .WithMany()
+        //        .HasForeignKey(l => l.DurationId)
+        //        .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
+
+
+
+        //    modelBuilder.Entity<LeaveApplication>()
+        //        .HasOne(l => l.Duration)
+        //        .WithMany()
+        //        .HasForeignKey(l => l.DurationId)
+        //        .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
+
+        //    modelBuilder.Entity<Notification>()
+        //.Property(n => n.Message)
+        //.IsRequired()
+        //.HasMaxLength(500);
+
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // LeaveApplication → Status (Cascade delete)
             modelBuilder.Entity<LeaveApplication>()
                 .HasOne(l => l.Status)
                 .WithMany()
                 .HasForeignKey(l => l.StatusId)
-                .OnDelete(DeleteBehavior.Cascade); // default for Status
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // LeaveApplication → Duration (NoAction to avoid conflicts)
             modelBuilder.Entity<LeaveApplication>()
                 .HasOne(l => l.Duration)
                 .WithMany()
                 .HasForeignKey(l => l.DurationId)
-                .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
+                .OnDelete(DeleteBehavior.NoAction);
 
-        
-
-            modelBuilder.Entity<LeaveApplication>()
-                .HasOne(l => l.Duration)
-                .WithMany()
-                .HasForeignKey(l => l.DurationId)
-                .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
-                                                    
+            // Notification
             modelBuilder.Entity<Notification>()
-        .Property(n => n.Message)
-        .IsRequired()
-        .HasMaxLength(500);
+                .Property(n => n.Message)
+                .IsRequired()
+                .HasMaxLength(500);
 
+            // Precision for decimals (لتجنب التحذيرات اللي ظهرتلك)
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.AllocatedLeaveDays)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.LeaveOutStandingBalance)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<LeaveAdjustmentEntry>()
+                .Property(l => l.NoOfDays)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<LeaveType>()
+                .Property(l => l.Days)
+                .HasPrecision(18, 2);
         }
-//4dc8a78(Add updating for layout and signlur and notificationhub);
 
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Employee>()
-        //        .Property(e => e.AllocatedLeaveDays)
-        //        .HasPrecision(18, 2);
-
-        //    modelBuilder.Entity<Employee>()
-        //        .Property(e => e.LeaveOutStandingBalance)
-        //        .HasPrecision(18, 2);
-
-        //    modelBuilder.Entity<LeaveAdjustmentEntry>()
-        //        .Property(l => l.NoOfDays)
-        //        .HasPrecision(18, 2);
-
-        //    modelBuilder.Entity<LeaveType>()
-        //        .Property(l => l.Days)
-        //        .HasPrecision(18, 2);
-        //}
 
         public DbSet<EmployeesManagment.Models.SystemProfile> SystemProfile { get; set; } = default!;
 

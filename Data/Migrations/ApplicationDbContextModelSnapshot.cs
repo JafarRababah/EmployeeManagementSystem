@@ -539,6 +539,7 @@ namespace EmployeesManagment.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("AllocatedLeaveDays")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("BankAccountNo")
@@ -612,6 +613,7 @@ namespace EmployeesManagment.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("LeaveOutStandingBalance")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("MiddleName")
@@ -826,6 +828,7 @@ namespace EmployeesManagment.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("NoOfDays")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -973,6 +976,7 @@ namespace EmployeesManagment.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Days")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ModifiedById")

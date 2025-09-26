@@ -51,6 +51,28 @@ namespace EmployeesManagment.Controllers
 
             return View(notifications);
         }
+        public async Task<IActionResult> NotIsRead()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            _context.Notifications.Add(new Notification
+            {
+                UserId = userId,
+                Message = "Welcome! This is your first notification.",
+                Url = "/Home/Index",
+                IsRead = true,
+                CreatedOn = DateTime.Now
+            });
+
+            await _context.SaveChangesAsync(userId);
+
+            var notifications = await _context.Notifications
+       .Where(n => n.UserId == userId && !n.IsRead)
+       .OrderByDescending(n => n.CreatedOn)
+       .ToListAsync();
+
+            return View(notifications);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetUserNotifications()

@@ -82,7 +82,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" asp-action="Index" asp-controller="Notifications" id="notificationDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" asp-action="NotIsRead" asp-controller="Notifications" id="notificationDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-bell"></i>
                         <span id="notification-count" class="badge bg-danger"></span>
@@ -174,7 +174,11 @@
                             <span class="float-right text-muted text-sm">2 days</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                        <a class="nav-link dropdown-toggle" asp-action="Index" asp-controller="Notifications" id="notificationDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell"></i>
+                            <span id="notification-count" class="badge bg-danger"></span>
+                        </a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -188,7 +192,16 @@
                     </a>
                 </li>
             </ul>
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="~/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Alexander Pierce</a>
+                </div>
+            </div>
         </nav>
+
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -201,14 +214,7 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="~/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
-                    </div>
-                </div>
+                
 
 
 

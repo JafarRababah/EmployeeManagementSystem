@@ -8,6 +8,7 @@
 		<Company>EmployeesManagment</Company>
 		<Product>EmployeesManagment License Generator</Product>
 		<Version>1.0.0</Version>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
 
 
