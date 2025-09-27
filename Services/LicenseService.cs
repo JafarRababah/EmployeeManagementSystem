@@ -23,6 +23,16 @@ namespace EmployeesManagment.Services
                 return Convert.ToBase64String(hash);
             }
         }
+        public bool IsLicenseValid(string licenseKey)
+        {
+            var computedHash = GenerateLicenseHash(licenseKey);
+            var license = _context.Licenses
+         .FirstOrDefault(l => l.LicenseHash == computedHash && l.IsActive);
+            if (license == null)
+                return false;
+            return license.ExpiryDate >= DateTime.UtcNow;
+        }
+
         public void AddLicense(string licenseKey, DateTime expiryDate)
         {
             // في أي مكان (Seeder, Controller, أو Console App)
@@ -35,7 +45,7 @@ namespace EmployeesManagment.Services
             //licenseService.AddLicense(newKey, expiryDate);
             var license = new License
             {
-                LicenseKey = licenseKey,
+                LicenseKey = GenerateLicenseHash(licenseKey),
                 LicenseHash = GenerateLicenseHash(licenseKey),
                 ExpiryDate = expiryDate,
                 IsActive = true
@@ -43,16 +53,6 @@ namespace EmployeesManagment.Services
 
             _context.Licenses.Add(license);
             _context.SaveChanges();
-        }
-        public bool IsLicenseValid(string licenseKey)
-        {
-            var hash = GenerateLicenseHash(licenseKey);
-            var license = _context.Licenses
-                .FirstOrDefault(l => l.LicenseKey == licenseKey && l.IsActive);
-
-            if (license == null) return false;
-
-            return license.ExpiryDate >= DateTime.UtcNow;
         }
         public License GetLicense(string licenseKey)
         {
