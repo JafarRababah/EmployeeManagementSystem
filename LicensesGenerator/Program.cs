@@ -1,7 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
+﻿using EmployeesManagment.Data;
+using EmployeesManagment.Models;
 using EmployeesManagment.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace LicenseGenerator
 {
@@ -20,6 +22,10 @@ namespace LicenseGenerator
 
             Console.Write("Enter License Key (leave blank to auto-generate): ");
             var licenseKey = Console.ReadLine();
+            Console.Write("Enter username: ");
+            var userName = Console.ReadLine();
+
+            var user = context.Users.FirstOrDefault(u => u.UserName == userName);
             if (string.IsNullOrWhiteSpace(licenseKey))
             {
                 licenseKey = Guid.NewGuid().ToString("N").Substring(0, 16).ToUpper();
@@ -32,8 +38,7 @@ namespace LicenseGenerator
                 expiryDate = DateTime.UtcNow.AddYears(1);
                 Console.WriteLine($"Default expiry used: {expiryDate}");
             }
-
-            licenseService.AddLicense(licenseKey, expiryDate);
+            licenseService.AddLicense(licenseKey, expiryDate, user.Id);
             Console.WriteLine("License added successfully!");
         }
     }

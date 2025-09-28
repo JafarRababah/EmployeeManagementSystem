@@ -78,13 +78,17 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(License license)
         {
-            if (ModelState.IsValid)
+            try
             {
                 _context.Add(license);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(license);
+
+            catch (Exception ex)
+            {
+                return View(license);
+            }
         }
 
         // GET: Licenses/Edit/5

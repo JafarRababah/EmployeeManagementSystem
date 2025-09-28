@@ -1,5 +1,6 @@
 ﻿using EmployeesManagment.Data;
 using EmployeesManagment.Models;
+using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,6 +11,7 @@ namespace EmployeesManagment.Services
     {
         private readonly ApplicationDbContext _context;
         private const string secretKey = "JafarHashKey";
+        private readonly UserManager<ApplicationUser> _userManager;
         public LicenseService(ApplicationDbContext context)
         {
             _context = context;
@@ -33,27 +35,46 @@ namespace EmployeesManagment.Services
             return license.ExpiryDate >= DateTime.UtcNow;
         }
 
-        public void AddLicense(string licenseKey, DateTime expiryDate)
+        //public void AddLicense(string licenseKey, DateTime expiryDate,string userName)
+        //{
+        //    var user =  _userManager.FindByNameAsync(userName);
+            
+          
+        //    var license = new License
+        //    {
+        //        LicenseKey = GenerateLicenseHash(licenseKey),
+        //        LicenseHash = user.Id,
+        //        ExpiryDate = expiryDate,
+        //        IsActive = true
+        //    };
+
+        //    _context.Licenses.Add(license);
+        //    _context.SaveChanges();
+        //}
+        public async Task AddLicense(string licenseKey, DateTime expiryDate, string userId)
         {
-            // في أي مكان (Seeder, Controller, أو Console App)
-            //var licenseService = new LicenseService(_context);
+            // جلب المستخدم
+            if (userId == null)
+            {
+                throw new Exception($"User '{userId}' not found.");
+            }
 
-            //// مثال: مفتاح ترخيص صالح لمدة سنة
-            //string newKey = "ABC123-XYZ789-TEST2025";
-            //expiryDate = DateTime.UtcNow.AddYears(1);
-
-            //licenseService.AddLicense(newKey, expiryDate);
+            // إنشاء الترخيص
             var license = new License
             {
-                LicenseKey = GenerateLicenseHash(licenseKey),
-                LicenseHash = GenerateLicenseHash(licenseKey),
-                ExpiryDate = expiryDate,
-                IsActive = true
+                LicenseKey = "ABC123",
+                LicenseHash = "j3fr.rababah@gmail.com",    // لاحظ U كابيتال
+                ExpiryDate = DateTime.UtcNow,
+                IsActive = true,          // أو IsActive = true إذا عندك عمود Boolean
+                CreatedAt = DateTime.UtcNow
             };
 
-            _context.Licenses.Add(license);
-            _context.SaveChanges();
+             _context.Licenses.Add(license);
+            await _context.SaveChangesAsync("ca341927 - ae4c - 4279 - 9a94 - eba913954ad1");
+
+            Console.WriteLine("License saved in DB: " + license.Id);
         }
+
         public License GetLicense(string licenseKey)
         {
             return _context.Licenses.FirstOrDefault(l => l.LicenseKey == licenseKey);

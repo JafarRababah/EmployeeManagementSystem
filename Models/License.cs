@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeesManagment.Models
 {
@@ -20,5 +22,6 @@ namespace EmployeesManagment.Models
         public bool IsActive { get; set; } = true; // حالة الترخيص (فعال/منتهي)
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // تاريخ إنشاء الترخيص
+   
     }
 }

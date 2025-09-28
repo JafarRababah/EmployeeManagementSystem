@@ -1,6 +1,7 @@
 ﻿using EmployeesManagment.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
 
 namespace EmployeesManagment.Data
 {
@@ -36,39 +37,50 @@ namespace EmployeesManagment.Data
         public DbSet<FixedAsset> FixedAssets { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<License> Licenses { get; set; }
-        public virtual async Task<int> SaveChangesAsync(string userId=null)
+        public virtual async Task<int> SaveChangesAsync(string userId = null)
         {
             OnBeforeSavingChanges(userId);
-            var result=await base.SaveChangesAsync();
+            var result = await base.SaveChangesAsync();
             return result;
         }
         private void OnBeforeSavingChanges(string userId)
         {
+            Console.WriteLine("Entering OnBeforeSavingChanges with userId=" + userId);
+
             ChangeTracker.DetectChanges();
-            var auditEntries=new List<AuditEntry>();
-            foreach(var entry in ChangeTracker.Entries())
+            var auditEntries = new List<AuditEntry>();
+
+            foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.Entity is Audit || entry.State==EntityState.Detached|| entry.State==EntityState.Unchanged)
+                if (entry.Entity is Audit || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
-                var auditEntry=new AuditEntry(entry);
+
+                Console.WriteLine("Processing entity: " + entry.Entity.GetType().Name);
+
+                var auditEntry = new AuditEntry(entry);
                 auditEntry.UserId = userId;
-                auditEntry.TableName=entry.Entity.GetType().Name;
+                auditEntry.TableName = entry.Entity.GetType().Name;
                 auditEntries.Add(auditEntry);
-                foreach( var property in entry.Properties){
+
+                foreach (var property in entry.Properties)
+                {
                     string propertyName = property.Metadata.Name;
                     if (property.Metadata.IsPrimaryKey())
                     {
                         auditEntry.KeyValues[propertyName] = property.CurrentValue;
                         continue;
                     }
+
                     switch (entry.State)
                     {
                         case EntityState.Added:
                             auditEntry.AuditType = AuditType.Create;
-                            auditEntry.NewValues[propertyName] = property.CurrentValue; break;
-                            case EntityState.Deleted:
+                            auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            break;
+                        case EntityState.Deleted:
                             auditEntry.AuditType = AuditType.Delete;
-                            auditEntry.OldValues[propertyName]=property.CurrentValue; break;
+                            auditEntry.OldValues[propertyName] = property.CurrentValue;
+                            break;
                         case EntityState.Modified:
                             if (property.IsModified)
                             {
@@ -81,41 +93,81 @@ namespace EmployeesManagment.Data
                     }
                 }
             }
-            foreach ( var auditEntry in auditEntries)
+
+            Console.WriteLine("Adding audit entries count: " + auditEntries.Count);
+            foreach (var auditEntry in auditEntries)
             {
-                AuditLogs.Add(auditEntry.ToAudit());
+                try
+                {
+                    AuditLogs.Add(auditEntry.ToAudit());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Audit logging failed: " + ex.Message);
+                    // لا تمنع حفظ البيانات الرئيسية
+                }
             }
         }
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        //private void OnBeforeSavingChanges(string userId)
         //{
-        //    base.OnModelCreating(modelBuilder);
-
-        //    modelBuilder.Entity<LeaveApplication>()
-        //        .HasOne(l => l.Status)
-        //        .WithMany()
-        //        .HasForeignKey(l => l.StatusId)
-        //        .OnDelete(DeleteBehavior.Cascade); // default for Status
-
-        //    modelBuilder.Entity<LeaveApplication>()
-        //        .HasOne(l => l.Duration)
-        //        .WithMany()
-        //        .HasForeignKey(l => l.DurationId)
-        //        .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
-
-
-
-        //    modelBuilder.Entity<LeaveApplication>()
-        //        .HasOne(l => l.Duration)
-        //        .WithMany()
-        //        .HasForeignKey(l => l.DurationId)
-        //        .OnDelete(DeleteBehavior.NoAction); // fixes cascade conflict
-
-        //    modelBuilder.Entity<Notification>()
-        //.Property(n => n.Message)
-        //.IsRequired()
-        //.HasMaxLength(500);
-
+        //    ChangeTracker.DetectChanges();
+        //    var auditEntries=new List<AuditEntry>();
+        //    foreach(var entry in ChangeTracker.Entries())
+        //    {
+        //        if (entry.Entity is Audit || entry.State==EntityState.Detached|| entry.State==EntityState.Unchanged)
+        //            continue;
+        //        var auditEntry=new AuditEntry(entry);
+        //        auditEntry.UserId = userId;
+        //        auditEntry.TableName=entry.Entity.GetType().Name;
+        //        auditEntries.Add(auditEntry);
+        //        foreach( var property in entry.Properties){
+        //            string propertyName = property.Metadata.Name;
+        //            if (property.Metadata.IsPrimaryKey())
+        //            {
+        //                auditEntry.KeyValues[propertyName] = property.CurrentValue;
+        //                continue;
+        //            }
+        //            switch (entry.State)
+        //            {
+        //                case EntityState.Added:
+        //                    auditEntry.AuditType = AuditType.Create;
+        //                    auditEntry.NewValues[propertyName] = property.CurrentValue; break;
+        //                    case EntityState.Deleted:
+        //                    auditEntry.AuditType = AuditType.Delete;
+        //                    auditEntry.OldValues[propertyName]=property.CurrentValue; break;
+        //                case EntityState.Modified:
+        //                    if (property.IsModified)
+        //                    {
+        //                        auditEntry.ChangedColumns.Add(propertyName);
+        //                        auditEntry.AuditType = AuditType.Update;
+        //                        auditEntry.OldValues[propertyName] = property.OriginalValue;
+        //                        auditEntry.NewValues[propertyName] = property.CurrentValue;
+        //                    }
+        //                    break;
+        //            }
+        //        }
+        //    }
+        //    foreach ( var auditEntry in auditEntries)
+        //    {
+        //        AuditLogs.Add(auditEntry.ToAudit());
+        //    }
         //}
+        //public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        //{
+        //    Console.WriteLine("➡️ Before OnBeforeSavingChanges (Default Override)");
+
+        //    OnBeforeSavingChanges("system"); // أو مرر UserId من Claims لاحقاً
+
+        //    var result = await base.SaveChangesAsync(cancellationToken);
+
+        //    Console.WriteLine("✅ After SaveChangesAsync (Default Override)");
+
+        //    return result;
+        //}
+
+      
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -161,24 +213,6 @@ namespace EmployeesManagment.Data
 
         public DbSet<EmployeesManagment.Models.SystemProfile> SystemProfile { get; set; } = default!;
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Employee>()
-        //        .Property(e => e.AllocatedLeaveDays)
-        //        .HasPrecision(18, 2);
-
-        //    modelBuilder.Entity<Employee>()
-        //        .Property(e => e.LeaveOutStandingBalance)
-        //        .HasPrecision(18, 2);
-
-        //    modelBuilder.Entity<LeaveAdjustmentEntry>()
-        //        .Property(l => l.NoOfDays)
-        //        .HasPrecision(18, 2);
-
-        //    modelBuilder.Entity<LeaveType>()
-        //        .Property(l => l.Days)
-        //        .HasPrecision(18, 2);
-        //}
 
     }
 
