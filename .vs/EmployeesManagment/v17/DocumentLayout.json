@@ -3,28 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\services\\licenseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:services\\licenseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\licensesgenerator\\obj\\debug\\net8.0\\.netcoreapp,version=v8.0.assemblyattributes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:licensesgenerator\\obj\\debug\\net8.0\\.netcoreapp,version=v8.0.assemblyattributes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\licensesgenerator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:licensesgenerator\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\models\\license.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:models\\license.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\controllers\\licensescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:controllers\\licensescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\services\\licensefilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:services\\licensefilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\licensesgenerator\\obj\\debug\\net8.0\\licensesgenerator.assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:licensesgenerator\\obj\\debug\\net8.0\\licensesgenerator.assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,8 +18,44 @@
       "DocumentGroups": [
         {
           "DockedHeight": 18,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": ".NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\LicensesGenerator\\obj\\Debug\\net8.0\\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+              "RelativeDocumentMoniker": "LicensesGenerator\\obj\\Debug\\net8.0\\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\LicensesGenerator\\obj\\Debug\\net8.0\\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+              "RelativeToolTip": "LicensesGenerator\\obj\\Debug\\net8.0\\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T15:47:52.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LicensesGenerator.AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\LicensesGenerator\\obj\\Debug\\net8.0\\LicensesGenerator.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "LicensesGenerator\\obj\\Debug\\net8.0\\LicensesGenerator.AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\LicensesGenerator\\obj\\Debug\\net8.0\\LicensesGenerator.AssemblyInfo.cs",
+              "RelativeToolTip": "LicensesGenerator\\obj\\Debug\\net8.0\\LicensesGenerator.AssemblyInfo.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAtwBMAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T15:47:37.475Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 18,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
@@ -43,84 +63,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAwwGoAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T13:50:33.706Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "License.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\License.cs",
-              "RelativeDocumentMoniker": "Models\\License.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\License.cs",
-              "RelativeToolTip": "Models\\License.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T13:33:07.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LicenseFilter.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Services\\LicenseFilter.cs",
-              "RelativeDocumentMoniker": "Services\\LicenseFilter.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Services\\LicenseFilter.cs",
-              "RelativeToolTip": "Services\\LicenseFilter.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBMAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T13:25:54.233Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LicenseService.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Services\\LicenseService.cs",
-              "RelativeDocumentMoniker": "Services\\LicenseService.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Services\\LicenseService.cs",
-              "RelativeToolTip": "Services\\LicenseService.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAnwEkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T13:25:24.849Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LicensesController.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\LicensesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LicensesController.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\LicensesController.cs",
-              "RelativeToolTip": "Controllers\\LicensesController.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAhwFMAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T13:26:02.232Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\LicensesGenerator\\Program.cs",
-              "RelativeDocumentMoniker": "LicensesGenerator\\Program.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\LicensesGenerator\\Program.cs",
-              "RelativeToolTip": "LicensesGenerator\\Program.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAwwCgAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-28T13:35:00.833Z",
-              "EditorCaption": ""
             }
           ]
         }

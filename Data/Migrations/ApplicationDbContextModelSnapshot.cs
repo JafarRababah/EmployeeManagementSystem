@@ -1065,6 +1065,58 @@ namespace EmployeesManagment.Data.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("EmployeesManagment.Models.Payroll", b =>
+                {
+                    b.Property<long>("PayrollId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("PayrollId"));
+
+                    b.Property<decimal>("Allowances")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("BasicSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Deductions")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("NetSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Overtime")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PeriodEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PeriodStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("PayrollId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Payrolls");
+                });
+
             modelBuilder.Entity("EmployeesManagment.Models.RoleProfile", b =>
                 {
                     b.Property<int>("Id")
@@ -1666,6 +1718,17 @@ namespace EmployeesManagment.Data.Migrations
                     b.Navigation("LeaveType");
 
                     b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("EmployeesManagment.Models.Payroll", b =>
+                {
+                    b.HasOne("EmployeesManagment.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EmployeesManagment.Models.RoleProfile", b =>

@@ -62,15 +62,15 @@ namespace EmployeesManagment.Services
             // إنشاء الترخيص
             var license = new License
             {
-                LicenseKey = "ABC123",
-                LicenseHash = "j3fr.rababah@gmail.com",    // لاحظ U كابيتال
+                LicenseKey = GenerateLicenseHash(licenseKey),
+                LicenseHash = userId,    // لاحظ U كابيتال
                 ExpiryDate = DateTime.UtcNow,
                 IsActive = true,          // أو IsActive = true إذا عندك عمود Boolean
                 CreatedAt = DateTime.UtcNow
             };
 
              _context.Licenses.Add(license);
-            await _context.SaveChangesAsync("ca341927 - ae4c - 4279 - 9a94 - eba913954ad1");
+            await _context.SaveChangesAsync(userId);
 
             Console.WriteLine("License saved in DB: " + license.Id);
         }

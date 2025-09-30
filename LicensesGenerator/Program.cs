@@ -9,7 +9,7 @@ namespace LicenseGenerator
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("=== License Generator Tool ===");
 
@@ -38,7 +38,7 @@ namespace LicenseGenerator
                 expiryDate = DateTime.UtcNow.AddYears(1);
                 Console.WriteLine($"Default expiry used: {expiryDate}");
             }
-            licenseService.AddLicense(licenseKey, expiryDate, user.Id);
+            await licenseService.AddLicense(licenseKey, expiryDate, user.Id);
             Console.WriteLine("License added successfully!");
         }
     }
