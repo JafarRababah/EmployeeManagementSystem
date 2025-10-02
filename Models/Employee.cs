@@ -71,9 +71,9 @@ namespace EmployeesManagment.Models
         public int? DisabilityId { get; set; }
         public SystemCodeDetail Disability { get; set; }
         public string? DisabilityCertificate { get; set; }
+        public ICollection<Payroll> Payrolls { get; set; } = new List<Payroll>();
 
-        
 
-        
+
     }
 }

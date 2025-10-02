@@ -17,7 +17,7 @@ namespace EmployeesManagment.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.15")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -1088,6 +1088,12 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<decimal>("Deductions")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EmployeeId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("ModifiedById")
                         .HasColumnType("nvarchar(max)");
 
@@ -1106,13 +1112,11 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<DateTime>("PeriodStart")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("PayrollId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("Payrolls");
                 });
@@ -1722,13 +1726,17 @@ namespace EmployeesManagment.Data.Migrations
 
             modelBuilder.Entity("EmployeesManagment.Models.Payroll", b =>
                 {
-                    b.HasOne("EmployeesManagment.Models.ApplicationUser", "User")
+                    b.HasOne("EmployeesManagment.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("EmployeesManagment.Models.Employee", null)
+                        .WithMany("Payrolls")
+                        .HasForeignKey("EmployeeId1");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("EmployeesManagment.Models.RoleProfile", b =>
@@ -1861,6 +1869,11 @@ namespace EmployeesManagment.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EmployeesManagment.Models.Employee", b =>
+                {
+                    b.Navigation("Payrolls");
                 });
 
             modelBuilder.Entity("EmployeesManagment.Models.SystemProfile", b =>

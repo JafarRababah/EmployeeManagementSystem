@@ -1,0 +1,111 @@
+@model IEnumerable<EmployeesManagment.Models.Payroll>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="mb-3 float-end">
+            <a asp-action="Create" class="btn btn-primary"><i class="bi bi-file-plus-fill"></i>Add New Payroll</a>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PeriodStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PeriodEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BasicSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Allowances)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Overtime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deductions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetSalary)
+            </th>
+
+                    <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PeriodStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PeriodEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BasicSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Allowances)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Overtime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deductions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetSalary)
+            </td>
+           
+                        <td>
+                            <a asp-controller="Employees" asp-action="Details" asp-route-Id="@item.EmployeeId" class="btn btn-primary">
+                                Emp Info
+                            </a>
+                            <div class="input-group input-group-lg">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item">
+                                            <a asp-action="Details" asp-route-id="@item.PayrollId" class="btn btn-warning"><i class="fa fa-eye"></i>View</a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item">
+                                            <a asp-action="Edit" asp-route-id="@item.PayrollId" class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item">
+                                            <a asp-action="ApprovedLeave" asp-route-id="@item.PayrollId" class="btn btn-primary"><i class="fa fa-check"></i>Approve</a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item">
+                                            <a asp-action="RejectLeave" asp-route-id="@item.PayrollId" class="btn btn-danger"><i class="fa fa-check"></i>Reject</a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item">
+                                            <a asp-action="Delete" asp-route-id="@item.PayrollId" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                </div>
+                        </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div></div>

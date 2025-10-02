@@ -69,7 +69,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.StatusId)
                     </th>
-
+                    <th>
+                        Payroll
+                    </th>
                     <th>
                         Edit
                     </th>
@@ -106,7 +108,9 @@
                             @Html.DisplayFor(modelItem => item.Status.Description)
                             </span>
                         </td>
-
+                        <td>
+                            <a asp-controller="Payroll" asp-action="Create" asp-route-employeeId="@item.Id" class="btn btn-primary"><i class="fa fa-pencil"></i> Payroll</a>
+                        </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
                         </td>

@@ -7,14 +7,14 @@ namespace EmployeesManagment.Models
     public class Payroll:UserActivity
     {
         [Key]
-        public long PayrollId { get; set; }
+        public int PayrollId { get; set; }
 
         // ربط بالموظف (AspNetUsers)
         [Required]
-        public string UserId { get; set; }
+        public int EmployeeId { get; set; }  
 
-        [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
+        [ForeignKey("EmployeeId")]
+        public Employee Employee { get; set; }  
 
         // فترة الراتب
         [Required]
@@ -38,6 +38,12 @@ namespace EmployeesManagment.Models
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal NetSalary { get; set; }
+        public Payroll()
+        {
+            var today = DateTime.Today;
+            PeriodStart = new DateTime(today.Year, today.Month, 1); // أول يوم بالشهر
+            PeriodEnd = PeriodStart.AddMonths(1).AddDays(-1);      // آخر يوم بالشهر
+        }
 
     }
 }

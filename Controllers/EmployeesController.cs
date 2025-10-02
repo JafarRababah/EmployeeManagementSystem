@@ -63,6 +63,9 @@ namespace EmployeesManagment.Controllers
 
             var employee = await _context.Employees
                 .Include(x=>x.Status)
+                .Include(e => e.Department)
+        .Include(e => e.Designation)
+                .Include(e => e.Payrolls)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
