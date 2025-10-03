@@ -35,6 +35,21 @@ namespace EmployeesManagment.Models
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Deductions { get; set; } = 0;
+        // ✅ جديد: ضرائب
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Tax { get; set; } = 0;
+
+        // ✅ جديد: تأمينات اجتماعية
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal SocialSecurity { get; set; } = 0;
+
+        // ✅ جديد: مكافآت
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Bonus { get; set; } = 0;
+
+        // ✅ جديد: عقوبات / خصومات إضافية
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Penalty { get; set; } = 0;
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal NetSalary { get; set; }

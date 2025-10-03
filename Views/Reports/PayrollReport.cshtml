@@ -1,0 +1,57 @@
+﻿@model IEnumerable<EmployeesManagment.Models.Payroll>
+
+@{
+    ViewData["Title"] = "Payroll Reports";
+}
+
+<div class="container mt-4">
+    <h2>Payroll Reports</h2>
+
+    <!-- فلترة بالتاريخ -->
+    <form method="get" class="row g-3 mb-3">
+        <div class="col-auto">
+            <input type="date" name="startDate" class="form-control" value="@ViewBag.StartDate" placeholder="From">
+        </div>
+        <div class="col-auto">
+            <input type="date" name="endDate" class="form-control" value="@ViewBag.EndDate" placeholder="To">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </form>
+
+    <!-- أزرار التصدير -->
+    <div class="mb-3">
+        <a asp-action="ExportToExcel" asp-route-startDate="@ViewBag.StartDate" asp-route-endDate="@ViewBag.EndDate" class="btn btn-success">📊 Export to Excel</a>
+        <a asp-action="ExportToPDF" asp-route-startDate="@ViewBag.StartDate" asp-route-endDate="@ViewBag.EndDate" class="btn btn-danger">📄 Export to PDF</a>
+    </div>
+
+    <!-- جدول عرض البيانات -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Basic Salary</th>
+                <th>Allowances</th>
+                <th>Overtime</th>
+                <th>Deductions</th>
+                <th>Net Salary</th>
+                <th>Period</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Employee.FullName</td>
+                    <td>@p.BasicSalary.ToString("F2")</td>
+                    <td>@p.Allowances.ToString("F2")</td>
+                    <td>@p.Overtime.ToString("F2")</td>
+                    <td>@p.Deductions.ToString("F2")</td>
+                    <td>@p.NetSalary.ToString("F2")</td>
+                    <td>@p.PeriodStart.ToString("yyyy-MM-dd") - @p.PeriodEnd.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1067,16 +1067,19 @@ namespace EmployeesManagment.Data.Migrations
 
             modelBuilder.Entity("EmployeesManagment.Models.Payroll", b =>
                 {
-                    b.Property<long>("PayrollId")
+                    b.Property<int>("PayrollId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("PayrollId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PayrollId"));
 
                     b.Property<decimal>("Allowances")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("BasicSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Bonus")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("CreatedById")
@@ -1091,9 +1094,6 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EmployeeId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("ModifiedById")
                         .HasColumnType("nvarchar(max)");
 
@@ -1106,17 +1106,24 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<decimal>("Overtime")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("Penalty")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("PeriodEnd")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("PeriodStart")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("SocialSecurity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("PayrollId");
 
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("Payrolls");
                 });
@@ -1727,14 +1734,10 @@ namespace EmployeesManagment.Data.Migrations
             modelBuilder.Entity("EmployeesManagment.Models.Payroll", b =>
                 {
                     b.HasOne("EmployeesManagment.Models.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("Payrolls")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("EmployeesManagment.Models.Employee", null)
-                        .WithMany("Payrolls")
-                        .HasForeignKey("EmployeeId1");
 
                     b.Navigation("Employee");
                 });
