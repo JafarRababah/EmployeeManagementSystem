@@ -59,14 +59,8 @@
         <div>
             @* @if (User.IsInRole("HRManager"))
             { *@
-                <a asp-action="PayrollReport"  class="btn btn-danger">
+                <a asp-action="PayrollReport" asp-controller="Payroll"  class="btn btn-danger">
                    Payroll Reports
-                </a>
-                <a asp-action="PayrollReportPdf" asp-route-employeeId="@Model.Id" class="btn btn-danger">
-                    تحميل PDF
-                </a>
-                <a asp-action="PayrollReportExcel" asp-route-employeeId="@Model.Id" class="btn btn-success">
-                    تحميل Excel
                 </a>
             @* } *@
             <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>

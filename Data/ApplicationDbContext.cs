@@ -38,6 +38,8 @@ namespace EmployeesManagment.Data
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<License> Licenses { get; set; }
         public DbSet<Payroll> Payrolls { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+
         public virtual async Task<int> SaveChangesAsync(string userId = null)
         {
             OnBeforeSavingChanges(userId);
