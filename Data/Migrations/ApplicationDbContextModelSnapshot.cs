@@ -226,11 +226,11 @@ namespace EmployeesManagment.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<TimeSpan?>("CheckIn")
-                        .HasColumnType("time");
+                    b.Property<DateTime?>("CheckIn")
+                        .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan?>("CheckOut")
-                        .HasColumnType("time");
+                    b.Property<DateTime?>("CheckOut")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedById")
                         .HasColumnType("nvarchar(max)");
@@ -256,13 +256,17 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<decimal>("OvertimeHours")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalHours")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Attendances");
                 });
@@ -1586,7 +1590,15 @@ namespace EmployeesManagment.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EmployeesManagment.Models.SystemCodeDetail", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Employee");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("EmployeesManagment.Models.Audit", b =>

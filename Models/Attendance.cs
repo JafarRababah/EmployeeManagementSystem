@@ -9,23 +9,34 @@ namespace EmployeesManagment.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Employee")]
         public int EmployeeId { get; set; }
         [ForeignKey("EmployeeId")]
+        
         public Employee Employee { get; set; }
 
         [Required]
+        [Display(Name = "Date")]
         public DateTime Date { get; set; }
-
-        public TimeSpan? CheckIn { get; set; }
-        public TimeSpan? CheckOut { get; set; }
+        [Display(Name = "Check In")]
+        [DataType(DataType.Time)]
+        public DateTime? CheckIn { get; set; }
+        [Display(Name = "Check Out")]
+        [DataType(DataType.Time)]
+        public DateTime? CheckOut { get; set; }
+        public double TotalHours { get; set; }
 
         // حساب الساعات الإضافية
+        [Display(Name = "Over Time")]
         public decimal OvertimeHours { get; set; } = 0;
 
         // التأخير بالدقائق
+        [Display(Name = "Last Minutes")]
         public int LateMinutes { get; set; } = 0;
 
         // حالة الحضور (حاضر، غائب، إجازة)
-        public string Status { get; set; } = "Present";
+        [Display(Name = "Status")]
+        public int StatusId { get; set; }
+        public SystemCodeDetail Status { get; set; }
     }
 }

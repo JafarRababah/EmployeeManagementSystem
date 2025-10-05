@@ -82,7 +82,7 @@ namespace EmployeesManagment.Controllers
             ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name");
             ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "EmploymentTerms"), "Id", "Description");
             ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "DisabilityTypes"), "Id", "Description");
-            ViewData["GenderId"] =          new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x=>x.SystemCodeValue.Code=="Gender"), "Id", "Description");
+            ViewData["GenderId"] =  new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x=>x.SystemCodeValue.Code=="Gender"), "Id", "Description");
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name");
             ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Name");
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name");

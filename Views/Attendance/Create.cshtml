@@ -1,4 +1,6 @@
-@model EmployeesManagment.Models.Employee
+﻿@model EmployeesManagment.Models.Attendance
+
+
 
 @{
     ViewData["Title"] = "Create";
@@ -6,192 +8,50 @@
 
 <h1>Create</h1>
 
-<h4>Employee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="EmpNo" class="control-label"></label>
-                <input asp-for="EmpNo" class="form-control" />
-                <span asp-validation-for="EmpNo" class="text-danger"></span>
+            <div class="form-group col-md-6">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+            <div class="form-group col-md-6">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" type="date" id="Date" />
+                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MiddleName" class="control-label"></label>
-                <input asp-for="MiddleName" class="form-control" />
-                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            <div class="form-group col-md-6">
+                <label asp-for="CheckIn" class="control-label"></label>
+                <input asp-for="CheckIn" class="form-control" type="time" id="checkIn" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+
+            <div class="form-group col-md-6">
+                <label asp-for="CheckOut" class="control-label"></label>
+                <input asp-for="CheckOut" class="form-control" type="time" id="checkOut" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+            <div class="form-group col-md-6">
+                <label asp-for="TotalHours" class="control-label"></label>
+                <input asp-for="TotalHours" class="form-control" id="totalHours" readonly />
+                <span asp-validation-for="TotalHours" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EmailAddress" class="control-label"></label>
-                <input asp-for="EmailAddress" class="form-control" />
-                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            <div class="form-group col-md-6">
+                <label asp-for="OvertimeHours" class="control-label"></label>
+                <input asp-for="OvertimeHours" class="form-control" id="overtimehours" readonly />
+                <span asp-validation-for="OvertimeHours" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CountryId" class="control-label"></label>
-                <select asp-for="CountryId" class ="form-control" asp-items="ViewBag.CountryId"></select>
+            <div class="form-group col-md-6">
+                <label asp-for="LateMinutes" class="control-label"></label>
+                <input asp-for="LateMinutes" class="form-control" id="lastminutes" readonly />
+                <span asp-validation-for="LateMinutes" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DepartmentId" class="control-label"></label>
-                <select asp-for="DepartmentId" class ="form-control" asp-items="ViewBag.DepartmentId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="DesignationId" class="control-label"></label>
-                <select asp-for="DesignationId" class ="form-control" asp-items="ViewBag.DesignationId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="GenderId" class="control-label"></label>
-                <select asp-for="GenderId" class ="form-control" asp-items="ViewBag.GenderId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Photo" class="control-label"></label>
-                <input asp-for="Photo" class="form-control" />
-                <span asp-validation-for="Photo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmploymentDate" class="control-label"></label>
-                <input asp-for="EmploymentDate" class="form-control" />
-                <span asp-validation-for="EmploymentDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StatusId" class="control-label"></label>
-                <select asp-for="StatusId" class ="form-control" asp-items="ViewBag.StatusId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="InactiveDate" class="control-label"></label>
-                <input asp-for="InactiveDate" class="form-control" />
-                <span asp-validation-for="InactiveDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CauseOfInactivityId" class="control-label"></label>
-                <select asp-for="CauseOfInactivityId" class ="form-control" asp-items="ViewBag.CauseOfInactivityId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="TerminationDate" class="control-label"></label>
-                <input asp-for="TerminationDate" class="form-control" />
-                <span asp-validation-for="TerminationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReasonForTerminationId" class="control-label"></label>
-                <select asp-for="ReasonForTerminationId" class ="form-control" asp-items="ViewBag.ReasonForTerminationId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankId" class="control-label"></label>
-                <select asp-for="BankId" class ="form-control" asp-items="ViewBag.BankId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankAccountNo" class="control-label"></label>
-                <input asp-for="BankAccountNo" class="form-control" />
-                <span asp-validation-for="BankAccountNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IBAN" class="control-label"></label>
-                <input asp-for="IBAN" class="form-control" />
-                <span asp-validation-for="IBAN" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SWIFTCode" class="control-label"></label>
-                <input asp-for="SWIFTCode" class="form-control" />
-                <span asp-validation-for="SWIFTCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NSSFNO" class="control-label"></label>
-                <input asp-for="NSSFNO" class="form-control" />
-                <span asp-validation-for="NSSFNO" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NHIF" class="control-label"></label>
-                <input asp-for="NHIF" class="form-control" />
-                <span asp-validation-for="NHIF" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompanyEmail" class="control-label"></label>
-                <input asp-for="CompanyEmail" class="form-control" />
-                <span asp-validation-for="CompanyEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KRAPIN" class="control-label"></label>
-                <input asp-for="KRAPIN" class="form-control" />
-                <span asp-validation-for="KRAPIN" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PassportNo" class="control-label"></label>
-                <input asp-for="PassportNo" class="form-control" />
-                <span asp-validation-for="PassportNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmploymentTermsId" class="control-label"></label>
-                <select asp-for="EmploymentTermsId" class ="form-control" asp-items="ViewBag.EmploymentTermsId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="AllocatedLeaveDays" class="control-label"></label>
-                <input asp-for="AllocatedLeaveDays" class="form-control" />
-                <span asp-validation-for="AllocatedLeaveDays" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LeaveOutStandingBalance" class="control-label"></label>
-                <input asp-for="LeaveOutStandingBalance" class="form-control" />
-                <span asp-validation-for="LeaveOutStandingBalance" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaysTax" class="control-label"></label>
-                <input asp-for="PaysTax" class="form-control" />
-                <span asp-validation-for="PaysTax" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DisabilityId" class="control-label"></label>
-                <select asp-for="DisabilityId" class ="form-control" asp-items="ViewBag.DisabilityId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="DisabilityCertificate" class="control-label"></label>
-                <input asp-for="DisabilityCertificate" class="form-control" />
-                <span asp-validation-for="DisabilityCertificate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedById" class="control-label"></label>
-                <input asp-for="CreatedById" class="form-control" />
-                <span asp-validation-for="CreatedById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedOn" class="control-label"></label>
-                <input asp-for="CreatedOn" class="form-control" />
-                <span asp-validation-for="CreatedOn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedById" class="control-label"></label>
-                <input asp-for="ModifiedById" class="form-control" />
-                <span asp-validation-for="ModifiedById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedOn" class="control-label"></label>
-                <input asp-for="ModifiedOn" class="form-control" />
-                <span asp-validation-for="ModifiedOn" class="text-danger"></span>
-            </div>
+           
+          
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -205,4 +65,44 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        const checkIn = document.getElementById("checkIn");
+        const checkOut = document.getElementById("checkOut");
+        const totalHours = document.getElementById("totalHours");
+        const overtimehours = document.getElementById("overtimehours");
+        const lastminutes = document.getElementById("lastminutes");
+
+        function calculateHours() {
+            const inTime = checkIn.value;
+            const outTime = checkOut.value;
+
+            if (inTime && outTime) {
+                const [inH, inM] = inTime.split(':').map(Number);
+                const [outH, outM] = outTime.split(':').map(Number);
+
+                const checkInDate = new Date(0, 0, 0, inH, inM);
+                const checkOutDate = new Date(0, 0, 0, outH, outM);
+
+                let diff = (checkOutDate - checkInDate) / 1000 / 60 / 60;
+                if (diff < 0) diff += 24; // لو الدوام تجاوز منتصف الليل
+
+                // ✅ حساب عدد الساعات الكلي
+                totalHours.value = diff.toFixed(2);
+
+                // ✅ حساب الساعات الإضافية (فوق 8 ساعات)
+                const overtime = Math.max(0, diff - 8);
+                overtimehours.value = overtime.toFixed(2);
+
+                // ✅ حساب التأخير بالدقائق (لو بدأ بعد 9:00 صباحاً)
+                const startWorkHour = 9.5;
+                const startWorkMinute = 0;
+                const lateMinutes = Math.max(0, ((inH * 60 + inM) - (startWorkHour * 60 + startWorkMinute)));
+                lastminutes.value = lateMinutes;
+            }
+        }
+
+        checkIn.addEventListener("change", calculateHours);
+        checkOut.addEventListener("change", calculateHours);
+    </script>
+
 }

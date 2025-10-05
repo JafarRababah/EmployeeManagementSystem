@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 
 namespace EmployeesManagment.Controllers
 {
@@ -22,177 +22,109 @@ namespace EmployeesManagment.Controllers
         // GET: Attendance
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Employees.Include(e => e.Bank).Include(e => e.CauseOfInactivity).Include(e => e.Country).Include(e => e.Department).Include(e => e.Designation).Include(e => e.Disability).Include(e => e.EmploymentTerms).Include(e => e.Gender).Include(e => e.ReasonForTermination).Include(e => e.Status);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Attendance/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var employee = await _context.Employees
-                .Include(e => e.Bank)
-                .Include(e => e.CauseOfInactivity)
-                .Include(e => e.Country)
-                .Include(e => e.Department)
-                .Include(e => e.Designation)
-                .Include(e => e.Disability)
-                .Include(e => e.EmploymentTerms)
-                .Include(e => e.Gender)
-                .Include(e => e.ReasonForTermination)
-                .Include(e => e.Status)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
-            return View(employee);
+            var data = _context.Attendances.Include(a => a.Employee);
+            return View(await data.ToListAsync());
         }
 
         // GET: Attendance/Create
         public IActionResult Create()
         {
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id");
-            ViewData["CauseOfInactivityId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id");
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id");
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id");
-            ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Id");
-            ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id");
-            ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id");
-            ViewData["GenderId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id");
-            ViewData["ReasonForTerminationId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id");
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
             return View();
         }
 
         // POST: Attendance/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmpNo,FirstName,MiddleName,LastName,PhoneNumber,EmailAddress,CountryId,DateOfBirth,Address,DepartmentId,DesignationId,GenderId,Photo,EmploymentDate,StatusId,InactiveDate,CauseOfInactivityId,TerminationDate,ReasonForTerminationId,BankId,BankAccountNo,IBAN,SWIFTCode,NSSFNO,NHIF,CompanyEmail,KRAPIN,PassportNo,EmploymentTermsId,AllocatedLeaveDays,LeaveOutStandingBalance,PaysTax,DisabilityId,DisabilityCertificate,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Employee employee)
+        public async Task<IActionResult> Create(Attendance attendance)
         {
-            if (ModelState.IsValid)
+            var userId = User.GetUserId();
+            try
             {
-                _context.Add(employee);
-                await _context.SaveChangesAsync();
+                attendance.Date = DateTime.Now;
+                attendance.CreatedById =userId;
+                attendance.ModifiedById =userId;
+                attendance.CreatedOn = DateTime.Now;
+                attendance.ModifiedOn = DateTime.Now;
+                // ÍÓÇÈ ÇáÍÇáÉ ÈÔßá ÊáÞÇÆí
+                if (attendance.CheckIn.HasValue)
+                {
+                    if (attendance.CheckIn.Value.TimeOfDay > new TimeSpan(9, 0, 0))
+                        attendance.StatusId = 5016;
+                    else
+                        attendance.StatusId = 5015;
+                }
+                else
+                {
+                    attendance.StatusId =5017;
+                }
+
+                _context.Add(attendance);
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Attendance created successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", employee.BankId);
-            ViewData["CauseOfInactivityId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.CauseOfInactivityId);
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", employee.CountryId);
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id", employee.DepartmentId);
-            ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Id", employee.DesignationId);
-            ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.DisabilityId);
-            ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.EmploymentTermsId);
-            ViewData["GenderId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.GenderId);
-            ViewData["ReasonForTerminationId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.ReasonForTerminationId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.StatusId);
-            return View(employee);
+            catch(Exception ex)
+            {
+                TempData["Error"] = "Attendance Not created by successfully ";
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", attendance.EmployeeId);
+                return View(attendance);
+            }
+          
         }
 
         // GET: Attendance/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", employee.BankId);
-            ViewData["CauseOfInactivityId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.CauseOfInactivityId);
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", employee.CountryId);
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id", employee.DepartmentId);
-            ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Id", employee.DesignationId);
-            ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.DisabilityId);
-            ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.EmploymentTermsId);
-            ViewData["GenderId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.GenderId);
-            ViewData["ReasonForTerminationId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.ReasonForTerminationId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.StatusId);
-            return View(employee);
+            var attendance = await _context.Attendances.FindAsync(id);
+            if (attendance == null) return NotFound();
+
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", attendance.EmployeeId);
+            return View(attendance);
         }
 
         // POST: Attendance/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmpNo,FirstName,MiddleName,LastName,PhoneNumber,EmailAddress,CountryId,DateOfBirth,Address,DepartmentId,DesignationId,GenderId,Photo,EmploymentDate,StatusId,InactiveDate,CauseOfInactivityId,TerminationDate,ReasonForTerminationId,BankId,BankAccountNo,IBAN,SWIFTCode,NSSFNO,NHIF,CompanyEmail,KRAPIN,PassportNo,EmploymentTermsId,AllocatedLeaveDays,LeaveOutStandingBalance,PaysTax,DisabilityId,DisabilityCertificate,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Employee employee)
+        public async Task<IActionResult> Edit(int id, Attendance attendance)
         {
-            if (id != employee.Id)
-            {
-                return NotFound();
-            }
+            if (id != attendance.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(attendance);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Id))
-                    {
+                    if (!_context.Attendances.Any(e => e.Id == attendance.Id))
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", employee.BankId);
-            ViewData["CauseOfInactivityId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.CauseOfInactivityId);
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Id", employee.CountryId);
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Id", employee.DepartmentId);
-            ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Id", employee.DesignationId);
-            ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.DisabilityId);
-            ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.EmploymentTermsId);
-            ViewData["GenderId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.GenderId);
-            ViewData["ReasonForTerminationId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.ReasonForTerminationId);
-            ViewData["StatusId"] = new SelectList(_context.SystemCodeDetails, "Id", "Id", employee.StatusId);
-            return View(employee);
+
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", attendance.EmployeeId);
+            return View(attendance);
         }
 
         // GET: Attendance/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var employee = await _context.Employees
-                .Include(e => e.Bank)
-                .Include(e => e.CauseOfInactivity)
-                .Include(e => e.Country)
-                .Include(e => e.Department)
-                .Include(e => e.Designation)
-                .Include(e => e.Disability)
-                .Include(e => e.EmploymentTerms)
-                .Include(e => e.Gender)
-                .Include(e => e.ReasonForTermination)
-                .Include(e => e.Status)
+            var attendance = await _context.Attendances
+                .Include(a => a.Employee)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
 
-            return View(employee);
+            if (attendance == null) return NotFound();
+
+            return View(attendance);
         }
 
         // POST: Attendance/Delete/5
@@ -200,19 +132,12 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee != null)
-            {
-                _context.Employees.Remove(employee);
-            }
+            var attendance = await _context.Attendances.FindAsync(id);
+            if (attendance != null)
+                _context.Attendances.Remove(attendance);
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool EmployeeExists(int id)
-        {
-            return _context.Employees.Any(e => e.Id == id);
         }
     }
 }

@@ -1,257 +1,65 @@
-@model IEnumerable<EmployeesManagment.Models.Employee>
+@model IEnumerable<EmployeesManagment.Models.Attendance>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "”Ã·«  «·Õ÷Ê— Ê«·«‰’—«›";
 }
 
-<h1>Index</h1>
+<h2 class="mb-4 text-center">Attendance List</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<div class="d-flex justify-content-between mb-3">
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="fa fa-plus"></i> Add New Attendance
+    </a>
+
+    <form asp-action="Index" method="get" class="form-inline">
+        <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="Emp Search..." />
+        <button type="submit" class="btn btn-secondary ml-2">
+            <i class="fa fa-search"></i> »ÕÀ
+        </button>
+    </form>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark text-center">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MiddleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Designation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Photo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmploymentDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InactiveDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CauseOfInactivity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TerminationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReasonForTermination)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bank)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BankAccountNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IBAN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SWIFTCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NSSFNO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NHIF)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyEmail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KRAPIN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PassportNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmploymentTerms)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AllocatedLeaveDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LeaveOutStandingBalance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaysTax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Disability)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DisabilityCertificate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedById)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedById)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedOn)
-            </th>
-            <th></th>
+            <th>Employee</th>
+            <th>The Date</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Total Hours</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmpNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MiddleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Designation.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Photo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmploymentDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InactiveDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CauseOfInactivity.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TerminationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReasonForTermination.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bank.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BankAccountNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IBAN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SWIFTCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NSSFNO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NHIF)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KRAPIN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PassportNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmploymentTerms.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AllocatedLeaveDays)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveOutStandingBalance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaysTax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Disability.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DisabilityCertificate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedById)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedById)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedOn)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Employee?.FullName</td>
+                    <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@item.CheckIn?.ToString("HH:mm")</td>
+                    <td>@item.CheckOut?.ToString("HH:mm")</td>
+                    <td>@item.TotalHours</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                            <i class="fa fa-eye"></i> View
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center text-muted">No Attendance Now</td>
+            </tr>
+        }
     </tbody>
 </table>
