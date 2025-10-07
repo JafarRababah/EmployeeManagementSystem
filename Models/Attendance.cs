@@ -31,7 +31,7 @@ namespace EmployeesManagment.Models
         public decimal OvertimeHours { get; set; } = 0;
 
         // التأخير بالدقائق
-        [Display(Name = "Last Minutes")]
+        [Display(Name = "Late Minutes")]
         public int LateMinutes { get; set; } = 0;
 
         // حالة الحضور (حاضر، غائب، إجازة)

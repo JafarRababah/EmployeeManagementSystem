@@ -3,74 +3,87 @@
 
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add Attendance";
 }
 
-<h1>Create</h1>
-
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group col-md-6">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
-                <span asp-validation-for="EmployeeId" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" type="date" id="Date" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="CheckIn" class="control-label"></label>
-                <input asp-for="CheckIn" class="form-control" type="time" id="checkIn" />
-                <span asp-validation-for="CheckIn" class="text-danger"></span>
-            </div>
+    <div class="col-md-12 mx-auto">
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="card-body">
+                <div class="border p-4 rouded">
+                    <div class="card-title d-flex align-items-counter">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-info"></i>
+                        </div>
+                        <h5 class="mb-0 text-info"> Add New Attendance</h5>
+                    </div><br />
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div class="row g-3">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="EmployeeId" class="control-label"></label>
+                                    <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Date" class="control-label"></label>
+                                    <input asp-for="Date" class="form-control" type="date" id="Date" />
+                                    <span asp-validation-for="Date" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CheckIn" class="control-label"></label>
+                                    <input asp-for="CheckIn" class="form-control" type="time" id="checkIn" />
+                                    <span asp-validation-for="CheckIn" class="text-danger"></span>
+                                </div>
 
-            <div class="form-group col-md-6">
-                <label asp-for="CheckOut" class="control-label"></label>
-                <input asp-for="CheckOut" class="form-control" type="time" id="checkOut" />
-                <span asp-validation-for="CheckOut" class="text-danger"></span>
-            </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CheckOut" class="control-label"></label>
+                                    <input asp-for="CheckOut" class="form-control" type="time" id="checkOut" />
+                                    <span asp-validation-for="CheckOut" class="text-danger"></span>
+                                </div>
 
-            <div class="form-group col-md-6">
-                <label asp-for="TotalHours" class="control-label"></label>
-                <input asp-for="TotalHours" class="form-control" id="totalHours" readonly />
-                <span asp-validation-for="TotalHours" class="text-danger"></span>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="TotalHours" class="control-label"></label>
+                                    <input asp-for="TotalHours" class="form-control" id="totalHours" readonly />
+                                    <span asp-validation-for="TotalHours" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="OvertimeHours" class="control-label"></label>
+                                    <input asp-for="OvertimeHours" class="form-control" id="overtimehours" readonly />
+                                    <span asp-validation-for="OvertimeHours" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="LateMinutes" class="control-label"></label>
+                                    <input asp-for="LateMinutes" class="form-control" id="lateminutes" readonly />
+                                    <span asp-validation-for="LateMinutes" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <a asp-action="Index" class="btn btn-warning float-start">Back to List</a>
+                                    <input type="submit" value="Register Attendance" class="btn btn-primary float-end" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-6">
-                <label asp-for="OvertimeHours" class="control-label"></label>
-                <input asp-for="OvertimeHours" class="form-control" id="overtimehours" readonly />
-                <span asp-validation-for="OvertimeHours" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="LateMinutes" class="control-label"></label>
-                <input asp-for="LateMinutes" class="form-control" id="lastminutes" readonly />
-                <span asp-validation-for="LateMinutes" class="text-danger"></span>
-            </div>
-           
-          
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script>
         const checkIn = document.getElementById("checkIn");
         const checkOut = document.getElementById("checkOut");
         const totalHours = document.getElementById("totalHours");
         const overtimehours = document.getElementById("overtimehours");
-        const lastminutes = document.getElementById("lastminutes");
+        const lateminutes = document.getElementById("lateminutes");
 
         function calculateHours() {
             const inTime = checkIn.value;
@@ -97,7 +110,7 @@
                 const startWorkHour = 9.5;
                 const startWorkMinute = 0;
                 const lateMinutes = Math.max(0, ((inH * 60 + inM) - (startWorkHour * 60 + startWorkMinute)));
-                lastminutes.value = lateMinutes;
+                lateminutes.value = lateMinutes;
             }
         }
 

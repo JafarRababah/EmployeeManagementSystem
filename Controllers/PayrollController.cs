@@ -72,9 +72,27 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> Create(Payroll payroll)
         {
             var userId = User.GetUserId();
-            payroll.NetSalary = (payroll.BasicSalary + payroll.Allowances + payroll.Overtime+payroll.Bonus) - 
-                (payroll.Deductions+payroll.Tax+payroll.Penalty+payroll.SocialSecurity);
-            
+           
+            var attendances = _context.Attendances
+                .Where(a => a.EmployeeId == payroll.EmployeeId &&
+                a.Date >= payroll.PeriodStart &&
+                a.Date <= payroll.PeriodEnd)
+                .ToList();
+            decimal overtimePay = 0;
+            decimal latePenalty = 0;
+            foreach (var att in attendances)
+            {
+                // ßá ÓÇÚÉ ÅÖÇÝíÉ = ÃÌÑ ÇáÓÇÚÉ ÇáÃÓÇÓíÉ × 1.5 ãËáÇð
+                var hourlyRate = payroll.BasicSalary / 30 / 8; // íæã = 8 ÓÇÚÇÊ
+                overtimePay += (decimal)att.OvertimeHours * hourlyRate * 1.5m;
+
+                // ßá ÏÞíÞÉ ÊÃÎíÑ ÊÎÕã äÓÈÉ ãä ÇáÃÌÑ Çáíæãí
+                latePenalty += (decimal)att.LateMinutes * (hourlyRate / 60);
+            }
+            payroll.Overtime = overtimePay;
+            payroll.Penalty = latePenalty;
+            payroll.NetSalary = (payroll.BasicSalary + payroll.Allowances + payroll.Overtime + payroll.Bonus) -
+               (payroll.Deductions + payroll.Tax + payroll.Penalty + payroll.SocialSecurity);
             try
             {
                 _context.Add(payroll);

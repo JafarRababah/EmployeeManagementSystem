@@ -90,27 +90,28 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Attendance attendance)
         {
+            var userId = User.GetUserId();
             if (id != attendance.Id) return NotFound();
+            if (!_context.Attendances.Any(e => e.Id == attendance.Id))
+                return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                try
+            try
                 {
                     _context.Update(attendance);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Attendances.Any(e => e.Id == attendance.Id))
-                        return NotFound();
-                    else
-                        throw;
-                }
+                    await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Attendance created successfully ";
                 return RedirectToAction(nameof(Index));
             }
+                catch (Exception ex)
+                {
+                TempData["Error"] = "Attendance Not updated by successfully ";
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", attendance.EmployeeId);
+                return View(attendance);
+            }
+                
+            
 
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", attendance.EmployeeId);
-            return View(attendance);
+            
         }
 
         // GET: Attendance/Delete/5
