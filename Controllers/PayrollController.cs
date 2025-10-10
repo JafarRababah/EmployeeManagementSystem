@@ -72,14 +72,37 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> Create(Payroll payroll)
         {
             var userId = User.GetUserId();
-           
             var attendances = _context.Attendances
                 .Where(a => a.EmployeeId == payroll.EmployeeId &&
                 a.Date >= payroll.PeriodStart &&
                 a.Date <= payroll.PeriodEnd)
                 .ToList();
+            bool isOverlap = await _context.Payrolls
+                   .AnyAsync(p => payroll.PeriodStart <= p.PeriodEnd && payroll.PeriodEnd >= p.PeriodStart);
+            if (isOverlap)
+            {
+                TempData["Error"] = "This Period already Exist. please choose other period";
+                return View(payroll);
+                //return BadRequest(new
+                //{
+                //    success = false,
+                //    message = "This Period already Exist. please choose other period"
+
+                //});
+            }
+            if (!attendances.Any())
+            {
+                TempData["Error"] = "No attendance records found for the selected period.";
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", payroll.EmployeeId);
+                return View(payroll);
+            }
             decimal overtimePay = 0;
             decimal latePenalty = 0;
+            int totalDays = (payroll.PeriodEnd - payroll.PeriodStart).Days + 1;
+            int presentDays = attendances.Count(a => a.StatusId == 1); // „À·« 1 = Õ«÷—
+            int absentDays = totalDays - presentDays;
+            decimal dailySalary = payroll.BasicSalary / totalDays;
+            decimal absenceDeduction = absentDays * dailySalary;
             foreach (var att in attendances)
             {
                 // ﬂ· ”«⁄… ≈÷«›Ì… = √Ã— «·”«⁄… «·√”«”Ì… ◊ 1.5 „À·«
@@ -92,12 +115,12 @@ namespace EmployeesManagment.Controllers
             payroll.Overtime = overtimePay;
             payroll.Penalty = latePenalty;
             payroll.NetSalary = (payroll.BasicSalary + payroll.Allowances + payroll.Overtime + payroll.Bonus) -
-               (payroll.Deductions + payroll.Tax + payroll.Penalty + payroll.SocialSecurity);
+               (payroll.Deductions + payroll.Tax + payroll.Penalty + payroll.SocialSecurity+absenceDeduction);
             try
             {
                 _context.Add(payroll);
                 await _context.SaveChangesAsync(userId);
-                TempData["Message"] = "Payroll created successfully ";
+                TempData["Message"] = $"Payroll created successfully for {payroll.PeriodStart:MMMM yyyy}";
                 return RedirectToAction("Details", "Employees", new { id = payroll.EmployeeId });
             }
             catch (Exception ex)
