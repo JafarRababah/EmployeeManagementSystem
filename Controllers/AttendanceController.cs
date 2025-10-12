@@ -41,7 +41,6 @@ namespace EmployeesManagment.Controllers
             var userId = User.GetUserId();
             try
             {
-                attendance.Date = DateTime.Now;
                 attendance.CreatedById =userId;
                 attendance.ModifiedById =userId;
                 attendance.CreatedOn = DateTime.Now;

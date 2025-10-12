@@ -1147,6 +1147,9 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsFullAttendance")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ModifiedById")
                         .HasColumnType("nvarchar(max)");
 

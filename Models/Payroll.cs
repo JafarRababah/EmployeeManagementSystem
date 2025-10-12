@@ -53,6 +53,7 @@ namespace EmployeesManagment.Models
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal NetSalary { get; set; }
+        public bool IsFullAttendance { get; set; }
         public Payroll()
         {
             var today = DateTime.Today;

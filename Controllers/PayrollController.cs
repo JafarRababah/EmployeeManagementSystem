@@ -72,24 +72,24 @@ namespace EmployeesManagment.Controllers
         public async Task<IActionResult> Create(Payroll payroll)
         {
             var userId = User.GetUserId();
-            var attendances = _context.Attendances
-                .Where(a => a.EmployeeId == payroll.EmployeeId &&
-                a.Date >= payroll.PeriodStart &&
-                a.Date <= payroll.PeriodEnd)
-                .ToList();
+            payroll.CreatedById = User.GetUserName();
+            payroll.CreatedOn = DateTime.Now;
+            payroll.ModifiedById = User.GetUserName();
+            payroll.ModifiedOn = DateTime.Now;
+            
             bool isOverlap = await _context.Payrolls
                    .AnyAsync(p => payroll.PeriodStart <= p.PeriodEnd && payroll.PeriodEnd >= p.PeriodStart);
             if (isOverlap)
             {
                 TempData["Error"] = "This Period already Exist. please choose other period";
                 return View(payroll);
-                //return BadRequest(new
-                //{
-                //    success = false,
-                //    message = "This Period already Exist. please choose other period"
-
-                //});
             }
+          
+            var attendances = _context.Attendances
+                     .Where(a => a.EmployeeId == payroll.EmployeeId &&
+                     a.Date >= payroll.PeriodStart &&
+                     a.Date <= payroll.PeriodEnd)
+                     .ToList();
             if (!attendances.Any())
             {
                 TempData["Error"] = "No attendance records found for the selected period.";
@@ -114,8 +114,18 @@ namespace EmployeesManagment.Controllers
             }
             payroll.Overtime = overtimePay;
             payroll.Penalty = latePenalty;
+            
+            if (payroll.IsFullAttendance)
+            {
+                
+                    // ÇáãæÙÝ áÏíå ÍÖæÑ ßÇãá
+                    payroll.Bonus += payroll.BasicSalary * 0.05m; // ãßÇÝÃÉ 5%
+                    TempData["Message"] = $"Payroll created with full attendance bonus for {payroll.PeriodStart:MMMM yyyy}.";
+                
+                
+            }
             payroll.NetSalary = (payroll.BasicSalary + payroll.Allowances + payroll.Overtime + payroll.Bonus) -
-               (payroll.Deductions + payroll.Tax + payroll.Penalty + payroll.SocialSecurity+absenceDeduction);
+               (payroll.Deductions + payroll.Tax + payroll.Penalty + payroll.SocialSecurity + absenceDeduction);
             try
             {
                 _context.Add(payroll);
