@@ -119,7 +119,7 @@ namespace EmployeesManagment.Controllers
             {
                 
                     // «·„ÊŸ› ·œÌÂ Õ÷Ê— ﬂ«„·
-                    payroll.Bonus += payroll.BasicSalary * 0.05m; // „ﬂ«›√… 5%
+                    payroll.Bonus += payroll.BasicSalary;
                     TempData["Message"] = $"Payroll created with full attendance bonus for {payroll.PeriodStart:MMMM yyyy}.";
                 
                 

@@ -39,6 +39,7 @@ namespace EmployeesManagment.Data
         public DbSet<License> Licenses { get; set; }
         public DbSet<Payroll> Payrolls { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Salary> Salaries { get; set; }
 
         public virtual async Task<int> SaveChangesAsync(string userId = null)
         {

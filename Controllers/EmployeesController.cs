@@ -146,7 +146,6 @@ namespace EmployeesManagment.Controllers
                 return View(employee);
             }
             ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "DisabilityTypes"), "Id", "Description", employee.DisabilityId);
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", employee.BankId);
             ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "EmploymentTerms"), "Id", "Description", employee.EmploymentTermsId);
             ViewData["GenderId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "Gender"), "Id", "Description", employee.GenderId);
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", employee.CountryId);
@@ -174,7 +173,6 @@ namespace EmployeesManagment.Controllers
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", employee.CountryId);
             ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Name", employee.DesignationId);
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name", employee.DepartmentId);
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", employee.BankId);
             ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "EmploymentTerms"), "Id", "Description", employee.EmploymentTermsId);
             ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "DisabilityTypes"), "Id", "Description", employee.DisabilityId);
             return View(newEmployee);
@@ -237,7 +235,6 @@ namespace EmployeesManagment.Controllers
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", employee.CountryId);
             ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Name", employee.DesignationId);
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name", employee.DepartmentId);
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", employee.BankId);
             ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "EmploymentTerms"), "Id", "Description",employee.EmploymentTermsId);
             ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "DisabilityTypes"), "Id", "Description",employee.DisabilityId);
             return View(employee);

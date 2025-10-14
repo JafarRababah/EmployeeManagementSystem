@@ -48,14 +48,7 @@ namespace EmployeesManagment.Models
         public int? ReasonForTerminationId { get; set; }
         public SystemCodeDetail ReasonForTermination { get; set; }
 
-        public int? BankId { get; set; }
-        public Bank Bank { get; set; }
-        public string? BankAccountNo { get; set; }
-        public string? IBAN { get; set; }
-        public string? SWIFTCode { get; set; }
-
-        public string? NSSFNO { get; set; }
-        public string? NHIF { get; set; }
+       
         public string? CompanyEmail { get; set; }
         public string? KRAPIN { get; set; }
         public string? PassportNo { get; set; }
@@ -66,7 +59,7 @@ namespace EmployeesManagment.Models
         public decimal? AllocatedLeaveDays { get; set; }
         public decimal? LeaveOutStandingBalance { get; set; }
 
-        public bool? PaysTax { get; set; }
+        
 
         public int? DisabilityId { get; set; }
         public SystemCodeDetail Disability { get; set; }

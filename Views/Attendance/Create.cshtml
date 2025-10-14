@@ -108,8 +108,13 @@
 
                 // ✅ حساب التأخير بالدقائق (لو بدأ بعد 9:00 صباحاً)
                 const startWorkHour = 9.5;
-                const startWorkMinute = 0;
-                const lateMinutes = Math.max(0, ((inH * 60 + inM) - (startWorkHour * 60 + startWorkMinute)));
+                const startWorkMinute = (checkOut-checkIn);
+              let lateMinutes = 0;
+            if (diff < 9) {
+                const missingHours = 9 - diff;
+                lateMinutes = Math.round(missingHours * 60);
+            }
+            lateminutes.value = lateMinutes;
                 lateminutes.value = lateMinutes;
             }
         }

@@ -595,12 +595,6 @@ namespace EmployeesManagment.Data.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("BankAccountNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("BankId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CauseOfInactivityId")
                         .HasColumnType("int");
 
@@ -652,9 +646,6 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<int?>("GenderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("IBAN")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("InactiveDate")
                         .HasColumnType("datetime2");
 
@@ -679,17 +670,8 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("NHIF")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NSSFNO")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PassportNo")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("PaysTax")
-                        .HasColumnType("bit");
 
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
@@ -700,9 +682,6 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<int?>("ReasonForTerminationId")
                         .HasColumnType("int");
 
-                    b.Property<string>("SWIFTCode")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
@@ -710,8 +689,6 @@ namespace EmployeesManagment.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BankId");
 
                     b.HasIndex("CauseOfInactivityId");
 
@@ -1208,6 +1185,94 @@ namespace EmployeesManagment.Data.Migrations
                     b.ToTable("RoleProfiles");
                 });
 
+            modelBuilder.Entity("EmployeesManagment.Models.Salary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Allowances")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ApprovedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ApprovedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BankAccountNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BankId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("BasicSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<decimal>("Deductions")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IBAN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("JoinDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NHIF")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NSSFNO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("NetSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool?>("PaysTax")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SWIFTCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SalariesNotes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Salaries");
+                });
+
             modelBuilder.Entity("EmployeesManagment.Models.SystemCode", b =>
                 {
                     b.Property<int>("Id")
@@ -1658,10 +1723,6 @@ namespace EmployeesManagment.Data.Migrations
 
             modelBuilder.Entity("EmployeesManagment.Models.Employee", b =>
                 {
-                    b.HasOne("EmployeesManagment.Models.Bank", "Bank")
-                        .WithMany()
-                        .HasForeignKey("BankId");
-
                     b.HasOne("EmployeesManagment.Models.SystemCodeDetail", "CauseOfInactivity")
                         .WithMany()
                         .HasForeignKey("CauseOfInactivityId");
@@ -1697,8 +1758,6 @@ namespace EmployeesManagment.Data.Migrations
                     b.HasOne("EmployeesManagment.Models.SystemCodeDetail", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
-
-                    b.Navigation("Bank");
 
                     b.Navigation("CauseOfInactivity");
 
@@ -1834,6 +1893,23 @@ namespace EmployeesManagment.Data.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("Task");
+                });
+
+            modelBuilder.Entity("EmployeesManagment.Models.Salary", b =>
+                {
+                    b.HasOne("EmployeesManagment.Models.Bank", "Bank")
+                        .WithMany()
+                        .HasForeignKey("BankId");
+
+                    b.HasOne("EmployeesManagment.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bank");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("EmployeesManagment.Models.SystemCodeDetail", b =>
