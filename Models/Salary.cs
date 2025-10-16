@@ -34,7 +34,7 @@ namespace EmployeesManagment.Models
 
         public string? NSSFNO { get; set; }
         public string? NHIF { get; set; }
-        public bool? PaysTax { get; set; }
+        public bool PaysTax { get; set; }
 
     }
 }

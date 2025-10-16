@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 
 namespace EmployeesManagment.Controllers
 {
@@ -49,8 +50,8 @@ namespace EmployeesManagment.Controllers
         // GET: Salaries/Create
         public IActionResult Create()
         {
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id");
+            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
             return View();
         }
 
@@ -59,17 +60,38 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmployeeId,BasicSalary,Allowances,Deductions,NetSalary,Currency,JoinDate,EndDate,IsActive,SalariesNotes,BankId,BankAccountNo,IBAN,SWIFTCode,NSSFNO,NHIF,PaysTax,ApprovedById,ApprovedOn,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Salary salary)
+        public async Task<IActionResult> Create( Salary salary)
         {
-            if (ModelState.IsValid)
+            var employee = _context.Salaries
+                .Where(x => x.EmployeeId == salary.EmployeeId);
+            if (employee!=null)
             {
+                TempData["Error"] = "this Employee already has salary ";
+                ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", salary.BankId);
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", salary.EmployeeId);
+                return View(salary);
+            }
+            var userId = User.GetUserId();
+            try
+            {
+                salary.CreatedById = User.GetUserName();
+                salary.CreatedOn = DateTime.Now;
+                salary.ModifiedById = User.GetUserName();
+                salary.ModifiedOn = DateTime.Now;
+                salary.ApprovedById = User.GetUserName();
+                salary.ApprovedOn = DateTime.Now;
                 _context.Add(salary);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Salary created successfully ";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", salary.BankId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", salary.EmployeeId);
-            return View(salary);
+            catch
+            {
+                TempData["Error"] = "Salary Not created by successfully ";
+                ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", salary.BankId);
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", salary.EmployeeId);
+                return View(salary);
+            }
         }
 
         // GET: Salaries/Edit/5
@@ -95,36 +117,35 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmployeeId,BasicSalary,Allowances,Deductions,NetSalary,Currency,JoinDate,EndDate,IsActive,SalariesNotes,BankId,BankAccountNo,IBAN,SWIFTCode,NSSFNO,NHIF,PaysTax,ApprovedById,ApprovedOn,CreatedById,CreatedOn,ModifiedById,ModifiedOn")] Salary salary)
+        public async Task<IActionResult> Edit(int id, Salary salary)
         {
+            var userId = User.GetUserId();
             if (id != salary.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!SalaryExists(salary.Id))
             {
-                try
+                return NotFound();
+            }
+
+            try
                 {
+                    salary.ModifiedOn = DateTime.Now;
+                    salary.ModifiedById = User.GetUserName();
                     _context.Update(salary);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SalaryExists(salary.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                    await _context.SaveChangesAsync(userId);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", salary.BankId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", salary.EmployeeId);
-            return View(salary);
+            catch (Exception ex)
+                {
+                TempData["Error"] = "Salary Not Updated by successfully ";
+                ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", salary.BankId);
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", salary.EmployeeId);
+                return View(salary);
+            }
+            
+           
         }
 
         // GET: Salaries/Delete/5

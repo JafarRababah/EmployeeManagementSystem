@@ -1,19 +1,22 @@
 @model IEnumerable<EmployeesManagment.Models.Salary>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Salaries List";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="card">
+    <div class="card-header">
+        <div class="mb-3 float-end">
+            <a asp-action="Create" class="btn btn-primary"><i class="bi bi-file-plus-fill"></i>Add Employee Salary</a>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Employee)
+                @Html.DisplayNameFor(model => model.Employee.FullName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BasicSalary)
@@ -81,14 +84,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedOn)
             </th>
-            <th></th>
+                    <th>
+                        Action
+                    </th>
+                
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Employee.Id)
+                @Html.DisplayFor(modelItem => item.Employee.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BasicSalary)
@@ -118,7 +124,7 @@
                 @Html.DisplayFor(modelItem => item.SalariesNotes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bank.Id)
+                @Html.DisplayFor(modelItem => item.Bank.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BankAccountNo)
@@ -157,11 +163,37 @@
                 @Html.DisplayFor(modelItem => item.ModifiedOn)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <div class="input-group input-group-lg">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item">
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-eye"></i>View</a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item">
+                                            <a asp-action="ApprovedLeave" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-check"></i>Approve</a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item">
+                                            <a asp-action="RejectLeave" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-check"></i>Reject</a>
+                                        </li>
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item">
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
             </td>
         </tr>
 }
     </tbody>
 </table>
+</div></div>

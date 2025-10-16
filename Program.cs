@@ -90,7 +90,7 @@ using (var scope = app.Services.CreateScope())
 {
     var sp = scope.ServiceProvider;
     await DbSeeder.SeedRolesAndUsersAsync(sp);
-    await FakeDataSeeder.SeedAsync(sp);
+   // await FakeDataSeeder.SeedAsync(sp);
 }
 
 

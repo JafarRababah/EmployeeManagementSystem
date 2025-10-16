@@ -1,7 +1,9 @@
+using AutoMapper;
 using ClosedXML.Excel;
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
+using EmployeesManagment.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,13 +16,14 @@ using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
-    public class PayrollController : Controller
+    public class PayrollsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PayrollController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        public PayrollsController(ApplicationDbContext context,IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Payroll
@@ -52,16 +55,31 @@ namespace EmployeesManagment.Controllers
         // GET: Payroll/Create
         public IActionResult Create(int? employeeId)
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+            ViewBag.Employees = _context.Employees.ToList();
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
             if (employeeId != null)
             {
-                var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
                 if (employee == null) return NotFound();
-
                 ViewBag.EmployeeId = employee.Id;
                 ViewBag.EmployeeName = employee.FullName;
             }
             return View();
+        }
+        [HttpGet]
+        public JsonResult GetSalaryByEmployeeId(int employeeId)
+        {
+            var salary = _context.Salaries
+                .Where(s => s.EmployeeId == employeeId)
+                .Select(s => new
+                {
+                    basicSalary = s.BasicSalary,
+                    allowance = s.Allowances,
+                    deductions = s.Deductions,
+                    netSalary = s.NetSalary
+                })
+                .FirstOrDefault();
+
+            return Json(salary);
         }
 
         // POST: Payroll/Create

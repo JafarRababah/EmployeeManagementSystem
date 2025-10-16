@@ -125,13 +125,12 @@ namespace EmployeesManagment.Controllers
                 employee.CreatedById = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 employee.CreatedOn = DateTime.Now;
                 employee.StatusId = statusId.Id;
-                if (!ModelState.IsValid)
-                {
+                
                     _context.Add(employee);
                     await _context.SaveChangesAsync(userId);
                     TempData["Message"] = "Employee Created Successfuly";
                     return RedirectToAction(nameof(Index));
-                }
+                
 
             } 
 
@@ -143,15 +142,15 @@ namespace EmployeesManagment.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = "Employee could be created Successfuly " + ex.Message;
+                ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "DisabilityTypes"), "Id", "Description", employee.DisabilityId);
+                ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "EmploymentTerms"), "Id", "Description", employee.EmploymentTermsId);
+                ViewData["GenderId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "Gender"), "Id", "Description", employee.GenderId);
+                ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", employee.CountryId);
+                ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Name", employee.DesignationId);
+                ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name", employee.DepartmentId);
                 return View(employee);
             }
-            ViewData["DisabilityId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "DisabilityTypes"), "Id", "Description", employee.DisabilityId);
-            ViewData["EmploymentTermsId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "EmploymentTerms"), "Id", "Description", employee.EmploymentTermsId);
-            ViewData["GenderId"] = new SelectList(_context.SystemCodeDetails.Include(x => x.SystemCodeValue).Where(x => x.SystemCodeValue.Code == "Gender"), "Id", "Description", employee.GenderId);
-            ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", employee.CountryId);
-            ViewData["DesignationId"] = new SelectList(_context.Designations, "Id", "Name", employee.DesignationId);
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name", employee.DepartmentId);
-            return View(employee);
+           
         }
 
         // GET: Employees/Edit/5

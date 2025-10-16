@@ -13,6 +13,10 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedById" />
+            <input type="hidden" asp-for="CreatedOn" />
+            <input type="hidden" asp-for="ApprovedById" />
+            <input type="hidden" asp-for="ApprovedOn" />
             <div class="form-group">
                 <label asp-for="EmployeeId" class="control-label"></label>
                 <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
@@ -93,41 +97,12 @@
                 <input asp-for="NHIF" class="form-control" />
                 <span asp-validation-for="NHIF" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PaysTax" class="control-label"></label>
-                <input asp-for="PaysTax" class="form-control" />
-                <span asp-validation-for="PaysTax" class="text-danger"></span>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PaysTax" /> Pay Tax
+                </label>
             </div>
-            <div class="form-group">
-                <label asp-for="ApprovedById" class="control-label"></label>
-                <input asp-for="ApprovedById" class="form-control" />
-                <span asp-validation-for="ApprovedById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ApprovedOn" class="control-label"></label>
-                <input asp-for="ApprovedOn" class="form-control" />
-                <span asp-validation-for="ApprovedOn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedById" class="control-label"></label>
-                <input asp-for="CreatedById" class="form-control" />
-                <span asp-validation-for="CreatedById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedOn" class="control-label"></label>
-                <input asp-for="CreatedOn" class="form-control" />
-                <span asp-validation-for="CreatedOn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedById" class="control-label"></label>
-                <input asp-for="ModifiedById" class="form-control" />
-                <span asp-validation-for="ModifiedById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedOn" class="control-label"></label>
-                <input asp-for="ModifiedOn" class="form-control" />
-                <span asp-validation-for="ModifiedOn" class="text-danger"></span>
-            </div>
+   
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
