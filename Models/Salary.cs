@@ -21,11 +21,11 @@ namespace EmployeesManagment.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal NetSalary { get; set; } = 0;
         [Column(TypeName = "varchar(10)")]
-        public string Currency {  get; set; }
+        public string? Currency {  get; set; }
         public DateTime JoinDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public bool IsActive { get; set; }
-        public string SalariesNotes { get; set; }
+        public string? SalariesNotes { get; set; }
         public int? BankId { get; set; }
         public Bank Bank { get; set; }
         public string? BankAccountNo { get; set; }

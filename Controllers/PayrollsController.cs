@@ -51,20 +51,25 @@ namespace EmployeesManagment.Controllers
 
             return View(payroll);
         }
-  
+
         // GET: Payroll/Create
-        public IActionResult Create(int? employeeId)
+        public async Task<IActionResult> Create(int? employeeId)
         {
-            ViewBag.Employees = _context.Employees.ToList();
-            var employee = _context.Employees.FirstOrDefault(e => e.Id == employeeId);
+            var employees = await _context.Employees.ToListAsync();
+            ViewData["EmployeeId"] = new SelectList(employees, "Id", "FullName", employeeId);
+
             if (employeeId != null)
             {
-                if (employee == null) return NotFound();
-                ViewBag.EmployeeId = employee.Id;
+                var employee = employees.FirstOrDefault(e => e.Id == employeeId);
+                if (employee == null)
+                    return NotFound();
+
                 ViewBag.EmployeeName = employee.FullName;
             }
+
             return View();
         }
+
         [HttpGet]
         public JsonResult GetSalaryByEmployeeId(int employeeId)
         {
@@ -100,18 +105,19 @@ namespace EmployeesManagment.Controllers
             if (isOverlap)
             {
                 TempData["Error"] = "This Period already Exist. please choose other period";
+                ViewData["EmployeeId"] = new SelectList(await _context.Employees.ToListAsync(), "Id", "FullName", payroll?.EmployeeId);
                 return View(payroll);
             }
-          
-            var attendances = _context.Attendances
+
+            var attendances =await _context.Attendances
                      .Where(a => a.EmployeeId == payroll.EmployeeId &&
                      a.Date >= payroll.PeriodStart &&
                      a.Date <= payroll.PeriodEnd)
-                     .ToList();
-            if (!attendances.Any())
+                     .ToListAsync();
+            if (!attendances.Any() && !payroll.IsFullAttendance)
             {
                 TempData["Error"] = "No attendance records found for the selected period.";
-                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", payroll.EmployeeId);
+                ViewData["EmployeeId"] = new SelectList(await _context.Employees.ToListAsync(), "Id", "FullName", payroll?.EmployeeId);
                 return View(payroll);
             }
             decimal overtimePay = 0;
@@ -149,12 +155,12 @@ namespace EmployeesManagment.Controllers
                 _context.Add(payroll);
                 await _context.SaveChangesAsync(userId);
                 TempData["Message"] = $"Payroll created successfully for {payroll.PeriodStart:MMMM yyyy}";
-                return RedirectToAction("Details", "Employees", new { id = payroll.EmployeeId });
+                return RedirectToAction("Details", "Employees", new { id = payroll?.EmployeeId });
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "Error creating payroll " + ex.Message;
-                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", payroll.EmployeeId);
+                TempData["Error"] = "Error creating payroll: " + ex.Message;
+                ViewData["EmployeeId"] = new SelectList(await _context.Employees.ToListAsync(), "Id", "FullName", payroll?.EmployeeId);
                 return View(payroll);
             }
         }
@@ -173,7 +179,7 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", payroll.EmployeeId);
+            ViewData["EmployeeId"] = new SelectList(await _context.Employees.ToListAsync(), "Id", "FullName", payroll?.EmployeeId);
             return View(payroll);
         }
 

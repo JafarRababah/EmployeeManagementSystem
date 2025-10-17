@@ -62,9 +62,9 @@ namespace EmployeesManagment.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( Salary salary)
         {
-            var employee = _context.Salaries
-                .Where(x => x.EmployeeId == salary.EmployeeId);
-            if (employee!=null)
+            var hasSalary =await  _context.Salaries
+                .AnyAsync(x => x.EmployeeId == salary.EmployeeId);
+            if (hasSalary)
             {
                 TempData["Error"] = "this Employee already has salary ";
                 ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", salary.BankId);
