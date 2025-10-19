@@ -1,0 +1,79 @@
+﻿@model IEnumerable<EmployeesManagment.Models.Payroll>
+
+@{
+    ViewData["Title"] = "Period Report";
+}
+
+<div class="card border-top border-0 border-4 border-info mt-3">
+    <div class="card-body">
+        <h4 class="text-center mb-4">📅 Report as the period</h4>
+
+        <form method="get" asp-action="PeriodReport" class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label>From:</label>
+                <input type="date" name="startDate" class="form-control" value="@ViewBag.StartDate" />
+            </div>
+
+            <div class="col-md-4">
+                <label>To:</label>
+                <input type="date" name="endDate" class="form-control" value="@ViewBag.EndDate" />
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-info w-100">Report Employee Salary</button>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <a class="btn btn-success w-100"
+                   asp-action="SalaryExportToExcel"
+                   asp-route-startDate="@ViewBag.StartDate"
+                   asp-route-endDate="@ViewBag.EndDate">📗Export Excel</a>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <a class="btn btn-danger w-100"
+                   asp-action="SalaryExportToPdf"
+                   asp-route-startDate="@ViewBag.StartDate"
+                   asp-route-endDate="@ViewBag.EndDate">📕Export PDF</a>
+            </div>
+            <div class="col-md-3">
+                <label>The Employee Name</label>
+                <select name="employeeId" class="form-select" asp-items="ViewBag.Employees">
+                    <option value="">-- Select Employee --</option>
+                </select>
+            </div>
+        </form>
+       
+        <table class="table table-bordered table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th>الموظف</th>
+                    <th>من</th>
+                    <th>إلى</th>
+                    <th>الراتب الأساسي</th>
+                    <th>البدلات</th>
+                    <th>الخصومات</th>
+                    <th>الضرائب</th>
+                    <th>الصافي</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(item.Employee != null ? item.Employee.FullName : "Not Selected")</td>
+                        <td>@item.PeriodStart.ToString("yyyy-MM-dd")</td>
+                        <td>@item.PeriodEnd.ToString("yyyy-MM-dd")</td>
+                        <td>@item.BasicSalary.ToString("N2")</td>
+                        <td>@item.Allowances.ToString("N2")</td>
+                        <td>@item.Deductions.ToString("N2")</td>
+                        <td>@item.Tax.ToString("N2")</td>
+                        <td class="fw-bold">@item.NetSalary.ToString("N2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    
+        <div class="text-end mt-3">
+            <h5>إجمالي الرواتب: <span class="text-success fw-bold">@ViewBag.TotalNetSalary.ToString("N2")</span></h5>
+        </div>
+    </div>
+</div>

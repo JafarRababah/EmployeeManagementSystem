@@ -1,58 +1,65 @@
 @model EmployeesManagment.Models.Salary
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Update Salary";
 }
 
-<h1>Edit</h1>
-
-<h4>Salary</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-12 mx-auto">
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="card-body">
+                <div class="border p-4 rouded">
+                    <div class="card-title d-flex align-items-counter">
+                        <div>
+                            <i class="bx bxs-user me-1 font-22 text-info"></i>
+                        </div>
+                        <h5 class="mb-0 text-info"> Update Payroll</h5>
+                    </div><br />
+                    <div class="col-md-12">
+                        <form asp-action="Edit">
+                            <div class="row g-3">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="CreatedById" />
             <input type="hidden" asp-for="CreatedOn" />
             <input type="hidden" asp-for="ApprovedById" />
             <input type="hidden" asp-for="ApprovedOn" />
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label asp-for="EmployeeId" class="control-label"></label>
                 <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
                 <span asp-validation-for="EmployeeId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="BasicSalary" class="control-label"></label>
                 <input asp-for="BasicSalary" class="form-control" />
                 <span asp-validation-for="BasicSalary" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="Allowances" class="control-label"></label>
                 <input asp-for="Allowances" class="form-control" />
                 <span asp-validation-for="Allowances" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="Deductions" class="control-label"></label>
                 <input asp-for="Deductions" class="form-control" />
                 <span asp-validation-for="Deductions" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="NetSalary" class="control-label"></label>
                 <input asp-for="NetSalary" class="form-control" />
                 <span asp-validation-for="NetSalary" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="Currency" class="control-label"></label>
                 <input asp-for="Currency" class="form-control" />
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="JoinDate" class="control-label"></label>
                 <input asp-for="JoinDate" class="form-control" />
                 <span asp-validation-for="JoinDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="EndDate" class="control-label"></label>
                 <input asp-for="EndDate" class="form-control" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
@@ -62,37 +69,37 @@
                     <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
                 </label>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="SalariesNotes" class="control-label"></label>
                 <input asp-for="SalariesNotes" class="form-control" />
                 <span asp-validation-for="SalariesNotes" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="BankId" class="control-label"></label>
                 <select asp-for="BankId" class="form-control" asp-items="ViewBag.BankId"></select>
                 <span asp-validation-for="BankId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="BankAccountNo" class="control-label"></label>
                 <input asp-for="BankAccountNo" class="form-control" />
                 <span asp-validation-for="BankAccountNo" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="IBAN" class="control-label"></label>
                 <input asp-for="IBAN" class="form-control" />
                 <span asp-validation-for="IBAN" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="SWIFTCode" class="control-label"></label>
                 <input asp-for="SWIFTCode" class="form-control" />
                 <span asp-validation-for="SWIFTCode" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="NSSFNO" class="control-label"></label>
                 <input asp-for="NSSFNO" class="form-control" />
                 <span asp-validation-for="NSSFNO" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                                <div class="form-group col-md-6">
                 <label asp-for="NHIF" class="control-label"></label>
                 <input asp-for="NHIF" class="form-control" />
                 <span asp-validation-for="NHIF" class="text-danger"></span>
@@ -102,16 +109,18 @@
                     <input class="form-check-input" asp-for="PaysTax" /> Pay Tax
                 </label>
             </div>
-   
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+
+                                <div class="form-group">
+                                    <a asp-action="Index" class="btn btn-warning float-start"><i class="bi bi-skip-backward-fill"></i> Back to List</a>
+                                    <button type="submit" class="btn btn-primary float-end"><i class="bi bi-floppy-fill"></i> Save</button>
+                                </div>
+                            </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

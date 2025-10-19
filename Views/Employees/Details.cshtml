@@ -59,9 +59,12 @@
         <div>
             @* @if (User.IsInRole("HRManager"))
             { *@
-                <a asp-action="PayrollReport" asp-controller="Payroll"  class="btn btn-danger">
+                <a asp-action="PayrollReport" asp-controller="Payrolls"  class="btn btn-danger">
                    Payroll Reports
                 </a>
+            <a asp-action="PeriodReport" asp-controller="Payrolls" class="btn btn-danger">
+                Period Reports
+            </a>
             @* } *@
             <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
             <a asp-action="Index" class="btn btn-secondary">Back to List</a>

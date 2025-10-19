@@ -1,13 +1,18 @@
-using AutoMapper;
+ï»¿using AutoMapper;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
 using EmployeesManagment.ViewModels;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using QuestPDF.Fluent;
 using System;
 using System.Collections.Generic;
@@ -86,6 +91,37 @@ namespace EmployeesManagment.Controllers
 
             return Json(salary);
         }
+        public IActionResult PeriodReport(DateTime? startDate, DateTime? endDate, int? employeeId)
+        {
+            // ØªØ¹Ø¨Ø¦Ø© Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…ÙˆØ¸ÙÙŠÙ† ÙÙŠ Ø§Ù„Ù€ Dropdown
+            ViewBag.Employees = new SelectList(_context.Employees.ToList(), "Id", "FullName");
+
+            // ØªØ¹ÙŠÙŠÙ† Ø§Ù„ØªÙˆØ§Ø±ÙŠØ® Ø§Ù„Ø§ÙØªØ±Ø§Ø¶ÙŠØ© Ø¥Ø°Ø§ Ù„Ù… ÙŠØ®ØªØ§Ø± Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…
+            startDate ??= new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            endDate ??= startDate.Value.AddMonths(1).AddDays(-1);
+
+            ViewBag.StartDate = startDate.Value.ToString("yyyy-MM-dd");
+            ViewBag.EndDate = endDate.Value.ToString("yyyy-MM-dd");
+
+            // Ø¬Ù„Ø¨ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ù† Ø¬Ø¯ÙˆÙ„ Payroll
+            var query = _context.Payrolls
+                .Include(p => p.Employee)
+                .Where(p => p.PeriodStart >= startDate && p.PeriodEnd <= endDate);
+
+            // âœ… Ø¥Ø°Ø§ ØªÙ… Ø§Ø®ØªÙŠØ§Ø± Ù…ÙˆØ¸Ù Ù…Ø¹ÙŠÙ‘Ù†ØŒ Ù†ÙÙ„ØªØ± Ø¹Ù„ÙŠÙ‡
+            if (employeeId.HasValue && employeeId.Value > 0)
+            {
+                query = query.Where(p => p.EmployeeId == employeeId.Value);
+            }
+
+            var payrolls = query.ToList();
+
+            // Ø¥Ø¬Ù…Ø§Ù„ÙŠ Ø§Ù„Ø±ÙˆØ§ØªØ¨
+            ViewBag.TotalNetSalary = payrolls.Sum(p => p.NetSalary);
+
+            return View(payrolls);
+        }
+
 
         // POST: Payroll/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -123,17 +159,17 @@ namespace EmployeesManagment.Controllers
             decimal overtimePay = 0;
             decimal latePenalty = 0;
             int totalDays = (payroll.PeriodEnd - payroll.PeriodStart).Days + 1;
-            int presentDays = attendances.Count(a => a.StatusId == 1); // ãËáÇð 1 = ÍÇÖÑ
+            int presentDays = attendances.Count(a => a.StatusId == 1); // Ù…Ø«Ù„Ø§Ù‹ 1 = Ø­Ø§Ø¶Ø±
             int absentDays = totalDays - presentDays;
             decimal dailySalary = payroll.BasicSalary / totalDays;
             decimal absenceDeduction = absentDays * dailySalary;
             foreach (var att in attendances)
             {
-                // ßá ÓÇÚÉ ÅÖÇÝíÉ = ÃÌÑ ÇáÓÇÚÉ ÇáÃÓÇÓíÉ × 1.5 ãËáÇð
-                var hourlyRate = payroll.BasicSalary / 30 / 8; // íæã = 8 ÓÇÚÇÊ
+                // ÙƒÙ„ Ø³Ø§Ø¹Ø© Ø¥Ø¶Ø§ÙÙŠØ© = Ø£Ø¬Ø± Ø§Ù„Ø³Ø§Ø¹Ø© Ø§Ù„Ø£Ø³Ø§Ø³ÙŠØ© Ã— 1.5 Ù…Ø«Ù„Ø§Ù‹
+                var hourlyRate = payroll.BasicSalary / 30 / 8; // ÙŠÙˆÙ… = 8 Ø³Ø§Ø¹Ø§Øª
                 overtimePay += (decimal)att.OvertimeHours * hourlyRate * 1.5m;
 
-                // ßá ÏÞíÞÉ ÊÃÎíÑ ÊÎÕã äÓÈÉ ãä ÇáÃÌÑ Çáíæãí
+                // ÙƒÙ„ Ø¯Ù‚ÙŠÙ‚Ø© ØªØ£Ø®ÙŠØ± ØªØ®ØµÙ… Ù†Ø³Ø¨Ø© Ù…Ù† Ø§Ù„Ø£Ø¬Ø± Ø§Ù„ÙŠÙˆÙ…ÙŠ
                 latePenalty += (decimal)att.LateMinutes * (hourlyRate / 60);
             }
             payroll.Overtime = overtimePay;
@@ -142,7 +178,7 @@ namespace EmployeesManagment.Controllers
             if (payroll.IsFullAttendance)
             {
                 
-                    // ÇáãæÙÝ áÏíå ÍÖæÑ ßÇãá
+                    // Ø§Ù„Ù…ÙˆØ¸Ù Ù„Ø¯ÙŠÙ‡ Ø­Ø¶ÙˆØ± ÙƒØ§Ù…Ù„
                     payroll.Bonus += payroll.BasicSalary;
                     TempData["Message"] = $"Payroll created with full attendance bonus for {payroll.PeriodStart:MMMM yyyy}.";
                 
@@ -281,12 +317,15 @@ namespace EmployeesManagment.Controllers
             if (employee == null || !payrolls.Any())
                 return NotFound();
 
-            var document = Document.Create(container =>
+            var document = QuestPDF.Fluent.Document.Create(container =>
             {
                 container.Page(page =>
                 {
                     page.Margin(30);
-                    page.Header().Text($"ßÔÝ ÑæÇÊÈ ÇáãæÙÝ: {employee.FullName}").FontSize(20).Bold();
+                    page.Header().Text($"ÙƒØ´Ù Ø±ÙˆØ§ØªØ¨ Ø§Ù„Ù…ÙˆØ¸Ù: {employee.FullName}")
+                        .FontSize(20)
+                        .Bold()
+                        .AlignCenter();
                     page.Content().Table(table =>
                     {
                         table.ColumnsDefinition(c =>
@@ -298,17 +337,15 @@ namespace EmployeesManagment.Controllers
                             c.RelativeColumn();
                         });
 
-                        // Header
                         table.Header(header =>
                         {
-                            header.Cell().Text("ÇáÝÊÑÉ ãä");
-                            header.Cell().Text("Åáì");
-                            header.Cell().Text("ÇáÑÇÊÈ ÇáÃÓÇÓí");
-                            header.Cell().Text("ÇáÈÏáÇÊ");
-                            header.Cell().Text("ÇáÕÇÝí");
+                            header.Cell().Text("Ù…Ù†");
+                            header.Cell().Text("Ø¥Ù„Ù‰");
+                            header.Cell().Text("Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ");
+                            header.Cell().Text("Ø§Ù„Ø¨Ø¯Ù„Ø§Øª");
+                            header.Cell().Text("Ø§Ù„ØµØ§ÙÙŠ");
                         });
 
-                        // Rows
                         foreach (var p in payrolls)
                         {
                             table.Cell().Text(p.PeriodStart.ToShortDateString());
@@ -321,12 +358,13 @@ namespace EmployeesManagment.Controllers
                 });
             });
 
-            var stream = new MemoryStream();
+            using var stream = new MemoryStream();
             document.GeneratePdf(stream);
             stream.Position = 0;
 
-            return File(stream, "application/pdf", $"Payroll_{employee.FullName}.pdf");
+            return File(stream.ToArray(), "application/pdf", $"Payroll_{employee.FullName}.pdf");
         }
+
         [Authorize(Roles = "Manager")]
         public IActionResult PayrollReportExcel(int employeeId)
         {
@@ -343,11 +381,11 @@ namespace EmployeesManagment.Controllers
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Payroll Report");
 
-            worksheet.Cell(1, 1).Value = "ÇáÝÊÑÉ ãä";
-            worksheet.Cell(1, 2).Value = "Åáì";
-            worksheet.Cell(1, 3).Value = "ÇáÑÇÊÈ ÇáÃÓÇÓí";
-            worksheet.Cell(1, 4).Value = "ÇáÈÏáÇÊ";
-            worksheet.Cell(1, 5).Value = "ÇáÕÇÝí";
+            worksheet.Cell(1, 1).Value = "Ø§Ù„ÙØªØ±Ø© Ù…Ù†";
+            worksheet.Cell(1, 2).Value = "Ø¥Ù„Ù‰";
+            worksheet.Cell(1, 3).Value = "Ø§Ù„Ø±Ø§ØªØ¨ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ";
+            worksheet.Cell(1, 4).Value = "Ø§Ù„Ø¨Ø¯Ù„Ø§Øª";
+            worksheet.Cell(1, 5).Value = "Ø§Ù„ØµØ§ÙÙŠ";
 
             int row = 2;
             foreach (var p in payrolls)
@@ -368,9 +406,11 @@ namespace EmployeesManagment.Controllers
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 $"Payroll_{employee.FullName}.xlsx");
         }
-        public IActionResult PayrollReport(DateTime? startDate, DateTime? endDate)
+        public IActionResult PayrollReport(DateTime? startDate, DateTime? endDate, int? employeeId)
         {
-            var payrolls = _context.Payrolls.Include(p => p.Employee).AsQueryable();
+            var payrolls = _context.Payrolls
+                .Include(p => p.Employee)
+                .AsQueryable();
 
             if (startDate.HasValue)
                 payrolls = payrolls.Where(p => p.PeriodStart >= startDate.Value);
@@ -378,11 +418,118 @@ namespace EmployeesManagment.Controllers
             if (endDate.HasValue)
                 payrolls = payrolls.Where(p => p.PeriodEnd <= endDate.Value);
 
+            if (employeeId.HasValue && employeeId > 0)
+                payrolls = payrolls.Where(p => p.EmployeeId == employeeId.Value);
+
             var model = payrolls.OrderByDescending(p => p.PeriodStart).ToList();
+
+            ViewBag.Employees = new SelectList(_context.Employees, "Id", "FullName");
             ViewBag.StartDate = startDate?.ToString("yyyy-MM-dd");
             ViewBag.EndDate = endDate?.ToString("yyyy-MM-dd");
+            ViewBag.EmployeeId = employeeId;
+            ViewBag.TotalNetSalary = model.Sum(p => p.NetSalary);
 
             return View(model);
+        }
+
+
+        public IActionResult SalaryExportToExcel(DateTime startDate, DateTime endDate)
+        {
+            var payrolls = _context.Payrolls
+                .Where(p => p.PeriodStart >= startDate && p.PeriodEnd <= endDate)
+                .Include(p => p.Employee)
+                .ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var ws = package.Workbook.Worksheets.Add("Payroll Report");
+
+                // Ø§Ù„Ø¹Ù†Ø§ÙˆÙŠÙ†
+                ws.Cells["A1"].Value = "Employee";
+                ws.Cells["B1"].Value = "Period Start";
+                ws.Cells["C1"].Value = "Period End";
+                ws.Cells["D1"].Value = "Basic Salary";
+                ws.Cells["E1"].Value = "Allowances";
+                ws.Cells["F1"].Value = "Deductions";
+                ws.Cells["G1"].Value = "Tax";
+                ws.Cells["H1"].Value = "Net Salary";
+
+                // ØªÙ†Ø³ÙŠÙ‚ Ø§Ù„Ø±Ø£Ø³
+                using (var range = ws.Cells["A1:H1"])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                }
+
+                int row = 2;
+                foreach (var item in payrolls)
+                {
+                    ws.Cells[row, 1].Value = item.Employee.FullName;
+                    ws.Cells[row, 2].Value = item.PeriodStart.ToString("yyyy-MM-dd");
+                    ws.Cells[row, 3].Value = item.PeriodEnd.ToString("yyyy-MM-dd");
+                    ws.Cells[row, 4].Value = item.BasicSalary;
+                    ws.Cells[row, 5].Value = item.Allowances;
+                    ws.Cells[row, 6].Value = item.Deductions;
+                    ws.Cells[row, 7].Value = item.Tax;
+                    ws.Cells[row, 8].Value = item.NetSalary;
+                    row++;
+                }
+
+                ws.Cells[ws.Dimension.Address].AutoFitColumns();
+
+                var stream = new MemoryStream(package.GetAsByteArray());
+                string fileName = $"PayrollReport_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+        }
+        public IActionResult SalaryExportToPdf(DateTime startDate, DateTime endDate)
+        {
+            var payrolls = _context.Payrolls
+                .Where(p => p.PeriodStart >= startDate && p.PeriodEnd <= endDate)
+                .Include(p => p.Employee)
+                .ToList();
+
+            using (var stream = new MemoryStream())
+            {
+                var doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10, 10, 10, 10);
+                PdfWriter.GetInstance(doc, stream);
+                doc.Open();
+
+                var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14);
+                var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+
+                doc.Add(new iTextSharp.text.Paragraph($"Payroll Report ({startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd})", titleFont));
+                doc.Add(new iTextSharp.text.Paragraph("\n"));
+
+                var table = new PdfPTable(8) { WidthPercentage = 100 };
+                table.AddCell("Employee");
+                table.AddCell("Period Start");
+                table.AddCell("Period End");
+                table.AddCell("Basic");
+                table.AddCell("Allowances");
+                table.AddCell("Deductions");
+                table.AddCell("Tax");
+                table.AddCell("Net");
+
+                foreach (var item in payrolls)
+                {
+                    table.AddCell(item.Employee.FullName);
+                    table.AddCell(item.PeriodStart.ToString("yyyy-MM-dd"));
+                    table.AddCell(item.PeriodEnd.ToString("yyyy-MM-dd"));
+                    table.AddCell(item.BasicSalary.ToString("N2"));
+                    table.AddCell(item.Allowances.ToString("N2"));
+                    table.AddCell(item.Deductions.ToString("N2"));
+                    table.AddCell(item.Tax.ToString("N2"));
+                    table.AddCell(item.NetSalary.ToString("N2"));
+                }
+
+                doc.Add(table);
+                doc.Close();
+
+                string fileName = $"PayrollReport_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.pdf";
+                return File(stream.ToArray(), "application/pdf", fileName);
+            }
         }
 
     }
