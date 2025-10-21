@@ -62,14 +62,15 @@ namespace EmployeesManagment.Controllers
         {
             var employees = await _context.Employees.ToListAsync();
             ViewData["EmployeeId"] = new SelectList(employees, "Id", "FullName", employeeId);
-
+            var payroll = new Payroll();
             if (employeeId != null)
             {
                 var employee = employees.FirstOrDefault(e => e.Id == employeeId);
                 if (employee == null)
                     return NotFound();
-
+                payroll.EmployeeId = employee.Id;
                 ViewBag.EmployeeName = employee.FullName;
+                
             }
 
             return View();
