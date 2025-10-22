@@ -3,16 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\controllers\\payrollscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:controllers\\payrollscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\employees\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\employees\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\salaries\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\salaries\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\employees\\_employeestable.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\employees\\_employeestable.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\payrolls\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\payrolls\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\employees\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\employees\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\controllers\\payrollscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:controllers\\payrollscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\salaries\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\salaries\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\controllers\\salariescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:controllers\\salariescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\employees\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -43,14 +67,6 @@
       "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\attendance\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\salaries\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\salaries\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\salaries\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\salaries\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\salaries\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\salaries\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -67,10 +83,6 @@
       "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\controllers\\salariescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:controllers\\salariescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:views\\roles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -85,10 +97,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -109,10 +117,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\services\\infrastructure\\customuseridprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:services\\infrastructure\\customuseridprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|solutionrelative:models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F3A575AC-F80A-4FD7-8F55-082CBAC79870}|EmployeesManagment.csproj|c:\\users\\jafar\\mygithub\\employeemanagementsystem\\models\\leaveapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -154,37 +158,89 @@
       "DocumentGroups": [
         {
           "DockedHeight": 25,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
+              "Title": "_EmployeesTable.cshtml",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\_EmployeesTable.cshtml",
+              "RelativeDocumentMoniker": "Views\\Employees\\_EmployeesTable.cshtml",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\_EmployeesTable.cshtml",
+              "RelativeToolTip": "Views\\Employees\\_EmployeesTable.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAwDkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-22T16:48:21.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Salaries\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Index.cshtml",
+              "RelativeToolTip": "Views\\Salaries\\Index.cshtml",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAJ0AAACBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-16T09:04:16.29Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Payrolls\\Create.cshtml",
               "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\Create.cshtml",
               "RelativeToolTip": "Views\\Payrolls\\Create.cshtml",
-              "ViewState": "AgIAADAAAAAAAAAAAAAlwDoAAAByAAAAAAAAAA==",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAQwHoAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-01T15:54:34.367Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Payrolls\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\Index.cshtml",
-              "RelativeToolTip": "Views\\Payrolls\\Index.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAGgAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-01T16:02:05.613Z",
+              "DocumentIndex": 0,
+              "Title": "EmployeesController.cs",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\EmployeesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmployeesController.cs",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\EmployeesController.cs",
+              "RelativeToolTip": "Controllers\\EmployeesController.cs",
+              "ViewState": "AgIAADgBAAAAAAAAAAAAwEABAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-02T13:54:05.88Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\Employee.cs",
+              "RelativeDocumentMoniker": "Models\\Employee.cs",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\Employee.cs",
+              "RelativeToolTip": "Models\\Employee.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAawA4AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T16:27:43.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Employees\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\Index.cshtml",
+              "RelativeToolTip": "Views\\Employees\\Index.cshtml",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-02T13:33:12.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Employees\\Edit.cshtml",
@@ -192,25 +248,50 @@
               "RelativeToolTip": "Views\\Employees\\Edit.cshtml",
               "ViewState": "AgIAAHQAAAAAAAAAAAAAAH4AAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-16T05:50:46.239Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T05:50:46.239Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Employees\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\Index.cshtml",
-              "RelativeToolTip": "Views\\Employees\\Index.cshtml",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAG8AAAA1AAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Salaries\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Create.cshtml",
+              "RelativeToolTip": "Views\\Salaries\\Create.cshtml",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAACMAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-02T13:33:12.32Z",
+              "WhenOpened": "2025-10-16T05:47:11.687Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "SalariesController.cs",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\SalariesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SalariesController.cs",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\SalariesController.cs",
+              "RelativeToolTip": "Controllers\\SalariesController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAADIAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T08:56:51.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PayrollsController.cs",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\PayrollsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PayrollsController.cs",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\PayrollsController.cs",
+              "RelativeToolTip": "Controllers\\PayrollsController.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAFAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T05:56:06.317Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "Payroll.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\Payroll.cs",
               "RelativeDocumentMoniker": "Models\\Payroll.cs",
@@ -222,32 +303,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PayrollsController.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\PayrollsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PayrollsController.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\PayrollsController.cs",
-              "RelativeToolTip": "Controllers\\PayrollsController.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAAwEkAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T05:56:06.317Z",
-              "EditorCaption": ""
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Payrolls\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\Index.cshtml",
+              "RelativeToolTip": "Views\\Payrolls\\Index.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAGgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-01T16:02:05.613Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "SalariesController.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\SalariesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SalariesController.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\SalariesController.cs",
-              "RelativeToolTip": "Controllers\\SalariesController.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAqwEMAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T08:56:51.12Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "PayrollReport.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\PayrollReport.cshtml",
               "RelativeDocumentMoniker": "Views\\Payrolls\\PayrollReport.cshtml",
@@ -259,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "PeriodReport.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\PeriodReport.cshtml",
               "RelativeDocumentMoniker": "Views\\Payrolls\\PeriodReport.cshtml",
@@ -267,12 +335,11 @@
               "RelativeToolTip": "Views\\Payrolls\\PeriodReport.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:03:01.1Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T06:03:01.1Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\Employees\\Details.cshtml",
@@ -284,7 +351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Attendance\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Attendance\\Create.cshtml",
@@ -296,7 +363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Salaries\\Edit.cshtml",
@@ -308,19 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Create.cshtml",
-              "RelativeDocumentMoniker": "Views\\Salaries\\Create.cshtml",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Create.cshtml",
-              "RelativeToolTip": "Views\\Salaries\\Create.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAABkAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-16T05:47:11.687Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Payrolls\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Payrolls\\Edit.cshtml",
@@ -332,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -344,19 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Salaries\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Salaries\\Index.cshtml",
-              "RelativeToolTip": "Views\\Salaries\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-16T09:04:16.29Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Roles\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Roles\\Index.cshtml",
@@ -368,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
@@ -380,7 +423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Employees\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Employees\\Create.cshtml",
@@ -392,7 +435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "Salary.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\Salary.cs",
               "RelativeDocumentMoniker": "Models\\Salary.cs",
@@ -404,7 +447,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "AttendanceController.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\AttendanceController.cs",
               "RelativeDocumentMoniker": "Controllers\\AttendanceController.cs",
@@ -416,19 +459,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "EmployeesController.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\EmployeesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\EmployeesController.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\EmployeesController.cs",
-              "RelativeToolTip": "Controllers\\EmployeesController.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAEgAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-02T13:54:05.88Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
@@ -440,7 +471,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "Bank.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\Bank.cs",
               "RelativeDocumentMoniker": "Models\\Bank.cs",
@@ -452,7 +483,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "DbSeeder.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Services\\Infrastructure\\DbSeeder.cs",
               "RelativeDocumentMoniker": "Services\\Infrastructure\\DbSeeder.cs",
@@ -464,7 +495,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "LeaveApplication.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\LeaveApplication.cs",
               "RelativeDocumentMoniker": "Models\\LeaveApplication.cs",
@@ -476,7 +507,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "FakeDataSeeder.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Data\\Seed\\FakeDataSeeder.cs",
               "RelativeDocumentMoniker": "Data\\Seed\\FakeDataSeeder.cs",
@@ -488,7 +519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "CustomUserIdProvider.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Services\\Infrastructure\\CustomUserIdProvider.cs",
               "RelativeDocumentMoniker": "Services\\Infrastructure\\CustomUserIdProvider.cs",
@@ -500,19 +531,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Employee.cs",
-              "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\Employee.cs",
-              "RelativeDocumentMoniker": "Models\\Employee.cs",
-              "ToolTip": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\Employee.cs",
-              "RelativeToolTip": "Models\\Employee.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAIAzwEIAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T16:27:43.049Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "Attendance.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Models\\Attendance.cs",
               "RelativeDocumentMoniker": "Models\\Attendance.cs",
@@ -524,7 +543,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Attendance\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Attendance\\Index.cshtml",
@@ -536,7 +555,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Attendance\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Attendance\\Edit.cshtml",
@@ -548,7 +567,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "LeaveApplicationsController.cs",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Controllers\\LeaveApplicationsController.cs",
               "RelativeDocumentMoniker": "Controllers\\LeaveApplicationsController.cs",
@@ -560,7 +579,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "Leaves.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Reports\\Leaves.cshtml",
               "RelativeDocumentMoniker": "Views\\Reports\\Leaves.cshtml",
@@ -572,7 +591,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\Views\\Reports\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Reports\\Index.cshtml",
@@ -584,7 +603,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "EmployeesManagment.csproj",
               "DocumentMoniker": "C:\\Users\\Jafar\\MyGitHub\\EmployeeManagementSystem\\EmployeesManagment.csproj",
               "RelativeDocumentMoniker": "EmployeesManagment.csproj",

@@ -139,6 +139,12 @@
                     $("#BasicSalary, #Allowance, #Deductions, #NetSalary").val('');
                 }
             });
+                    // إذا كان في موظف محدد مسبقًا، نحمل بياناته تلقائيًا
+        var selectedEmpId = $("#EmployeeId").val();
+        if (selectedEmpId) {
+            $("#EmployeeId").trigger("change");
+        }
+
         });
     </script>
 

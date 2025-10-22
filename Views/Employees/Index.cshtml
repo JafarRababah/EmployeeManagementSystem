@@ -19,15 +19,15 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label asp-for="EmpNo" class="control-label"></label>
-                            <input asp-for="EmpNo" class="form-control" />
+                            <input asp-for="EmpNo" name="EmpNo" class="form-control" />
                         </div>
                         <div class="form-group col-md-4">
                             <label asp-for="FullName" class="control-label"></label>
-                            <input asp-for="FullName" class="form-control" />
+                            <input asp-for="FullName" name="FullName" class="form-control" />
                         </div>
                         <div class="form-group col-md-4">
                             <label asp-for="PhoneNumber" class="control-label"></label>
-                            <input asp-for="PhoneNumber" class="form-control" />
+                            <input asp-for="PhoneNumber" name="PhoneNumber" class="form-control" />
                         </div>
                         <div class="col-md-2 mt-20">
                         <button type="submit" class="btn btn-success btn-block mt-20"><i class="fa fa-search"></i>Search</button>
@@ -41,89 +41,46 @@
         </div>
     </div>
 </div>
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Employees List</h3>
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmpNo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FullName)
-                    </th>
-
-                    <th>
-                        @Html.DisplayNameFor(model => model.PhoneNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmailAddress)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LeaveOutStandingBalance)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.StatusId)
-                    </th>
-                    <th>
-                        Payroll
-                    </th>
-                    <th>
-                        Edit
-                    </th>
-                    <th>
-                        View
-                    </th>
-                    <th>
-                        Delete
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Employees)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EmpNo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PhoneNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EmailAddress)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LeaveOutStandingBalance)
-                        </td>
-                        <td>
-                            <span class="budge rounded-pill bg-success">
-                            @Html.DisplayFor(modelItem => item.Status.Description)
-                            </span>
-                        </td>
-                        <td>
-                            <a asp-controller="Payrolls" asp-action="Create" asp-route-employeeId="@item.Id" class="btn btn-primary"><i class="fa fa-pencil"></i> Payroll</a>
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-eye"></i> View</a>
-                        </td>
-                        <td>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+<div class="card-body" id="employeesTableWrapper">
+    @await Html.PartialAsync("_EmployeesTable", Model)
 </div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            // أي تغيير أو كتابة في الحقول يشغّل البحث مباشرة
+            $('input[name="EmpNo"], input[name="FullName"], input[name="PhoneNumber"]').on('input', function () {
+                performSearch();
+            });
+
+            // البحث باستخدام Ajax
+            function performSearch() {
+                var empNo = $('input[name="EmpNo"]').val();
+                var fullName = $('input[name="FullName"]').val();
+                var phoneNumber = $('input[name="PhoneNumber"]').val();
+
+                $.ajax({
+                    url: '@Url.Action("FilterEmployees", "Employees")',
+                    type: 'GET',
+                    data: {
+                        EmpNo: empNo,
+                        FullName: fullName,
+                        PhoneNumber: phoneNumber
+                    },
+                    success: function (result) {
+                        // تحديث الجدول بالنتيجة الجديدة
+                        $('#employeesTableWrapper').html(result);
+                    },
+                    error: function () {
+                        alert("حدث خطأ أثناء تحميل البيانات.");
+                    }
+                });
+            }
+        });
+    </script>
+}
+
+
+
 

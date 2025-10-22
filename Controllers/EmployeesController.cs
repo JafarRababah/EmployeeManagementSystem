@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using EmployeesManagment.Data;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
+using EmployeesManagment.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
-using EmployeesManagment.Models;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
-using EmployeesManagment.ViewModels;
-using AutoMapper;
-using EmployeesManagment.Services;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
@@ -286,5 +287,49 @@ namespace EmployeesManagment.Controllers
         {
             return _context.Employees.Any(e => e.Id == id);
         }
+        public IActionResult Search(string empNo, string fullName, string phoneNumber)
+        {
+            var employees = _context.Employees.AsQueryable();
+
+            if (!string.IsNullOrEmpty(empNo))
+                employees = employees.Where(e => e.EmpNo.Contains(empNo));
+
+            if (!string.IsNullOrEmpty(fullName))
+                employees = employees.Where(e => e.FullName.Contains(fullName));
+
+            if (!string.IsNullOrEmpty(phoneNumber))
+            {
+                if (long.TryParse(phoneNumber, out long phone))
+                {
+                    employees = employees.Where(e => e.PhoneNumber == phone);
+                }
+            }
+
+            return PartialView("_EmployeesTable", employees.ToList());
+        }
+        public IActionResult FilterEmployees(string EmpNo, string FullName, string PhoneNumber)
+        {
+            var employees = _context.Employees
+                .Include(e => e.Status)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(EmpNo))
+                employees = employees.Where(e => e.EmpNo.Contains(EmpNo));
+
+            if (!string.IsNullOrEmpty(FullName))
+                employees = employees.Where(e => e.FullName.Contains(FullName));
+
+            if (!string.IsNullOrEmpty(PhoneNumber))
+                employees = employees.Where(e => e.PhoneNumber.ToString().Contains(PhoneNumber));
+
+            var model = new EmployeeViewModel
+            {
+                Employees = employees.ToList()
+            };
+
+            return PartialView("_EmployeesTable", model);
+        }
+
+
     }
 }

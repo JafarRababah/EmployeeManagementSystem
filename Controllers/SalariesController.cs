@@ -48,10 +48,19 @@ namespace EmployeesManagment.Controllers
         }
 
         // GET: Salaries/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int? employeeId)
         {
+            var employees = await _context.Employees.ToListAsync();
+            ViewData["EmployeeId"] = new SelectList(employees, "Id", "FullName", employeeId);
             ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+            if (employeeId != null)
+            {
+                var employee = employees.FirstOrDefault(e => e.Id == employeeId);
+                if (employee == null)
+                    return NotFound();
+                ViewBag.EmployeeName = employee.FullName;
+
+            }
             return View();
         }
 
@@ -60,8 +69,9 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Salary salary)
+        public async Task<IActionResult> Create(Salary salary)
         {
+
             var hasSalary =await  _context.Salaries
                 .AnyAsync(x => x.EmployeeId == salary.EmployeeId);
             if (hasSalary)
