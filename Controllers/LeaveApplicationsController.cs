@@ -253,12 +253,20 @@ namespace EmployeesManagment.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var manager = await _userManager.GetUsersInRoleAsync("Admin");
-           // var managerId = manager.FirstOrDefault()?.Id;
-             var managerId = await _context.Users
+            leaveApplication.EndDate = leaveApplication.StartDate.AddDays(leaveApplication.NoOfDays - 1);
+            // var managerId = manager.FirstOrDefault()?.Id;
+            var managerId = await _context.Users
                     .Where(u => u.RoleId == "Admin")
                     .Select(u => u.Id)
                     .FirstOrDefaultAsync();
-
+            bool isOverlap = await _context.LeaveApplications
+                 .AnyAsync(p => leaveApplication.StartDate <= p.EndDate && leaveApplication.EndDate >= p.StartDate);
+            if (isOverlap)
+            {
+                TempData["Error"] = "This Period already Exist. please choose other period";
+               // ViewData["EmployeeId"] = new SelectList(await _context.LeaveApplications.ToListAsync(), "Id", "FullName", leaveApplication?.EmployeeId);
+                return View(leaveApplication);
+            }
             // --- التحقق من الحقول المطلوبة ---
             if (leaveApplication.EmployeeId == 0)
                 ModelState.AddModelError("EmployeeId", "Employee is required.");
@@ -283,7 +291,6 @@ namespace EmployeesManagment.Controllers
                 }
 
                 // --- ضبط التواريخ والحالة ---
-                leaveApplication.EndDate = leaveApplication.StartDate.AddDays(leaveApplication.NoOfDays - 1);
                 leaveApplication.CreatedOn = DateTime.Now;
                 leaveApplication.CreatedById = userId;
 

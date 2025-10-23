@@ -317,7 +317,14 @@ namespace EmployeesManagment.Controllers
                 employees = employees.Where(e => e.EmpNo.Contains(EmpNo));
 
             if (!string.IsNullOrEmpty(FullName))
-                employees = employees.Where(e => e.FullName.Contains(FullName));
+            {
+                employees = employees.Where(e =>
+                    e.FirstName.Contains(FullName) ||
+                    e.MiddleName.Contains(FullName) ||
+                    e.LastName.Contains(FullName));
+            }
+
+
 
             if (!string.IsNullOrEmpty(PhoneNumber))
                 employees = employees.Where(e => e.PhoneNumber.ToString().Contains(PhoneNumber));

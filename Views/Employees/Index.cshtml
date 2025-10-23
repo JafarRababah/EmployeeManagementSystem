@@ -30,10 +30,10 @@
                             <input asp-for="PhoneNumber" name="PhoneNumber" class="form-control" />
                         </div>
                         <div class="col-md-2 mt-20">
-                        <button type="submit" class="btn btn-success btn-block mt-20"><i class="fa fa-search"></i>Search</button>
+                        <button type="submit" class="btn btn-success btn-block mt-20"><i class="fa fa-search"></i> Search</button>
                     </div>
                     <div class="col-md-2 mt-20">
-                        <button type="reset" class="btn btn-default btn-block mt-20"><i class="fa fa-eraser"></i>Clear</button>
+                            <button type="reset" class="btn btn-secondary btn-block w-100"><i class="fa fa-eraser"></i> Clear</button>
                     </div>
             </div>
                 </form>
@@ -53,7 +53,11 @@
             $('input[name="EmpNo"], input[name="FullName"], input[name="PhoneNumber"]').on('input', function () {
                 performSearch();
             });
-
+               $('button[type="reset"]').on('click', function () {
+            setTimeout(function () {
+                performSearch(); // استدعِ البحث بدون فلاتر بعد المسح
+            }, 100); // تأخير بسيط حتى يتم تفريغ الحقول فعليًا
+        });
             // البحث باستخدام Ajax
             function performSearch() {
                 var empNo = $('input[name="EmpNo"]').val();
@@ -77,6 +81,7 @@
                     }
                 });
             }
+
         });
     </script>
 }
