@@ -2,6 +2,7 @@
 using EmployeesManagment.Data.Migrations;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -45,7 +46,7 @@ namespace EmployeesManagment.Controllers
                 .Include(l => l.Duration)
                 .Include(l => l.Employee)
                 .Include(l => l.LeaveType)
-                .Include(l => l.Status).OrderByDescending(l => l.CreatedOn);
+                .Where(l => l.Status==awaitingStatus).OrderByDescending(l => l.CreatedOn);
                 
             return View(leaveapplication);
         }
@@ -108,6 +109,7 @@ namespace EmployeesManagment.Controllers
             return View();
         }
         [HttpGet]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> ApprovedLeave(int? id)
         {
             var leaveApplication=await _context.LeaveApplications
@@ -128,6 +130,7 @@ namespace EmployeesManagment.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> ApprovedLeave(LeaveApplication leave)
         {
             try
@@ -188,7 +191,8 @@ namespace EmployeesManagment.Controllers
             
         }
         [HttpGet]
-            public async Task<IActionResult> RejectLeave(int? id)
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> RejectLeave(int? id)
             {
             
                 var leaveApplication = await _context.LeaveApplications
@@ -209,6 +213,7 @@ namespace EmployeesManagment.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> RejectLeave(LeaveApplication leave)
         {
             try

@@ -1,13 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using EmployeesManagment.Data;
+using EmployeesManagment.Data.Migrations;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EmployeesManagment.Data;
-using EmployeesManagment.Models;
-using EmployeesManagment.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
@@ -23,10 +26,37 @@ namespace EmployeesManagment.Controllers
         // GET: Salaries
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Salaries.Include(s => s.Bank).Include(s => s.Employee);
+            var awaitingStatus = _context.SystemCodeDetails
+                 .Include(x => x.SystemCodeValue)
+                 .Where(y => y.SystemCodeValue.Code == "SalaryApprovalStatus" && y.Code == "AwaitingApproval").FirstOrDefault();
+            var salaryApplication = _context.Salaries
+                .Include(l => l.Employee)
+                .Where(l => l.Status == awaitingStatus).OrderByDescending(l => l.CreatedOn);
+
+            return View(salaryApplication);
+        }
+        public async Task<IActionResult> ApprovedSalaryApplications()
+        {
+            var approvedStatus = _context.SystemCodeDetails.Include(x => x.SystemCodeValue)
+                .Where(y => y.SystemCodeValue.Code == "SalaryApprovalStatus" && y.Code == "Approved").FirstOrDefault();
+
+            var applicationDbContext = _context.Salaries.
+                Include(l => l.Employee).
+                Include(l => l.Status).
+                Where(l => l.StatusId == approvedStatus!.Id);
             return View(await applicationDbContext.ToListAsync());
         }
+        public async Task<IActionResult> RejectedLeaveApplications()
+        {
+            var rejectedStatus = _context.SystemCodeDetails.Include(x => x.SystemCodeValue)
+                .Where(y => y.SystemCodeValue.Code == "SalaryApprovalStatus" && y.Code == "Rejected").FirstOrDefault();
 
+            var applicationDbContext = _context.Salaries.
+                Include(l => l.Employee).
+                Include(l => l.Status).
+                Where(l => l.StatusId == rejectedStatus!.Id);
+            return View(await applicationDbContext.ToListAsync());
+        }
         // GET: Salaries/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -46,7 +76,108 @@ namespace EmployeesManagment.Controllers
 
             return View(salary);
         }
+        [HttpGet]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> ApprovedSalary(int? id)
+        {
+            var salary = await _context.Salaries
+                .Include(l => l.Employee)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (salary == null)
+            {
+                return NotFound();
+            }
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+            return View(salary);
 
+        }
+        [HttpPost]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> ApprovedSalary(Salary salary)
+        {
+            try
+            {
+                var approvedStatus = _context.SystemCodeDetails
+                .Include(x => x.SystemCodeValue)
+                .Where(y => y.SystemCodeValue.Code == "SalaryApprovalStatus" && y.Code == "Approved").FirstOrDefault();
+                var salaryApplication = await _context.Salaries
+                    .Include(l => l.Employee)
+                    .Include(l => l.Status)
+                    .FirstOrDefaultAsync(m => m.Id == salary.Id);
+                if (salaryApplication == null)
+                {
+                    return NotFound();
+                }
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                salaryApplication.ApprovedOn = DateTime.Now;
+                salaryApplication.ApprovedById = User.GetUserName();
+                salaryApplication.StatusId = approvedStatus!.Id;
+                salaryApplication.ApprovalNotes = salary.ApprovalNotes;
+                _context.Update(salaryApplication);
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Salary application approved successfully ";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Salary application Not approved by successfully ";
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+                return View(salary);
+            }
+
+        }
+        [HttpGet]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> RejectSalary(int? id)
+        {
+            var salary = await _context.Salaries
+                .Include(l => l.Employee)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (salary == null)
+            {
+                return NotFound();
+            }
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+            return View(salary);
+
+        }
+        [HttpPost]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> RejectSalary(Salary salary)
+        {
+            try
+            {
+                var rejectedStatus = _context.SystemCodeDetails
+                .Include(x => x.SystemCodeValue)
+                .Where(y => y.SystemCodeValue.Code == "SalaryApprovalStatus" && y.Code == "Rejected").FirstOrDefault();
+                var salaryApplication = await _context.Salaries
+                    .Include(l => l.Employee)
+                    .Include(l => l.Status)
+                    .FirstOrDefaultAsync(m => m.Id == salary.Id);
+                if (salaryApplication == null)
+                {
+                    return NotFound();
+                }
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                salaryApplication.ApprovedOn = DateTime.Now;
+                salaryApplication.ApprovedById = User.GetUserName();
+                salaryApplication.StatusId = rejectedStatus!.Id;
+                salaryApplication.ApprovalNotes = salary.ApprovalNotes;
+                _context.Update(salaryApplication);
+                await _context.SaveChangesAsync(userId);
+                TempData["Message"] = "Salary application Rejected successfully ";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Salary application Not Rejected by successfully ";
+                ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
+                return View(salary);
+            }
+
+        }
         // GET: Salaries/Create
         public async Task<IActionResult> Create(int? employeeId)
         {
@@ -82,8 +213,17 @@ namespace EmployeesManagment.Controllers
                 return View(salary);
             }
             var userId = User.GetUserId();
+            var pendingStatus = await _context.SystemCodeDetails
+                   .Include(x => x.SystemCodeValue)
+                   .FirstOrDefaultAsync(y => y.Code == "AwaitingApproval" && y.SystemCodeValue.Code == "SalaryApprovalStatus");
+            if (pendingStatus == null)
+            {
+                ModelState.AddModelError("", "Status 'AwaitingApproval' not found.");
+                return View(salary);
+            }
             try
             {
+                salary.StatusId=pendingStatus.Id;
                 salary.CreatedById = User.GetUserName();
                 salary.CreatedOn = DateTime.Now;
                 salary.ModifiedById = User.GetUserName();
@@ -105,6 +245,7 @@ namespace EmployeesManagment.Controllers
         }
 
         // GET: Salaries/Edit/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,8 +258,8 @@ namespace EmployeesManagment.Controllers
             {
                 return NotFound();
             }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", salary.BankId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Id", salary.EmployeeId);
+            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Name", salary.BankId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", salary.EmployeeId);
             return View(salary);
         }
 
@@ -127,6 +268,7 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Edit(int id, Salary salary)
         {
             var userId = User.GetUserId();

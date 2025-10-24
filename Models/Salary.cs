@@ -35,6 +35,9 @@ namespace EmployeesManagment.Models
         public string? NSSFNO { get; set; }
         public string? NHIF { get; set; }
         public bool PaysTax { get; set; }
+        public int StatusId { get; set; }
+        public SystemCodeDetail Status { get; set; }
+        public string? ApprovalNotes { get; set; }
 
     }
 }

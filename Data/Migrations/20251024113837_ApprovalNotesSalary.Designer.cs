@@ -4,6 +4,7 @@ using EmployeesManagment.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeesManagment.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251024113837_ApprovalNotesSalary")]
+    partial class ApprovalNotesSalary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1265,16 +1268,11 @@ namespace EmployeesManagment.Data.Migrations
                     b.Property<string>("SalariesNotes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BankId");
 
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("Salaries");
                 });
@@ -1913,17 +1911,9 @@ namespace EmployeesManagment.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeesManagment.Models.SystemCodeDetail", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Bank");
 
                     b.Navigation("Employee");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("EmployeesManagment.Models.SystemCodeDetail", b =>
