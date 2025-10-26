@@ -10,6 +10,51 @@
             <a asp-action="Create" class="btn btn-primary"><i class="bi bi-file-plus-fill"></i>Add Employee Salary</a>
         </div>
     </div>
+   @*  <div class="card-body">
+        <div class="col-md-12">
+            <div class="row">
+                <form asp-action="Index" method="get" enctype="multipart/form-data" class="form-vertical">
+                    <div class="row">
+
+                        <!-- Employee Number -->
+                        <div class="form-group col-md-4">
+                            <label asp-for="EmpNo" class="control-label">Employee Number</label>
+                            <input asp-for="EmpNo" class="form-control" />
+                            <span asp-validation-for="EmpNo" class="text-danger"></span>
+                        </div>
+
+                        <!-- Full Name -->
+                        <div class="form-group col-md-4">
+                            <label asp-for="FullName" class="control-label">Full Name</label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="form-group col-md-4">
+                            <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="col-md-2 mt-3">
+                            <button type="submit" class="btn btn-success btn-block">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                        </div>
+                        <div class="col-md-2 mt-3">
+                            <button type="reset" class="btn btn-secondary btn-block w-100">
+                                <i class="fa fa-eraser"></i> Clear
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> *@
+
     <!-- /.card-header -->
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">

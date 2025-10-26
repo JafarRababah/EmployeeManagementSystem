@@ -46,7 +46,7 @@ namespace EmployeesManagment.Controllers
                 Where(l => l.StatusId == approvedStatus!.Id);
             return View(await applicationDbContext.ToListAsync());
         }
-        public async Task<IActionResult> RejectedLeaveApplications()
+        public async Task<IActionResult> RejectedSalaryApplications()
         {
             var rejectedStatus = _context.SystemCodeDetails.Include(x => x.SystemCodeValue)
                 .Where(y => y.SystemCodeValue.Code == "SalaryApprovalStatus" && y.Code == "Rejected").FirstOrDefault();
