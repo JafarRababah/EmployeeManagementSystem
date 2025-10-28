@@ -5,10 +5,13 @@ using EmployeesManagment.Infrastructure;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
 using EmployeesManagment.Views.Profiles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ----------------- Add Services -----------------
@@ -18,7 +21,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Identity configuration with ApplicationUser
+// ✅ Identity configuration
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -26,75 +29,67 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
+// ✅ إعداد الكوكي فقط (بدون AddAuthentication)
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
+});
+
 // Razor Pages & MVC
 builder.Services.AddRazorPages();
-//builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<LicenseFilter>();
 });
+
 builder.Services.AddScoped<LicenseService>();
 builder.Services.AddSession();
-// Authentication & Authorization
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
-// ✅ إضافة SignalR
+
+// ✅ SignalR
 builder.Services.AddSignalR();
-
-// ✅ UserIdProvider
 builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
-
-// ✅ NotificationService
 builder.Services.AddScoped<NotificationService>();
-// AutoMapper
+
+// ✅ AutoMapper
 var config = new AutoMapper.MapperConfiguration(options =>
 {
-    options.AllowNullDestinationValues = true;
-    options.AllowNullCollections = true;
     options.AddProfile(new AutomapperProfiles());
 });
-var mapper = config.CreateMapper();
-builder.Services.AddSingleton(mapper);
+builder.Services.AddSingleton(config.CreateMapper());
 
-// Custom services
+// ✅ Custom services
 builder.Services.AddTransient<IExtensionService, ExtensionService>();
-
-// Reporting service
 builder.Services.AddScoped<EmployeesManagment.Services.Reporting.IReportService, EmployeesManagment.Services.Reporting.ReportService>();
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Account/Login";
-    options.AccessDeniedPath = "/Account/AccessDenied";
-});
 
 
-
-// ضبط الترخيص لمرة واحدة فقط
+// ✅ EPPlus License
 ExcelPackage.License.SetNonCommercialPersonal("Your Name Here");
-builder.Services.AddControllersWithViews();
 
 // ----------------- Build App -----------------
 var app = builder.Build();
+
+// ----------------- Middleware -----------------
+app.Use(async (context, next) =>
+{
+    // منع عرض الصفحات من الكاش بعد تسجيل الخروج
+    context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+    context.Response.Headers["Pragma"] = "no-cache";
+    context.Response.Headers["Expires"] = "0";
+    await next();
+});
+
 app.UseSession();
 
-
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-//    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-//    await DbSeeder.SeedAdminUserAsync(userManager, roleManager);
-//}
 using (var scope = app.Services.CreateScope())
 {
     var sp = scope.ServiceProvider;
     await DbSeeder.SeedRolesAndUsersAsync(sp);
-   // await FakeDataSeeder.SeedAsync(sp);
 }
 
-
-// ----------------- Configure Middleware -----------------
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -104,21 +99,21 @@ else
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Account}/{action=Login}/{id?}");
 
+// ----------------- Routes -----------------
 app.MapControllerRoute(
-name: "default",
-pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 app.MapHub<NotificationHub>("/notificationHub");
 
-
-// ----------------- Run App -----------------
+// ----------------- Run -----------------
 app.Run();
