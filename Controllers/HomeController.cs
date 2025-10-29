@@ -1,41 +1,79 @@
+﻿using EmployeesManagment.Data;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
+using EmployeesManagment.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace EmployeesManagment.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly ILogger<HomeController> _logger;
         private readonly LicenseService _licenseService;
 
-        public HomeController(ILogger<HomeController> logger, LicenseService licenseService)
+        public HomeController(ApplicationDbContext context,ILogger<HomeController> logger, LicenseService licenseService)
         {
+            _context = context;
             _logger = logger;
             _licenseService = licenseService;
         }
 
         public IActionResult Index()
         {
-            string licenseKey = "ABC123-XYZ789"; // ���� ������ �� appsettings �� ������ �� ��������
-
-            //if (!_licenseService.IsLicenseValid(licenseKey))
-            //{
-            //    Console.WriteLine("License is invalid or expired!");
-            //    // ����� ������ �� ����� ����� ��������
-            //}
             if (TempData["LicenseKey"] == null)
             {
                 return RedirectToAction("EnterLicense", "Licenses");
             }
 
-            return !User.Identity.IsAuthenticated
-                ? this.Redirect("~/identity/account/login")
-                : View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/identity/account/login");
+            }
 
+            // 👇 بدل View() إلى:
+            return RedirectToAction("Dashboard");
 
         }
+
+        public async Task<IActionResult> Dashboard()
+        {
+            // Pending Leaves
+            var pendingLeavesCount = await _context.LeaveApplications
+                .Where(x => x.Status != null && x.Status.Code == "Pending")
+                .CountAsync();
+            int pendingLeaves = pendingLeavesCount; // CountAsync آمن ولن يرجع null
+
+            // New Employees هذا الشهر
+            var newEmployeesCount = await _context.Employees
+                .Where(x => x.CreatedOn.Month == DateTime.Now.Month && x.CreatedOn.Year == DateTime.Now.Year)
+                .CountAsync();
+            int newEmployees = newEmployeesCount;
+
+            // Late Employees Rate (قد يكون حسابه null من المصدر، هنا مثال مؤقت)
+            int? lateEmployeesRate = 25; // افتراضي، يمكن تغييره ليحسب فعليًا
+
+            // Total Salary للشهر الحالي
+            var totalSalarySum = await _context.Payrolls
+                .Where(p => p.PeriodStart.Month == DateTime.Now.Month && p.PeriodStart.Year == DateTime.Now.Year)
+                .SumAsync(p => (decimal?)p.NetSalary); // قد يكون null إذا لا توجد بيانات
+            int totalSalary = (int)(totalSalarySum ?? 0); // null تتحول إلى صفر
+
+            // إنشاء الـ ViewModel
+            var model = new DashboardViewModel
+            {
+                PendingLeaves = pendingLeaves,
+                NewEmployees = newEmployees,
+                LateRate = lateEmployeesRate ?? 0, // null تتحول إلى صفر
+                TotalSalary = totalSalary
+            };
+
+            return View("Index", model);
+        }
+
+
 
 
         public IActionResult Privacy()
