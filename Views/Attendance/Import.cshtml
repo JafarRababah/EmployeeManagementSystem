@@ -1,0 +1,26 @@
+﻿@model EmployeesManagment.ViewModels.AttendanceImportViewModel
+@{
+    ViewData["Title"] = "استيراد بيانات البصمة";
+}
+
+<div class="card mt-4">
+    <div class="card-header bg-info text-white">
+        <h4>استيراد بيانات البصمة (CSV)</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Import" enctype="multipart/form-data" method="post">
+            <div class="form-group mb-3">
+                <label asp-for="CsvFile"></label>
+                <input asp-for="CsvFile" class="form-control" type="file" accept=".csv" />
+                <span asp-validation-for="CsvFile" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">استيراد</button>
+        </form>
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success mt-3">@ViewBag.Message</div>
+        }
+    </div>
+</div>

@@ -1,12 +1,14 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
+using EmployeesManagment.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
 {
@@ -24,6 +26,65 @@ namespace EmployeesManagment.Controllers
         {
             var data = _context.Attendances.Include(a => a.Employee);
             return View(await data.ToListAsync());
+        }
+        [HttpGet]
+        public IActionResult Import()
+        {
+            return View(new AttendanceImportViewModel());
+        }
+        [HttpPost]
+        public async Task<IActionResult> Import(AttendanceImportViewModel model)
+        {
+            if (model.CsvFile == null || model.CsvFile.Length == 0)
+            {
+                ModelState.AddModelError("", "«·—Ã«¡ «Œ Ì«— „·› CSV ’«·Õ.");
+                return View(model);
+            }
+
+            using var reader = new StreamReader(model.CsvFile.OpenReadStream());
+            string? line;
+            int count = 0;
+
+            while ((line = await reader.ReadLineAsync()) != null)
+            {
+                if (line.StartsWith("EmployeeId")) continue; //  Ã«Ê“ «·⁄‰Ê«‰
+
+                var columns = line.Split(',');
+
+                if (columns.Length < 3) continue;
+
+                if (!int.TryParse(columns[0], out var empId))
+                    continue;
+
+                if (!DateTime.TryParseExact(columns[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var checkIn))
+                    continue;
+
+                DateTime? checkOut = null;
+                if (DateTime.TryParseExact(columns[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var tempOut))
+                    checkOut = tempOut;
+
+                var attendance = new Attendance
+                {
+                    EmployeeId = empId,
+                    Date = checkIn.Date,
+                    CheckIn = checkIn,
+                    CheckOut = checkOut,
+                    OvertimeHours = int.Parse(columns[4]),
+                    LateMinutes = int.Parse(columns[5]),
+                    CreatedOn = columns.Length > 6 ? DateTime.Parse(columns[6]) : DateTime.Now,
+                    ModifiedOn = columns.Length > 7 ? DateTime.Parse(columns[7]) : DateTime.Now,
+                    StatusId = int.Parse(columns[8]),
+                    Source = "Fingerprint"
+                };
+
+
+                await _context.Attendances.AddAsync(attendance);
+                count++;
+            }
+            var userId = User.GetUserId();
+            await _context.SaveChangesAsync(userId);
+            ViewBag.Message = $" „ «” Ì—«œ {count} ”Ã· Õ÷Ê— »‰Ã«Õ!";
+            return View(new AttendanceImportViewModel());
         }
 
         // GET: Attendance/Create

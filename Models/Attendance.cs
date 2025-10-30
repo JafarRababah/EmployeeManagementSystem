@@ -38,5 +38,6 @@ namespace EmployeesManagment.Models
         [Display(Name = "Status")]
         public int StatusId { get; set; }
         public SystemCodeDetail Status { get; set; }
+        public string Source { get; set; }
     }
 }
