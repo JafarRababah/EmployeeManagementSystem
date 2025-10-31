@@ -18,6 +18,9 @@ public class LicenseFilter : IActionFilter
         // السماح بالوصول إلى صفحة EnterLicense
         if (path.Contains("/licenses/enterlicense"))
             return;
+        // تخطي التحقق لأي API
+        if (path.StartsWith("/api/"))
+            return;
 
         var hasLicense = context.HttpContext.Session.GetString("LicenseKey");
         if (string.IsNullOrEmpty(hasLicense) || !_licenseService.IsLicenseValid(hasLicense))
