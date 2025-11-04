@@ -37,6 +37,10 @@ namespace EmployeesManagment.Controllers
             return RedirectToAction("Dashboard");
 
         }
+        public IActionResult Landing()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> Dashboard()
         {
@@ -74,6 +78,20 @@ namespace EmployeesManagment.Controllers
         }
 
 
+        public IActionResult Demo()
+        {
+            // ✅ مثال: يمكنك هنا إظهار صفحة Dashboard تجريبية
+            // أو صفحة تحتوي على بيانات Mock لتجربة AttendPro
+            var demoModel = new DashboardViewModel
+            {
+                PendingLeaves = 5,
+                NewEmployees = 3,
+                LateRate = 12,
+                TotalSalary = 15000
+            };
+
+            return View("Dashboard", demoModel); // إعادة استخدام الـ Dashboard View
+        }
 
 
         public IActionResult Privacy()
