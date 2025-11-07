@@ -37,6 +37,7 @@ namespace EmployeesManagment.Controllers
             return RedirectToAction("Dashboard");
 
         }
+
         public IActionResult Landing()
         {
             return View();
@@ -64,14 +65,38 @@ namespace EmployeesManagment.Controllers
                 .Where(p => p.PeriodStart.Month == DateTime.Now.Month && p.PeriodStart.Year == DateTime.Now.Year)
                 .SumAsync(p => (decimal?)p.NetSalary); // قد يكون null إذا لا توجد بيانات
             int totalSalary = (int)(totalSalarySum ?? 0); // null تتحول إلى صفر
+                                                          // بيانات الرسوم البيانية (آخر 6 شهور)
+            var months = Enumerable.Range(0, 6)
+                .Select(i => DateTime.Now.AddMonths(-i))
+                .OrderBy(d => d)
+                .Select(d => d.ToString("MMM"))
+                .ToList();
+            var attendanceData = new List<int>();
+            var leaveData = new List<int>();
+            foreach (var month in months)
+            {
+                var monthDate = DateTime.ParseExact(month, "MMM", System.Globalization.CultureInfo.InvariantCulture);
+                int m = monthDate.Month;
+                int y = DateTime.Now.Year;
 
+                int attendanceCount = await _context.Attendances
+                    .CountAsync(a => a.Date.Month == m && a.Date.Year == y);
+                int leaveCount = await _context.LeaveApplications
+                    .CountAsync(l => l.StartDate.Month == m && l.StartDate.Year == y);
+
+                attendanceData.Add(attendanceCount);
+                leaveData.Add(leaveCount);
+            }
             // إنشاء الـ ViewModel
             var model = new DashboardViewModel
             {
                 PendingLeaves = pendingLeaves,
                 NewEmployees = newEmployees,
                 LateRate = lateEmployeesRate ?? 0, // null تتحول إلى صفر
-                TotalSalary = totalSalary
+                TotalSalary = totalSalary,
+                Months = months,
+                AttendanceData = attendanceData,
+                LeaveData = leaveData
             };
 
             return View("Index", model);
@@ -87,12 +112,50 @@ namespace EmployeesManagment.Controllers
                 PendingLeaves = 5,
                 NewEmployees = 3,
                 LateRate = 12,
-                TotalSalary = 15000
+                TotalSalary = 15000,
+                Months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun" },
+                AttendanceData = new List<int> { 90, 85, 88, 92, 94, 95 },
+                LeaveData = new List<int> { 10, 15, 12, 8, 6, 5 }
             };
 
             return View("Dashboard", demoModel); // إعادة استخدام الـ Dashboard View
         }
+        // 🔹 API لتزويد البيانات الخاصة بالرسوم البيانية (تُستدعى بـ AJAX)
+        [HttpGet]
+        public async Task<IActionResult> GetChartsData()
+        {
+            var months = Enumerable.Range(0, 6)
+                .Select(i => DateTime.Now.AddMonths(-i))
+                .OrderBy(d => d)
+                .Select(d => d.ToString("MMM"))
+                .ToList();
 
+            var attendanceData = new List<int>();
+            var leaveData = new List<int>();
+
+            foreach (var month in months)
+            {
+                var monthDate = DateTime.ParseExact(month, "MMM", System.Globalization.CultureInfo.InvariantCulture);
+                int m = monthDate.Month;
+                int y = DateTime.Now.Year;
+
+                int attendanceCount = await _context.Attendances
+                    .CountAsync(a => a.Date.Month == m && a.Date.Year == y);
+                int leaveCount = await _context.LeaveApplications
+                    .CountAsync(l => l.StartDate.Month == m && l.StartDate.Year == y);
+
+                attendanceData.Add(attendanceCount);
+                leaveData.Add(leaveCount);
+            }
+
+            return Json(new
+            {
+                months,
+                attendanceData,
+                leaveData,
+                leaveDistribution = new { Annual = 35, Sick = 25, Unpaid = 20, Other = 20 } // مثال
+            });
+        }
 
         public IActionResult Privacy()
         {
