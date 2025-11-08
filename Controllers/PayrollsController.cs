@@ -5,8 +5,10 @@ using EmployeesManagment.Data;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
 using EmployeesManagment.ViewModels;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +20,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+// iText7 aliases to avoid ambiguity with OpenXml types
+using ITextParagraph = iText.Layout.Element.Paragraph;
+using ITextCell = iText.Layout.Element.Cell;
+using ITextTable = iText.Layout.Element.Table;
+using ITextDocument = iText.Layout.Document;
+
 
 namespace EmployeesManagment.Controllers
 {
@@ -493,45 +501,96 @@ namespace EmployeesManagment.Controllers
 
             using (var stream = new MemoryStream())
             {
-                var doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10, 10, 10, 10);
-                PdfWriter.GetInstance(doc, stream);
-                doc.Open();
-
-                var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14);
-                var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-
-                doc.Add(new iTextSharp.text.Paragraph($"Payroll Report ({startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd})", titleFont));
-                doc.Add(new iTextSharp.text.Paragraph("\n"));
-
-                var table = new PdfPTable(8) { WidthPercentage = 100 };
-                table.AddCell("Employee");
-                table.AddCell("Period Start");
-                table.AddCell("Period End");
-                table.AddCell("Basic");
-                table.AddCell("Allowances");
-                table.AddCell("Deductions");
-                table.AddCell("Tax");
-                table.AddCell("Net");
-
-                foreach (var item in payrolls)
+                using (var writer = new PdfWriter(stream))
                 {
-                    table.AddCell(item.Employee.FullName);
-                    table.AddCell(item.PeriodStart.ToString("yyyy-MM-dd"));
-                    table.AddCell(item.PeriodEnd.ToString("yyyy-MM-dd"));
-                    table.AddCell(item.BasicSalary.ToString("N2"));
-                    table.AddCell(item.Allowances.ToString("N2"));
-                    table.AddCell(item.Deductions.ToString("N2"));
-                    table.AddCell(item.Tax.ToString("N2"));
-                    table.AddCell(item.NetSalary.ToString("N2"));
-                }
+                    var pdf = new PdfDocument(writer);
+                    var document = new ITextDocument(pdf);
 
-                doc.Add(table);
-                doc.Close();
+                    var title = new ITextParagraph($"Payroll Report ({startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd})")
+                        .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                        .SetFontSize(16)
+                        .SetFont(iText.Kernel.Font.PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA_BOLD));
+                    document.Add(title);
+                    document.Add(new ITextParagraph("\n"));
+
+                    var table = new ITextTable(new float[] { 3, 2, 2, 2, 2, 2, 2, 2 });
+                    table.SetWidth(iText.Layout.Properties.UnitValue.CreatePercentValue(100));
+
+                    string[] headers = { "Employee", "Period Start", "Period End", "Basic", "Allowances", "Deductions", "Tax", "Net" };
+                    foreach (var header in headers)
+                    {
+                        table.AddHeaderCell(new ITextCell().Add(new ITextParagraph(header).SetFont(iText.Kernel.Font.PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA_BOLD))));
+                    }
+
+                    foreach (var item in payrolls)
+                    {
+                        table.AddCell(new ITextCell().Add(new ITextParagraph(item.Employee.FullName)));
+                        table.AddCell(new ITextCell().Add(new ITextParagraph(item.PeriodStart.ToString("yyyy-MM-dd"))));
+                        table.AddCell(new ITextCell().Add(new ITextParagraph(item.PeriodEnd.ToString("yyyy-MM-dd"))));
+                        table.AddCell(new ITextCell().Add(new ITextParagraph(item.BasicSalary.ToString("N2"))));
+                        table.AddCell(new ITextCell().Add(new ITextParagraph(item.Allowances.ToString("N2"))));
+                        table.AddCell(new ITextCell().Add(new ITextParagraph(item.Deductions.ToString("N2"))));
+                        table.AddCell(new ITextCell().Add(new ITextParagraph(item.Tax.ToString("N2"))));
+                        table.AddCell(new ITextCell().Add(new ITextParagraph(item.NetSalary.ToString("N2"))));
+                    }
+
+                    document.Add(table);
+                    document.Close();
+                }
 
                 string fileName = $"PayrollReport_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.pdf";
                 return File(stream.ToArray(), "application/pdf", fileName);
             }
         }
+
+        //public IActionResult SalaryExportToPdf(DateTime startDate, DateTime endDate)
+        //{
+        //    var payrolls = _context.Payrolls
+        //        .Where(p => p.PeriodStart >= startDate && p.PeriodEnd <= endDate)
+        //        .Include(p => p.Employee)
+        //        .ToList();
+
+        //    using (var stream = new MemoryStream())
+        //    {
+        //        var doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10, 10, 10, 10);
+        //        PdfWriter.GetInstance(doc, stream);
+        //        doc.Open();
+
+        //        var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14);
+        //        var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+
+        //        doc.Add(new iTextSharp.text.Paragraph($"Payroll Report ({startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd})", titleFont));
+        //        doc.Add(new iTextSharp.text.Paragraph("\n"));
+
+        //        var table = new PdfPTable(8) { WidthPercentage = 100 };
+        //        table.AddCell("Employee");
+        //        table.AddCell("Period Start");
+        //        table.AddCell("Period End");
+        //        table.AddCell("Basic");
+        //        table.AddCell("Allowances");
+        //        table.AddCell("Deductions");
+        //        table.AddCell("Tax");
+        //        table.AddCell("Net");
+
+        //        foreach (var item in payrolls)
+        //        {
+        //            table.AddCell(item.Employee.FullName);
+        //            table.AddCell(item.PeriodStart.ToString("yyyy-MM-dd"));
+        //            table.AddCell(item.PeriodEnd.ToString("yyyy-MM-dd"));
+        //            table.AddCell(item.BasicSalary.ToString("N2"));
+        //            table.AddCell(item.Allowances.ToString("N2"));
+        //            table.AddCell(item.Deductions.ToString("N2"));
+        //            table.AddCell(item.Tax.ToString("N2"));
+        //            table.AddCell(item.NetSalary.ToString("N2"));
+        //        }
+
+        //        doc.Add(table);
+        //        doc.Close();
+
+        //        string fileName = $"PayrollReport_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.pdf";
+        //        return File(stream.ToArray(), "application/pdf", fileName);
+        //    }
+        //}
 
     }
 }
