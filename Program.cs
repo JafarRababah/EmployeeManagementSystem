@@ -47,6 +47,7 @@ builder.Services.AddControllersWithViews(options =>
 });
 
 builder.Services.AddScoped<LicenseService>();
+//builder.Services.AddScoped<EmailService>();
 builder.Services.AddSession();
 
 // ✅ SignalR

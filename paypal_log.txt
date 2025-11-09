@@ -1,0 +1,18 @@
+{
+  "event_type": "PAYMENT.CAPTURE.COMPLETED",
+  "resource": {
+    "payer": { "email_address": "user@example.com" },
+    "amount": { "value": "69.00" },
+    "status": "COMPLETED"
+  }
+}
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: An error occurred while saving the entity changes. See the inner exception for details.

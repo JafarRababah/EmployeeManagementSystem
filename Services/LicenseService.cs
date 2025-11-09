@@ -29,7 +29,7 @@ namespace EmployeesManagment.Services
         {
             var computedHash = GenerateLicenseHash(licenseKey);
             var license = _context.Licenses
-         .FirstOrDefault(l => l.LicenseHash == computedHash && l.IsActive);
+         .FirstOrDefault(l => l.LicenseKey == computedHash && l.IsActive);
             if (license == null)
                 return false;
             return license.ExpiryDate >= DateTime.UtcNow;
@@ -54,6 +54,7 @@ namespace EmployeesManagment.Services
         public async Task AddLicense(string licenseKey, DateTime expiryDate, string userId)
         {
             // جلب المستخدم
+            
             if (userId == null)
             {
                 throw new Exception($"User '{userId}' not found.");
@@ -63,7 +64,7 @@ namespace EmployeesManagment.Services
             var license = new License
             {
                 LicenseKey = GenerateLicenseHash(licenseKey),
-                LicenseHash = userId,    // لاحظ U كابيتال
+                ClientEmail = userId,    // لاحظ U كابيتال
                 ExpiryDate = DateTime.UtcNow,
                 IsActive = true,          // أو IsActive = true إذا عندك عمود Boolean
                 CreatedAt = DateTime.UtcNow

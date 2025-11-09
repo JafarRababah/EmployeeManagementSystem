@@ -14,7 +14,7 @@ namespace EmployeesManagment.Models
         [StringLength(50)]
         public string LicenseKey { get; set; } // مفتاح الترخيص
         [Required]
-        public string LicenseHash { get; set; }
+        public string ClientEmail { get; set; }
 
         [Required]
         public DateTime ExpiryDate { get; set; } // تاريخ انتهاء الترخيص
