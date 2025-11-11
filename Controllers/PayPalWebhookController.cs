@@ -17,13 +17,13 @@ namespace EmployeesManagment.Controllers.Api
     {
         private readonly ApplicationDbContext _context;
         private readonly LicenseService _licenseService;
-        //private readonly EmailService _emailService;
+        private readonly EmailService _emailService;
 
-        public PayPalWebhookController(ApplicationDbContext context, LicenseService licenseService)
+        public PayPalWebhookController(ApplicationDbContext context, LicenseService licenseService, EmailService emailService)
         {
             _context = context;
             _licenseService = licenseService;
-            //_emailService = emailService;
+            _emailService = emailService;
         }
 
 
@@ -52,33 +52,33 @@ namespace EmployeesManagment.Controllers.Api
                     var license = new License
                     {
                         LicenseKey = licenseKey,
-                        ClientEmail = payerEmail ?? "unknown@user.com",
+                        ClientEmail = payerEmail ?? "j3fr.rababah@gmail.com",
                         ExpiryDate = DateTime.UtcNow.AddYears(1),
                         IsActive = true,
                         CreatedAt = DateTime.UtcNow
                     };
                     _context.Licenses.Add(license);
                     await _context.SaveChangesAsync(userId);
-//                    // ✉️ إرسال البريد إلى المشتري
-//                    string subject = "Your AttendPro License Key";
-//                    string downloadUrl = "https://yourdomain.com/download/attendpro"; // استبدلها بالرابط الفعلي
-//                    string emailBody = $@"
-//    <h2>🎉 شكراً لشرائك AttendPro!</h2>
-//    <p>مرحباً {payerEmail},</p>
-//    <p>إليك تفاصيل طلبك:</p>
-//    <ul>
-//        <li><strong>المبلغ:</strong> {amount}$</li>
-//        <li><strong>License Key:</strong> <code>{licenseKey}</code></li>
-//        <li><strong>رابط التحميل:</strong> <a href='{downloadUrl}'>Download AttendPro</a></li>
-//    </ul>
-//    <p>نشكرك على دعمك 🙏<br>فريق AttendPro</p>
-//";
+                    //                    // ✉️ إرسال البريد إلى المشتري
+                    string subject = "Your AttendPro License Key";
+                    string downloadUrl = "https://a1b2c3d4.ngrok.io/api/paypalwebhook/webhook"; // استبدلها بالرابط الفعلي
+                    string emailBody = $@"
+    <h2>🎉 شكراً لشرائك AttendPro!</h2>
+    <p>مرحباً {payerEmail},</p>
+    <p>إليك تفاصيل طلبك:</p>
+    <ul>
+        <li><strong>المبلغ:</strong> {amount}$</li>
+        <li><strong>License Key:</strong> <code>{licenseKey}</code></li>
+        <li><strong>رابط التحميل:</strong> <a href='{downloadUrl}'>Download AttendPro</a></li>
+    </ul>
+    <p>نشكرك على دعمك 🙏<br>فريق AttendPro</p>
+";
 
-//                    await _emailService.SendEmailAsync(payerEmail, subject, emailBody);
+                    await _emailService.SendEmailAsync(payerEmail, subject, emailBody);
 
-//                    // ✉️ إرسال البريد للمشتري (سيضاف لاحقاً)
-//                    System.IO.File.AppendAllText("paypal_log.txt",
-//                        $"✅ License generated for {payerEmail} → {licenseKey}{Environment.NewLine}");
+                    // ✉️ إرسال البريد للمشتري (سيضاف لاحقاً)
+                    System.IO.File.AppendAllText("paypal_log.txt",
+                        $"✅ License generated for {payerEmail} → {licenseKey}{Environment.NewLine}");
                 }
 
                 return Ok();

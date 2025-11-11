@@ -16,3 +16,6 @@
 ❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
 ❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
 ❌ Error: An error occurred while saving the entity changes. See the inner exception for details.
+❌ Error: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.7.0 Authentication Required. For more information, go to
+✅ License generated for user@example.com → 6D6F5E82F6D81079A07E
+✅ License generated for j3fr.rababah@gmail.com → 6FED841B0FAC2B5901C1

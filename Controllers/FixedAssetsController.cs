@@ -27,7 +27,8 @@ namespace EmployeesManagment.Controllers
         // GET: FixedAssets
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.FixedAssets.Include(f => f.Category).Include(f => f.ResponsibleEmployee).Include(f => f.Status);
+            var applicationDbContext = _context.FixedAssets.Include(f => f.Category).
+                Include(f => f.ResponsibleEmployee).Include(f => f.Status);
             return View(await applicationDbContext.ToListAsync());
         }
 

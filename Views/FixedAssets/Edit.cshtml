@@ -20,6 +20,9 @@
                             <div class="row g-3">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="Id" />
+                                <input type="hidden" asp-for="CreatedById" />
+                                <input type="hidden" asp-for="CreatedOn" />
+                                <input type="hidden" asp-for="ResponsibleEmployeeId" />
                                 <div class="form-group col-md-6">
                                     <label asp-for="AssetNo" class="control-label"></label>
                                     <input asp-for="AssetNo" readonly class="form-control" />
@@ -52,7 +55,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="ResponsibleEmployeeId" class="control-label"></label>
-                                    <select asp-for="ResponsibleEmployeeId" disabled class="form-control" asp-items="ViewBag.ResponsibleEmployeeId"></select>
+                                    <select asp-for="ResponsibleEmployeeId" readonly class="form-control" asp-items="ViewBag.ResponsibleEmployeeId"></select>
                                     <span asp-validation-for="ResponsibleEmployeeId" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">
