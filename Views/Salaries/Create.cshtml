@@ -36,22 +36,22 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="BasicSalary" class="control-label"></label>
-                                    <input asp-for="BasicSalary" class="form-control" asp-items="ViewBag.EmployeeId" />
+                                    <input asp-for="BasicSalary" id="basicSalary" class="form-control" asp-items="ViewBag.EmployeeId" />
                                     <span asp-validation-for="BasicSalary" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="Allowances" class="control-label"></label>
-                                    <input asp-for="Allowances" class="form-control" asp-items="ViewBag.Allowances" />
+                                    <input asp-for="Allowances" id="allowances" class="form-control" asp-items="ViewBag.Allowances" />
                                     <span asp-validation-for="Allowances" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="Deductions" class="control-label"></label>
-                                    <input asp-for="Deductions" class="form-control" asp-items="ViewBag.Deductions" />
+                                    <input asp-for="Deductions" id="deductions" class="form-control" asp-items="ViewBag.Deductions" />
                                     <span asp-validation-for="Deductions" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="NetSalary" class="control-label"></label>
-                                    <input asp-for="NetSalary" class="form-control" asp-items="ViewBag.NetSalary" />
+                                    <input asp-for="NetSalary" id="netSalary" class="form-control" asp-items="ViewBag.NetSalary" />
                                     <span asp-validation-for="NetSalary" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -131,6 +131,19 @@
 </div>
 
 @section Scripts {
+    <script>
+        function calculateNetSalary() {
+            let basic = parseFloat(document.getElementById("basicSalary").value) || 0;
+            let allowances = parseFloat(document.getElementById("allowances").value) || 0;
+            let deductions = parseFloat(document.getElementById("deductions").value) || 0;
+            let net = (basic + allowances ) - deductions;
+            document.getElementById("netSalary").value = net.toFixed(2);
+        }
+
+        // ÔÛá ÇáÍÓÇÈ ÚäÏ ÇáÊÛííÑ Ýí Ãí ÍÞá
+        document.querySelectorAll("#basicSalary, #allowances,  #deductions")
+            .forEach(input => input.addEventListener("input", calculateNetSalary));
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

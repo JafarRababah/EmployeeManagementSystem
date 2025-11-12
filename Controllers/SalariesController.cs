@@ -26,12 +26,15 @@ namespace EmployeesManagment.Controllers
         // GET: Salaries
         public async Task<IActionResult> Index()
         {
-            var awaitingStatus = _context.SystemCodeDetails
+            var awaitingStatus =  _context.SystemCodeDetails
                  .Include(x => x.SystemCodeValue)
                  .Where(y => y.SystemCodeValue.Code == "SalaryApprovalStatus" && y.Code == "AwaitingApproval").FirstOrDefault();
+            var pendingStatus = await _context.SystemCodeDetails
+                   .Include(x => x.SystemCodeValue)
+                   .FirstOrDefaultAsync(y => y.Code == "Pending" && y.SystemCodeValue.Code == "SalaryApprovalStatus");
             var salaryApplication = _context.Salaries
                 .Include(l => l.Employee)
-                .Where(l => l.Status == awaitingStatus).OrderByDescending(l => l.CreatedOn);
+                .Where(l => l.Status == awaitingStatus || l.Status==pendingStatus).OrderByDescending(l => l.CreatedOn);
 
             return View(salaryApplication);
         }
@@ -245,7 +248,7 @@ namespace EmployeesManagment.Controllers
         }
 
         // GET: Salaries/Edit/5
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -268,7 +271,7 @@ namespace EmployeesManagment.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, Salary salary)
         {
             var userId = User.GetUserId();
@@ -283,10 +286,15 @@ namespace EmployeesManagment.Controllers
 
             try
                 {
-                    salary.ModifiedOn = DateTime.Now;
-                    salary.ModifiedById = User.GetUserName();
-                    _context.Update(salary);
-                    await _context.SaveChangesAsync(userId);
+                var pendingStatus = await _context.SystemCodeDetails
+                .Include(x => x.SystemCodeValue)
+                .Where(y => y.Code == "Pending" && y.SystemCodeValue.Code == "SalaryApprovalStatus")
+                .FirstOrDefaultAsync();
+                salary.ModifiedOn = DateTime.Now;
+                salary.ModifiedById = User.GetUserName();
+                salary.StatusId = pendingStatus.Id;
+                _context.Update(salary);
+                await _context.SaveChangesAsync(userId);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

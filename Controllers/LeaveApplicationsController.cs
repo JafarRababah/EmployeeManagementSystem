@@ -48,7 +48,7 @@ namespace EmployeesManagment.Controllers
                 .Include(l => l.LeaveType)
                 .Where(l => l.Status==awaitingStatus).OrderByDescending(l => l.CreatedOn);
                 
-            return View(leaveapplication);
+            return View(await leaveapplication.ToListAsync());
         }
         public async Task<IActionResult> ApprovedLeaveApplications()
         {
