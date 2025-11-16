@@ -49,6 +49,7 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddScoped<LicenseService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddSession();
+builder.Services.AddHttpClient<PayPalService>();
 
 // ✅ SignalR
 builder.Services.AddSignalR();
@@ -109,9 +110,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // ----------------- Routes -----------------
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Landing}/{id?}");

@@ -118,7 +118,7 @@ namespace EmployeesManagment.Controllers
                 LeaveData = new List<int> { 10, 15, 12, 8, 6, 5 }
             };
 
-            return View("Dashboard", demoModel); // إعادة استخدام الـ Dashboard View
+            return View("Index", demoModel); // إعادة استخدام الـ Dashboard View
         }
         // 🔹 API لتزويد البيانات الخاصة بالرسوم البيانية (تُستدعى بـ AJAX)
         [HttpGet]
