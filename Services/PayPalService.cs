@@ -67,8 +67,12 @@ public class PayPalService
 
         req.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
         var res = await _http.SendAsync(req);
-        res.EnsureSuccessStatusCode();
         var json = await res.Content.ReadAsStringAsync();
+
+        if (!res.IsSuccessStatusCode)
+        {
+            throw new Exception($"خطأ من PayPal: {json}");
+        }
         using var doc = JsonDocument.Parse(json);
         return doc.RootElement.GetProperty("id").GetString(); // orderID
     }
@@ -81,8 +85,11 @@ public class PayPalService
         req.Content = new StringContent("{}", Encoding.UTF8, "application/json");
 
         var res = await _http.SendAsync(req);
-        res.EnsureSuccessStatusCode();
         var json = await res.Content.ReadAsStringAsync();
+        if (!res.IsSuccessStatusCode)
+        {
+            throw new Exception($"خطأ من PayPal: {json}");
+        }
         using var doc = JsonDocument.Parse(json);
         return doc.RootElement.Clone();
     }

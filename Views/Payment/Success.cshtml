@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Payment Success";
+}
+
+<div class="alert alert-success">
+    <h2>Payment Successful!</h2>
+    <p>Your payment has been completed successfully.</p>
+</div>
+
+<p><strong>Order ID:</strong> @ViewBag.OrderId</p>
+<p><strong>Capture ID:</strong> @ViewBag.CaptureId</p>
+
+<a href="/payment/index" class="btn btn-primary">Back to Payment Page</a>
