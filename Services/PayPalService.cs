@@ -93,4 +93,21 @@ public class PayPalService
         using var doc = JsonDocument.Parse(json);
         return doc.RootElement.Clone();
     }
+    public async Task<string> GetAccessTokenForController()
+    {
+        return await GetAccessTokenAsync();
+    }
+
+    // إرجاع HttpClient بشكل آمن
+    public HttpClient GetHttpClient()
+    {
+        return _http;
+    }
+
+    // إرجاع BaseUrl بشكل آمن
+    public string GetBaseUrl()
+    {
+        return BaseUrl;
+    }
+
 }

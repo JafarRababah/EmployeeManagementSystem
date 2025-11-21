@@ -23,19 +23,19 @@ namespace EmployeesManagment.Controllers
 
         public IActionResult Index()
         {
-            if (TempData["LicenseKey"] == null)
-            {
-                return RedirectToAction("EnterLicense", "Licenses");
-            }
+            //if (TempData["LicenseKey"] == null)
+            //{
+            //    return RedirectToAction("EnterLicense", "Licenses");
+            //}
 
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Redirect("~/identity/account/login");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return Redirect("~/identity/account/login");
+            //}
 
-            // 👇 بدل View() إلى:
-            return RedirectToAction("Dashboard");
-
+            //// 👇 بدل View() إلى:
+            //return RedirectToAction("Landing");
+            return RedirectToAction("Landing");
         }
 
         public IActionResult Landing()

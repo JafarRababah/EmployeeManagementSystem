@@ -1,25 +1,157 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using EmployeesManagment.Data;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 [ApiController]
+[Produces("application/json")]
 [Route("paypal")]
 public class PayPalController : ControllerBase
 {
     private readonly PayPalService _pp;
-    public PayPalController(PayPalService pp) => _pp = pp;
+    private readonly ApplicationDbContext _context;
+    private readonly LicenseService _licenseService;
+    public PayPalController(PayPalService pp, ApplicationDbContext context, LicenseService licenseService)
+    {
+        _pp = pp;
+        _context = context;
+        _licenseService = licenseService;
+    }
 
+    // ===============================
+    // 1) Create PayPal Order
+    // ===============================
     [HttpPost("create-order")]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest req)
     {
-        // req.amount مثلاً 29.00
-        var orderId = await _pp.CreateOrder(req.Amount, req.Currency ?? "USD");
-        return Ok(new { orderID = orderId });
+        try
+        {
+            string orderId = await _pp.CreateOrder(req.Amount, req.Currency ?? "USD");
+            return Ok(new { orderID = orderId });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                status = "error",
+                message = ex.Message
+            });
+        }
     }
 
+    // ===============================
+    // 2) Capture PayPal Order
+    // ===============================
     [HttpPost("capture-order")]
     public async Task<IActionResult> CaptureOrder([FromBody] CaptureOrderRequest req)
     {
-        var result = await _pp.CaptureOrder(req.OrderID);
-        return Ok(result); // يرجع JSON النتيجة من PayPal
+        try
+        {
+            // محاولة عمل Capture
+            JsonElement response = await _pp.CaptureOrder(req.OrderID);
+            
+            string status = response.GetProperty("status").GetString();
+
+            if (status == "COMPLETED")
+            {
+                await SavePaymentIfNotExists(response, req.OrderID);
+                await _licenseService.AddLicense(req.OrderID,null, "0996e9a3-c4a0-476c-a945-d2e68e8edc97");
+                return Ok(new { status = "success" });
+            }
+
+            return BadRequest(new
+            {
+                status = "failed",
+                message = "Payment not completed"
+            });
+        }
+        catch (Exception ex)
+        {
+            // PayPal يعيد ORDER_ALREADY_CAPTURED داخل نص الرسالة JSON
+            if (ex.Message.Contains("ORDER_ALREADY_CAPTURED"))
+            {
+                var payment = await _context.Payments.FirstOrDefaultAsync(x => x.OrderId == req.OrderID);
+
+                if (payment != null)
+                {
+                    return Ok(new
+                    {
+                        status = "already_captured",
+                        message = "Order was already captured earlier.",
+                        paymentId = payment.Id
+                    });
+                }
+
+                // إذا PayPal عمل capture لكن DB فاضية → نعمل استعادة
+                var details = await GetOrderDetails(req.OrderID);
+                await SavePaymentIfNotExists(details, req.OrderID);
+
+                return Ok(new
+                {
+                    status = "restored_from_paypal",
+                    message = "Payment restored and saved."
+                });
+            }
+
+            return BadRequest(new { status = "error", message = ex.Message });
+        }
+    }
+
+    // ===============================
+    // Helper: Get Order Details
+    // ===============================
+    private async Task<JsonElement> GetOrderDetails(string orderId)
+    {
+        var token = await _pp.GetAccessTokenForController();
+        var client = _pp.GetHttpClient();
+        var baseUrl = _pp.GetBaseUrl();
+
+        var req = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}/v2/checkout/orders/{orderId}");
+        req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        var res = await client.SendAsync(req);
+
+        var json = await res.Content.ReadAsStringAsync();
+
+        using var doc = JsonDocument.Parse(json);
+        return doc.RootElement.Clone();
+    }
+
+    // ===============================
+    // Helper: Save Payment
+    // ===============================
+    private async Task SavePaymentIfNotExists(JsonElement data, string orderId)
+    {
+        var existing = await _context.Payments.FirstOrDefaultAsync(x => x.OrderId == orderId);
+        var userId = "0996e9a3-c4a0-476c-a945-d2e68e8edc97";
+        if (existing != null)
+            return;
+
+        var capture = data
+            .GetProperty("purchase_units")[0]
+            .GetProperty("payments")
+            .GetProperty("captures")[0];
+
+        var payment = new Payment
+        {
+            OrderId = orderId,
+            CaptureId = capture.GetProperty("id").GetString(),
+            Amount = capture.GetProperty("amount").GetProperty("value").GetString() is string val ? decimal.Parse(val) : 0,
+            Currency = capture.GetProperty("amount").GetProperty("currency_code").GetString(),
+            Status = capture.GetProperty("status").GetString(),
+            UserId = userId,
+            CreatedById=userId,
+            CreatedOn=DateTime.Now,
+            ModifiedById=userId,
+            ModifiedOn=DateTime.Now
+        };
+
+        _context.Payments.Add(payment);
+        await _context.SaveChangesAsync(userId);
     }
 }
 

@@ -13,21 +13,45 @@ public class LicenseFilter : IActionFilter
 
     public void OnActionExecuting(ActionExecutingContext context)
     {
-        var path = context.HttpContext.Request.Path.Value.ToLower();
+        var path = (context.HttpContext.Request.Path.Value ?? "").ToLower();
 
-        // السماح بالوصول إلى صفحة EnterLicense
-        if (path.Contains("/licenses/enterlicense"))
+        // السماح لمسار الصفحة الرئيسية فقط إذا كان يعيد توجيه المستخدم إلى Landing
+        if (path == "/")
             return;
-        // تخطي التحقق لأي API
+
+        // السماح لصفحة Landing
+        if (path == "/home/landing")
+            return;
+        // السماح لصفحة الترخيص
+        if (path == "/licenses/enterlicense")
+            return;
+        if (path.StartsWith("/paypal"))
+            return;
+
+        // السماح لجميع صفحات الدفع
+        if (path.StartsWith("/payment"))
+            return;
+
+        // السماح لأي API
         if (path.StartsWith("/api/"))
             return;
 
+        // السماح للملفات الثابتة (CSS, JS, IMAGES)
+        if (path.StartsWith("/css") || path.StartsWith("/js") || path.StartsWith("/lib") || path.StartsWith("/images"))
+            return;
+
+        // السماح لأي API
+        if (path.StartsWith("/api/"))
+            return;
+
+        // فحص الترخيص للصفحات الداخلية
         var hasLicense = context.HttpContext.Session.GetString("LicenseKey");
         if (string.IsNullOrEmpty(hasLicense) || !_licenseService.IsLicenseValid(hasLicense))
         {
             context.Result = new RedirectToActionResult("EnterLicense", "Licenses", null);
         }
     }
+
 
     public void OnActionExecuted(ActionExecutedContext context)
     {

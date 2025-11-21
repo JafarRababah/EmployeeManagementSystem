@@ -9,7 +9,7 @@ namespace EmployeesManagment.Controllers
     {
         private readonly PayPalService _paypalService;
         private readonly ApplicationDbContext _context;
-        
+
         public PaymentController(PayPalService paypalService, ApplicationDbContext context)
         {
             _paypalService = paypalService;
@@ -22,25 +22,7 @@ namespace EmployeesManagment.Controllers
         }
 
         // ================================
-        // 1) Create PayPal Order
-        // ================================
-        [HttpPost]
-        public async Task<IActionResult> CreateOrder(decimal amount)
-        {
-            try
-            {
-                string orderId = await _paypalService.CreateOrder(amount);
 
-                // نجلب Approval Url من PayPal
-                string approvalUrl = $"https://www.sandbox.paypal.com/checkoutnow?token={orderId}";
-
-                return Redirect(approvalUrl);
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Failed", new { message = ex.Message });
-            }
-        }
 
         // ================================
         // 2) Success Redirect
@@ -104,7 +86,7 @@ namespace EmployeesManagment.Controllers
         [HttpGet]
         public async Task<IActionResult> Cancel(string token)
         {
-            var userId=User.GetUserId();
+            var userId = User.GetUserId();
             var payment = new Payment
             {
                 OrderId = token,

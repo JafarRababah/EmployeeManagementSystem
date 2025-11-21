@@ -51,7 +51,7 @@ namespace EmployeesManagment.Services
         //    _context.Licenses.Add(license);
         //    _context.SaveChanges();
         //}
-        public async Task AddLicense(string licenseKey, DateTime expiryDate, string userId)
+        public async Task AddLicense(string licenseKey, DateTime? expiryDate, string userId=null)
         {
             // جلب المستخدم
             

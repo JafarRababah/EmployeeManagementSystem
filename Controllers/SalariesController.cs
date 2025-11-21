@@ -80,7 +80,7 @@ namespace EmployeesManagment.Controllers
             return View(salary);
         }
         [HttpGet]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ApprovedSalary(int? id)
         {
             var salary = await _context.Salaries
@@ -95,7 +95,7 @@ namespace EmployeesManagment.Controllers
 
         }
         [HttpPost]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ApprovedSalary(Salary salary)
         {
             try
@@ -131,7 +131,7 @@ namespace EmployeesManagment.Controllers
 
         }
         [HttpGet]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RejectSalary(int? id)
         {
             var salary = await _context.Salaries
@@ -146,7 +146,7 @@ namespace EmployeesManagment.Controllers
 
         }
         [HttpPost]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RejectSalary(Salary salary)
         {
             try
