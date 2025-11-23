@@ -2,11 +2,12 @@
 using EmployeesManagment.Data;
 using EmployeesManagment.Models;
 using EmployeesManagment.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text.Json;
-
+[Authorize]
 [ApiController]
 [Produces("application/json")]
 [Route("paypal")]

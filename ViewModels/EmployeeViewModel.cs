@@ -35,7 +35,7 @@ namespace EmployeesManagment.ViewModels
         public string? NSSFNO { get; set; }
         public string? NHIF { get; set; }
         public string? CompanyEmail { get; set; }
-        public string? KRAPIN { get; set; }
+        public string? NationalId { get; set; }
         public string? PassportNo { get; set; }
         public int? EmploymentTermsId { get; set; }
         public Decimal? AllocatedLeaveDays { get; set; }

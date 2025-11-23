@@ -50,7 +50,7 @@ namespace EmployeesManagment.Models
 
        
         public string? CompanyEmail { get; set; }
-        public string? KRAPIN { get; set; }
+        public string? NationalId { get; set; }
         public string? PassportNo { get; set; }
 
         public int? EmploymentTermsId { get; set; }

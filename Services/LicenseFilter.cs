@@ -22,9 +22,17 @@ public class LicenseFilter : IActionFilter
         // السماح لصفحة Landing
         if (path == "/home/landing")
             return;
+       
         // السماح لصفحة الترخيص
         if (path == "/licenses/enterlicense")
             return;
+        // السماح لصفحة login
+        if (path.StartsWith("/account/login"))
+            return;
+        // السماح لصفحة register
+        if (path.StartsWith("/account/register"))
+            return;
+        // السماح لصفحة paypal
         if (path.StartsWith("/paypal"))
             return;
 

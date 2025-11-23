@@ -51,7 +51,6 @@ namespace EmployeesManagment.Controllers
                 .AsQueryable()
                 .Where(x=>x.Id>0).OrderByDescending(x=>x.EmpNo).ToListAsync();
             return View(employees);
-            //return View(await _context.Employees.Include(x=>x.Status).ToListAsync());
         }
 
         // GET: Employees/Details/5

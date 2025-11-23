@@ -32,7 +32,7 @@ namespace EmployeesManagment.Controllers
         {
             try
             {
-                var userId = User.GetUserId();
+                var userId = "0996e9a3-c4a0-476c-a945-d2e68e8edc97";
                 var existingPayment = _context.Payments.FirstOrDefault(x => x.OrderId == orderId);
                 if (existingPayment != null)
                 {
