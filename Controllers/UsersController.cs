@@ -82,6 +82,69 @@ namespace EmployeesManagment.Controllers
             ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Name", model.RoleId);
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+                return NotFound();
+
+            var model = new UserViewModel
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                NationalId = user.NationalId,
+                RoleId = user.RoleId
+            };
+
+            ViewBag.Roles = new SelectList(_context.Roles, "Id", "Name", user.RoleId);
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, UserViewModel model)
+        {
+            if (id != model.Id) // أو اجعل model.Id string
+                return NotFound();
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+                return NotFound();
+
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.FirstName = model.FirstName;
+            user.MiddleName = model.MiddleName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.NationalId = model.NationalId;
+            user.RoleId = model.RoleId;
+            user.ModifiedById = User.Identity.Name;
+            user.ModifiedOn = DateTime.UtcNow;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                TempData["Error"] = string.Join(", ", result.Errors.Select(e => e.Description));
+                ViewBag.Roles = new SelectList(_context.Roles, "Id", "Name", model.RoleId);
+                return View(model);
+            }
+
+            TempData["Message"] = "User updated successfully";
+            return RedirectToAction("Edit");
+        }
+
+
+
     }
 }
 

@@ -26,6 +26,9 @@ public class LicenseFilter : IActionFilter
         // السماح لصفحة الترخيص
         if (path == "/licenses/enterlicense")
             return;
+        // السماح لصفحة الترخيص
+        if (path == "/licenses/mylicense")
+            return;
         // السماح لصفحة login
         if (path.StartsWith("/account/login"))
             return;

@@ -1,0 +1,88 @@
+﻿@model EmployeesManagment.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card border-top border-0 border-4 border-info">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-center">
+                    <i class="bx bxs-user me-1 font-22 text-info"></i>
+                    <h5 class="mb-0 text-info ms-2">Edit User</h5>
+                </div>
+                <hr />
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Error"]</div>
+                }
+
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="RoleId" />
+
+                    <div class="mb-3">
+                        <label asp-for="UserName" class="form-label"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="FirstName" class="form-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="MiddleName" class="form-label"></label>
+                        <input asp-for="MiddleName" class="form-control" />
+                        <span asp-validation-for="MiddleName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="LastName" class="form-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PhoneNumber" class="form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NationalId" class="form-label"></label>
+                        <input asp-for="NationalId" class="form-control" />
+                        <span asp-validation-for="NationalId" class="text-danger"></span>
+                    </div>
+
+                  
+
+                    <div class="mb-3">
+                        <a asp-action="Index" class="btn btn-warning"><i class="bi bi-skip-backward-fill"></i> Back</a>
+                        <button type="submit" class="btn btn-primary float-end"><i class="bi bi-floppy-fill"></i> Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

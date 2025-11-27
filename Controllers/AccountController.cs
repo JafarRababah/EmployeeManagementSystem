@@ -1,8 +1,11 @@
-﻿using EmployeesManagment.Models;
+﻿using EmployeesManagment.Data;
+using EmployeesManagment.Models;
+using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesManagment.Controllers
 {
@@ -11,7 +14,8 @@ namespace EmployeesManagment.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(SignInManager<ApplicationUser> signInManager, 
+            UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -31,7 +35,7 @@ namespace EmployeesManagment.Controllers
             {
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     return LocalRedirect(returnUrl);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Landing", "Home");
             }
 
             ViewBag.ErrorMessage = "Inva lid login attempt";
@@ -132,7 +136,7 @@ namespace EmployeesManagment.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Account");
         }
-
+       
         [AllowAnonymous]
         public IActionResult AccessDenied() => View();
 

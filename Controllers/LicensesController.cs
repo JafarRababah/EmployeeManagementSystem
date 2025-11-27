@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EmployeesManagment.Controllers
@@ -15,12 +17,14 @@ namespace EmployeesManagment.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly LicenseService _licenseService;
-    
+        private const string secretKey = "JafarHashKey";
+        private readonly EmailService _emailService;
 
-        public LicensesController(ApplicationDbContext context, LicenseService licenseService)
+        public LicensesController(ApplicationDbContext context, LicenseService licenseService, EmailService emailService)
         {
             _context = context;
             _licenseService = licenseService;
+            _emailService = emailService;
         }
         [HttpGet]
         public IActionResult EnterLicense()
@@ -106,40 +110,73 @@ namespace EmployeesManagment.Controllers
             }
             return View(license);
         }
+        private string GenerateLicenseHash(string licenseKey)
+        {
+            using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(secretKey)))
+            {
+                var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(licenseKey));
+                return Convert.ToBase64String(hash);
+            }
+        }
+        public async Task<License> UpdateLicense(string licenseKey, string userId = null)
+        {
+            // جلب المستخدم
 
+            if (userId == null)
+            {
+                throw new Exception($"User '{userId}' not found.");
+            }
+            if (licenseKey == null)
+            {
+                throw new Exception($"licenseKey '{userId}' not found.");
+            }
+            // إنشاء الترخيص
+            var license = new License
+            {
+                LicenseKey = GenerateLicenseHash(licenseKey),
+                ClientEmail = licenseKey,    // لاحظ U كابيتال
+                IsActive = true,          // أو IsActive = true إذا عندك عمود Boolean
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Licenses.Update(license);
+            await _context.SaveChangesAsync(userId);
+
+            Console.WriteLine("License saved in DB: " + license.Id);
+            return license;
+        }
         // POST: Licenses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,LicenseKey,ExpiryDate,IsActive,CreatedAt")] License license)
+        public async Task<IActionResult> Edit(int id,  License license)
         {
             if (id != license.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
-                    _context.Update(license);
+                license.LicenseKey = GenerateLicenseHash(license.LicenseKey);
+                _context.Update(license);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (DbUpdateConcurrencyException)
                 {
                     if (!LicenseExists(license.Id))
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                   
+                return View(license);
             }
-            return View(license);
+            
+           
         }
 
         // GET: Licenses/Delete/5
@@ -178,6 +215,40 @@ namespace EmployeesManagment.Controllers
         private bool LicenseExists(int id)
         {
             return _context.Licenses.Any(e => e.Id == id);
+        }
+        [HttpGet]
+        public async Task<IActionResult> MyLicense()
+        {
+            var userEmail = User.GetUserEmail();
+
+            var license = await _context.Licenses
+                .Where(l => l.ClientEmail == userEmail)
+                .OrderByDescending(l => l.CreatedAt)
+                .FirstOrDefaultAsync();
+
+            return View(license);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResendLicense()
+        {
+            var userEmail = User.GetUserEmail();
+            var license = await _context.Licenses
+                .Where(l => l.ClientEmail == userEmail)
+                .OrderByDescending(l => l.CreatedAt)
+                .FirstOrDefaultAsync();
+
+            if (license != null)
+            {
+                await _emailService.SendEmailAsync(
+                    userEmail,
+                    "Your License Key (Resent)",
+                    $"Your License Key: {license.LicenseKey}"
+                );
+            }
+
+            TempData["Message"] = "License key resent to your email.";
+            return RedirectToAction("MyLicense");
         }
     }
 }

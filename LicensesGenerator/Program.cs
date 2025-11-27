@@ -32,13 +32,7 @@ namespace LicenseGenerator
                 Console.WriteLine($"Generated Key: {licenseKey}");
             }
 
-            Console.Write("Enter expiry date (yyyy-MM-dd): ");
-            if (!DateTime.TryParse(Console.ReadLine(), out DateTime expiryDate))
-            {
-                expiryDate = DateTime.UtcNow.AddYears(1);
-                Console.WriteLine($"Default expiry used: {expiryDate}");
-            }
-            await licenseService.AddLicense(licenseKey, expiryDate, user.Id);
+            await licenseService.AddLicense(licenseKey, userName, user.Id);
             Console.WriteLine("License added successfully!");
         }
     }

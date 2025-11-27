@@ -1,0 +1,25 @@
+﻿@model EmployeesManagment.Models.License
+
+<h2>My License</h2>
+
+@if (Model == null)
+{
+    <p>No license found for your account.</p>
+}
+else
+{
+    <div class="card p-3">
+        <h4>License Key</h4>
+        <input class="form-control" value="@Model.LicenseKey" id="key" readonly />
+
+        <h5 class="mt-3">Expiry: @Model.ExpiryDate?</h5>
+
+        <button class="btn btn-primary mt-3" onclick="navigator.clipboard.writeText(document.getElementById('key').value)">
+            Copy
+        </button>
+
+        <form method="post" asp-action="ResendLicense" class="mt-3">
+            <button class="btn btn-secondary">Resend to Email</button>
+        </form>
+    </div>
+}

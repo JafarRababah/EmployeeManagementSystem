@@ -5,6 +5,7 @@ using EmployeesManagment.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Net.Http.Headers;
 using System.Text.Json;
 [Authorize]
@@ -16,11 +17,13 @@ public class PayPalController : ControllerBase
     private readonly PayPalService _pp;
     private readonly ApplicationDbContext _context;
     private readonly LicenseService _licenseService;
-    public PayPalController(PayPalService pp, ApplicationDbContext context, LicenseService licenseService)
+    private readonly EmailService _emailService;
+    public PayPalController(PayPalService pp, ApplicationDbContext context, LicenseService licenseService,EmailService emailService)
     {
         _pp = pp;
         _context = context;
         _licenseService = licenseService;
+        _emailService = emailService;
     }
 
     // ===============================
@@ -54,13 +57,18 @@ public class PayPalController : ControllerBase
         {
             // محاولة عمل Capture
             JsonElement response = await _pp.CaptureOrder(req.OrderID);
-            
+            var email = User.GetUserEmail();
+            var userId=User.GetUserId();
             string status = response.GetProperty("status").GetString();
 
             if (status == "COMPLETED")
             {
                 await SavePaymentIfNotExists(response, req.OrderID);
-                await _licenseService.AddLicense(req.OrderID,null, "0996e9a3-c4a0-476c-a945-d2e68e8edc97");
+              var license=  await _licenseService.AddLicense(req.OrderID,email , userId);
+                await _emailService.SendEmailAsync(
+        email,
+        "Your License Key",$"Thank You for your purchase, Your license key is: {req.OrderID}"
+    );
                 return Ok(new { status = "success" });
             }
 
@@ -128,7 +136,7 @@ public class PayPalController : ControllerBase
     private async Task SavePaymentIfNotExists(JsonElement data, string orderId)
     {
         var existing = await _context.Payments.FirstOrDefaultAsync(x => x.OrderId == orderId);
-        var userId = "0996e9a3-c4a0-476c-a945-d2e68e8edc97";
+        var userId = User.GetUserId(); ;
         if (existing != null)
             return;
 

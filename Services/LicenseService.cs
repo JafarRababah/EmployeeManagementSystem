@@ -35,23 +35,7 @@ namespace EmployeesManagment.Services
             return license.ExpiryDate >= DateTime.UtcNow;
         }
 
-        //public void AddLicense(string licenseKey, DateTime expiryDate,string userName)
-        //{
-        //    var user =  _userManager.FindByNameAsync(userName);
-            
-          
-        //    var license = new License
-        //    {
-        //        LicenseKey = GenerateLicenseHash(licenseKey),
-        //        LicenseHash = user.Id,
-        //        ExpiryDate = expiryDate,
-        //        IsActive = true
-        //    };
-
-        //    _context.Licenses.Add(license);
-        //    _context.SaveChanges();
-        //}
-        public async Task AddLicense(string licenseKey, DateTime? expiryDate, string userId=null)
+        public async Task<License> AddLicense(string licenseKey, string email, string userId=null)
         {
             // جلب المستخدم
             
@@ -59,13 +43,13 @@ namespace EmployeesManagment.Services
             {
                 throw new Exception($"User '{userId}' not found.");
             }
-
+            
             // إنشاء الترخيص
             var license = new License
             {
                 LicenseKey = GenerateLicenseHash(licenseKey),
-                ClientEmail = userId,    // لاحظ U كابيتال
-                ExpiryDate = DateTime.UtcNow,
+                ClientEmail = email,    // لاحظ U كابيتال
+                ExpiryDate = DateTime.UtcNow.AddMonths(1),
                 IsActive = true,          // أو IsActive = true إذا عندك عمود Boolean
                 CreatedAt = DateTime.UtcNow
             };
@@ -74,8 +58,35 @@ namespace EmployeesManagment.Services
             await _context.SaveChangesAsync(userId);
 
             Console.WriteLine("License saved in DB: " + license.Id);
+            return license;
         }
+        public async Task<License> UpdateLicense(string licenseKey, string userId = null)
+        {
+            // جلب المستخدم
 
+            if (userId == null)
+            {
+                throw new Exception($"User '{userId}' not found.");
+            }
+            if (licenseKey == null)
+            {
+                throw new Exception($"licenseKey '{userId}' not found.");
+            }
+            // إنشاء الترخيص
+            var license = new License
+            {
+                LicenseKey = GenerateLicenseHash(licenseKey),
+                ClientEmail = licenseKey,    // لاحظ U كابيتال
+                IsActive = true,          // أو IsActive = true إذا عندك عمود Boolean
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Licenses.Update(license);
+            await _context.SaveChangesAsync(userId);
+
+            Console.WriteLine("License saved in DB: " + license.Id);
+            return license;
+        }
         public License GetLicense(string licenseKey)
         {
             return _context.Licenses.FirstOrDefault(l => l.LicenseKey == licenseKey);
