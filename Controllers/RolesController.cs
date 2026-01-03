@@ -24,7 +24,7 @@ namespace EmployeesManagment.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var roles = await _context.Roles.ToListAsync();
+            var roles = await _context.Roles.Where(x=>x.Id != "8c3d926a-8278-4da4-ac3c-a7ff6af1c973").ToListAsync();
             return View(roles);
         }
         [HttpGet]

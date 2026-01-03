@@ -200,7 +200,7 @@ namespace EmployeesManagment.Controllers
                 _context.Add(payroll);
                 await _context.SaveChangesAsync(userId);
                 TempData["Message"] = $"Payroll created successfully for {payroll.PeriodStart:MMMM yyyy}";
-                return RedirectToAction("Details", "Employees", new { id = payroll?.EmployeeId });
+                return RedirectToAction("Details", "Payrolls", new { id = payroll?.PayrollId });
             }
             catch (Exception ex)
             {

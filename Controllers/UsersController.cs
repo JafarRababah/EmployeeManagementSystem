@@ -39,7 +39,8 @@ namespace EmployeesManagment.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "Id", "Name");
+            ViewData["RoleId"] = new SelectList(_context.Roles.Where(r => r.Id != "8c3d926a-8278-4da4-ac3c-a7ff6af1c973"),"Id","Name");
+
             return View(new UserViewModel());
         }
 

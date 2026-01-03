@@ -115,12 +115,12 @@ namespace EmployeesManagment.Controllers
 
         private async Task<string> GetDefaultRoleId()
         {
-            var role = await _roleManager.FindByNameAsync("User");
+            var role = await _roleManager.FindByNameAsync("Admin");
 
             // إنشاء دور User اذا لم يكن موجوداً
             if (role == null)
             {
-                role = new IdentityRole("User");
+                role = new IdentityRole("Admin");
                 await _roleManager.CreateAsync(role);
             }
             return role.Id;
