@@ -82,8 +82,8 @@ jobs:
       run: dotnet test
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+    - name: Restore NuGet packages
+      run: msbuild EmployeeManagementSystem.sln /t:Restore /p:Configuration=Release
       env:
         Configuration: ${{ matrix.configuration }}
 
