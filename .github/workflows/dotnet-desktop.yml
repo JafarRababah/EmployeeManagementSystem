@@ -52,7 +52,7 @@ jobs:
         configuration: [Debug, Release]
 
     env:
-      Solution_Name: EmployeeManagementSystem.sln
+      Solution_Name: EmployeesManagmentSystem.sln
 
     steps:
     - name: Checkout repository
