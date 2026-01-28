@@ -86,26 +86,34 @@
                 </li>
 
                 <!-- Notifications Dropdown -->
+                <!-- غير المقروء -->
+                <!-- غير المقروء -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-bell"></i>
-                        <span id="notification-count" class="badge bg-danger">0</span>
+                    <a class="nav-link dropdown-toggle" asp-action="NotIsRead" asp-controller="Notifications" id="unreadDropdown"
+                       data-bs-toggle="dropdown">
+                        <i class="bi bi-bell-fill"></i>
+                        <span id="unread-count" class="badge bg-danger">0</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" id="notification-list">
-                        <li><a class="dropdown-item text-muted">لا توجد إشعارات</a></li>
+
+                    <ul class="dropdown-menu dropdown-menu-end" id="unread-list">
+                        <li><span class="dropdown-item text-muted">لا توجد إشعارات جديدة</span></li>
                     </ul>
                 </li>
 
-                <!-- Messages Dropdown (Optional) -->
+                <!-- كل الإشعارات -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="far fa-comments"></i>
-                        <span class="badge bg-danger">3</span>
+                    <a class="nav-link dropdown-toggle" asp-action="Index" asp-controller="Notifications" id="allDropdown"
+                       data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="messagesDropdown">
-                        <li><a class="dropdown-item text-muted">لا توجد رسائل جديدة</a></li>
+
+                    <ul class="dropdown-menu dropdown-menu-end" id="all-list">
+                        <li><span class="dropdown-item text-muted">لا توجد إشعارات</span></li>
                     </ul>
                 </li>
+
+
+
 
                 <!-- Fullscreen Button -->
                 <li class="nav-item">
@@ -175,18 +183,13 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
-                
-
-                
-
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" id="menu" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
-                            <a asp-action="Index" asp-controller="Home" class="nav-link active">
+                            <a asp-action="Dashboard" asp-controller="Home" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -196,11 +199,11 @@
                         </li>
                         <li>
                             <a asp-action="Index" asp-controller="FixedAssets" class="nav-link active">
-                                    <i class="bx bi-cart-x-fill"></i>
-                                    <p>
-                                        Fixed Assets
+                                <i class="bx bi-cart-x-fill"></i>
+                                <p>
+                                    Fixed Assets
                                     <i class="right fas fa-angle-left"></i>
-                                    </p>
+                                </p>
                             </a>
                         </li>
                         <li>
@@ -286,9 +289,9 @@
                                         <p>Employee Reports</p>
                                     </a>
                                 </li>
-                                </ul>
-                                </li>
-                       
+                            </ul>
+                        </li>
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-table"></i>
@@ -301,8 +304,8 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a asp-action="Index" asp-controller="LeaveTypes" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Leaves Types</p>
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Leaves Types</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -323,7 +326,7 @@
                                         <p>Rejected Leave Applications</p>
                                     </a>
                                 </li>
-                              
+
                                 <li class="nav-item">
                                     <a asp-action="Leaves" asp-controller="Reports" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -371,20 +374,20 @@
                                         <p>User Roles</p>
                                     </a>
                                 </li>
-                                </ul>
-                                </li>
-                    
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-table"></i>
-                            <p>
-                                System Administration
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
+                            </ul>
+                        </li>
 
-                        <ul class="nav nav-treeview">
-                              
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    System Administration
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+
+                            <ul class="nav nav-treeview">
+
                                 <li class="nav-item">
                                     <a asp-action="Index" asp-controller="ApprovalEntries" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -421,32 +424,32 @@
                                         <p>Banks</p>
                                     </a>
                                 </li>
-                            <li class="nav-item">
+                                <li class="nav-item">
                                     <a asp-action="Index" asp-controller="Countries" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Countries</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Countries</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a asp-action="Index" asp-controller="Cities" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Towns /City</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Towns /City</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a asp-action="Index" asp-controller="SystemCodes" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>System Codes</p>
-                                </a>
-                            </li>
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>System Codes</p>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a asp-action="Index" asp-controller="SystemCodeDetails" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>System Codes Details</p>
                                     </a>
                                 </li>
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-table"></i>
@@ -475,8 +478,8 @@
                                         <p>System Role</p>
                                     </a>
                                 </li>
-                                </ul>
-                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -490,7 +493,7 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    @if (TempData["Message"]!= null)
+                    @if (TempData["Message"] != null)
                     {
                         <div id="Message" class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>Success</strong> @TempData["Message"]
@@ -535,7 +538,7 @@
                 <b>Version</b> 3.2.0
             </div>
         </footer>
-       
+
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -546,8 +549,6 @@
     </div>
     <!-- ./wrapper -->
     <!-- Scripts ترتيب التحميل مهم -->
-   
-
     <!-- jQuery -->
     <script src="/AdminLTE/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI -->
@@ -585,66 +586,91 @@
 
     <!-- Notifications & Custom Scripts -->
     <script>
-        // Notifications SignalR
         if (!window.connection) {
             window.connection = new signalR.HubConnectionBuilder()
                 .withUrl("/notificationHub")
                 .build();
 
-            window.connection.on("ReceiveNotification", function(message, url) {
-                const countEl = document.getElementById('notification-count');
-                const listEl = document.getElementById('notification-list');
-                let count = parseInt(countEl.textContent || '0') + 1;
-                countEl.textContent = count;
+            // إشعار جديد (غير مقروء)
+             window.connection.on("ReceiveNotification", function (n) {
 
-                const li = document.createElement('li');
-                li.innerHTML = `<a class="dropdown-item" href="${url ?? '#'}">${message}</a>`;
-                listEl.prepend(li);
-            });
+            const countEl = document.getElementById('unread-count');
+            const unreadList = document.getElementById('unread-list');
 
-            window.connection.start().catch(err => console.error(err.toString()));
+            countEl.textContent = parseInt(countEl.textContent || '0') + 1;
+
+            unreadList.querySelector('.text-muted')?.parentElement.remove();
+
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <a class="dropdown-item fw-bold"
+                   href="${n.url ?? '#'}"
+                   onclick="markAsRead(${n.id})">
+                    ${n.message}
+                </a>`;
+            unreadList.prepend(li);
+        });
+
+
+            window.connection.start()
+                .catch(err => console.error(err.toString()));
         }
 
+        // تحميل الإشعارات (غير المقروء + الكل)
         async function loadNotifications() {
             const res = await fetch('/Notifications/GetUserNotifications');
             const data = await res.json();
-            const countEl = document.getElementById('notification-count');
-            const listEl = document.getElementById('notification-list');
-            countEl.textContent = data.unreadCount;
-            listEl.innerHTML = '';
+
+            const unreadCountEl = document.getElementById('unread-count');
+            const unreadList = document.getElementById('unread-list');
+            const allList = document.getElementById('all-list');
+
+            unreadCountEl.textContent = data.unreadCount;
+
+            unreadList.innerHTML = '';
+            allList.innerHTML = '';
 
             if (!data.notifications.length) {
-                listEl.innerHTML = '<li><a class="dropdown-item text-muted">لا توجد إشعارات</a></li>';
+                unreadList.innerHTML = '<li><span class="dropdown-item text-muted">لا توجد إشعارات جديدة</span></li>';
+                allList.innerHTML = '<li><span class="dropdown-item text-muted">لا توجد إشعارات</span></li>';
                 return;
             }
 
             data.notifications.forEach(n => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a class="dropdown-item" href="${n.url ?? '#'}">${n.Message} <small class="text-muted">${n.CreatedOn}</small></a>`;
-                listEl.appendChild(li);
+
+                // كل الإشعارات
+                allList.innerHTML += `
+                    <li>
+                        <a class="dropdown-item ${n.isRead ? '' : 'fw-bold'}"
+                           href="${n.url ?? '#'}"
+                           onclick="markAsRead(${n.id})">
+                            ${n.message}
+                            <small class="text-muted d-block">${n.createdOn}</small>
+                        </a>
+                    </li>`;
+
+                // غير المقروء
+                if (!n.isRead) {
+                    unreadList.innerHTML += `
+                        <li>
+                            <a class="dropdown-item fw-bold"
+                               href="${n.url ?? '#'}"
+                               onclick="markAsRead(${n.id})">
+                                ${n.message}
+                            </a>
+                        </li>`;
+                }
             });
         }
+
+        function markAsRead(id) {
+            fetch(`/Notifications/MarkAsRead/${id}`, { method: 'POST' })
+                .then(() => loadNotifications());
+        }
+
         loadNotifications();
-
-        // DataTables Initialization
-        $(function () {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy","csv","excel","pdf","print","colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
-
-        //JQVMap Initialization
-        $(function() {
-            $('#world-map').vectorMap({
-                map: 'usa_en',
-                backgroundColor: null,
-                regionStyle: { initial: { fill: '#c4c4c4' } }
-            });
-        });
     </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

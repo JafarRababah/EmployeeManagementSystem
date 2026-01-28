@@ -261,7 +261,7 @@ namespace EmployeesManagment.Controllers
             leaveApplication.EndDate = leaveApplication.StartDate.AddDays(leaveApplication.NoOfDays - 1);
             // var managerId = manager.FirstOrDefault()?.Id;
             var managerId = await _context.Users
-                    .Where(u => u.RoleId == "Admin")
+                    .Where(u => u.RoleId == "8c3d926a-8278-4da4-ac3c-a7ff6af1c973")
                     .Select(u => u.Id)
                     .FirstOrDefaultAsync();
             bool isOverlap = await _context.LeaveApplications

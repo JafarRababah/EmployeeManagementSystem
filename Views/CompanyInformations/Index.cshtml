@@ -4,12 +4,15 @@
     ViewData["Title"] = "Company";
 }
 
-<h1>Company Information</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary"><i class="fa fa-plus"></i> Create Company Information</a>
-</p>
-<table id="example1" class="table table-bordered table-striped table-hover">
+<div class="card">
+    <div class="card-header">
+        <div class="mb-3 float-end">
+            <a asp-action="Create" class="btn btn-primary"><i class="bi bi-file-plus-fill"></i> Add New Company</a>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
@@ -74,3 +77,4 @@
 }
     </tbody>
 </table>
+</div></div>

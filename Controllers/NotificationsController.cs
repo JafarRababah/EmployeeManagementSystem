@@ -28,87 +28,109 @@ namespace EmployeesManagment.Controllers
         }
 
         // GET: Notifications
-        // GET: Notifications
+        // GET: Notificationsل 
         public async Task<IActionResult> Index()
-        {
-            var userId = _userManager.GetUserId(User);
-
-            _context.Notifications.Add(new Notification
-            {
-                UserId = userId,
-                Message = "Welcome! This is your first notification.",
-                Url = "/Home/Index",
-                IsRead = true,
-                CreatedOn = DateTime.Now
-            });
-
-            await _context.SaveChangesAsync(userId);
-
-            var notifications = await _context.Notifications
-       .Where(n => n.UserId == userId)
-       .OrderByDescending(n => n.CreatedOn)
-       .ToListAsync();
-
-            return View(notifications);
-        }
-        public async Task<IActionResult> NotIsRead()
-        {
-            var userId = _userManager.GetUserId(User);
-
-            _context.Notifications.Add(new Notification
-            {
-                UserId = userId,
-                Message = "Welcome! This is your first notification.",
-                Url = "/Home/Index",
-                IsRead = true,
-                CreatedOn = DateTime.Now
-            });
-
-            await _context.SaveChangesAsync(userId);
-
-            var notifications = await _context.Notifications
-       .Where(n => n.UserId == userId && !n.IsRead)
-       .OrderByDescending(n => n.CreatedOn)
-       .ToListAsync();
-
-            return View(notifications);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetUserNotifications()
         {
             var userId = _userManager.GetUserId(User);
 
             var notifications = await _context.Notifications
                 .Where(n => n.UserId == userId)
                 .OrderByDescending(n => n.CreatedOn)
-                .Take(5)
-                .Select(n => new
-                {
+                .ToListAsync();
+
+            return View(notifications);
+        }
+
+        public async Task<IActionResult> NotIsRead()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var notifications = await _context.Notifications
+                .Where(n => n.UserId == userId && !n.IsRead)
+                .OrderByDescending(n => n.CreatedOn)
+                .ToListAsync();
+
+            return View(notifications);
+        }
+
+        public async Task<IActionResult> Unread()
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var notifications = await _context.Notifications
+                .Where(n => n.UserId == userId && !n.IsRead)
+                .OrderByDescending(n => n.CreatedOn)
+                .ToListAsync();
+
+            return View(notifications);
+        }
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetUserNotifications()
+        //{
+        //    var userId = _userManager.GetUserId(User);
+
+        //    var notifications = await _context.Notifications
+        //        .Where(n => n.UserId == userId)
+        //        .OrderByDescending(n => n.CreatedOn)
+        //        .Take(5)
+        //        .Select(n => new
+        //        {
+        //            n.Id,
+        //            n.Message,
+        //            n.Url,
+        //            n.IsRead,
+        //            CreatedOn = n.CreatedOn.ToString("g")
+        //        })
+        //        .ToListAsync();
+
+        //    var unreadCount = await _context.Notifications
+        //        .CountAsync(n => n.UserId == userId && !n.IsRead);
+
+        //    return Json(new { notifications, unreadCount });
+        //}
+        public async Task<IActionResult> GetUserNotifications()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var notifications = await _context.Notifications
+                .Where(n => n.UserId == userId)
+                .OrderByDescending(n => n.CreatedOn)
+                .Take(20)
+                .ToListAsync();
+
+            var unreadCount = notifications.Count(n => !n.IsRead);
+
+            return Json(new
+            {
+                unreadCount,
+                notifications = notifications.Select(n => new {
                     n.Id,
                     n.Message,
                     n.Url,
                     n.IsRead,
-                    CreatedOn = n.CreatedOn.ToString("g")
+                    CreatedOn = n.CreatedOn.ToString("yyyy-MM-dd HH:mm")
                 })
-                .ToListAsync();
-
-            var unreadCount = await _context.Notifications
-                .CountAsync(n => n.UserId == userId && !n.IsRead);
-
-            return Json(new { notifications, unreadCount });
+            });
         }
-        [HttpGet]
-        public IActionResult MarkAsRead(int id)
+
+        [HttpPost]
+        public async Task<IActionResult> MarkAsRead(int id)
         {
-            var notification = _context.Notifications.Find(id);
-            if (notification != null)
-            {
-                notification.IsRead = true;
-                _context.SaveChanges();
-            }
-            return RedirectToAction("Index");
+            var userId = _userManager.GetUserId(User);
+
+            var notification = await _context.Notifications
+                .FirstOrDefaultAsync(n => n.Id == id && n.UserId == userId);
+
+            if (notification == null)
+                return NotFound();
+
+            notification.IsRead = true;
+            await _context.SaveChangesAsync(userId);
+
+            return Ok();
         }
+
 
         // GET: Notifications/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -7,14 +7,14 @@
 <h2 class="mb-4 text-center">Attendance List</h2>
 
 <div class="d-flex justify-content-between mb-3">
-    <a asp-action="Create" class="btn btn-primary">
+    <a asp-action="Import" class="btn btn-primary">
         <i class="fa fa-plus"></i> Add New Attendance
     </a>
 
     <form asp-action="Index" method="get" class="form-inline">
         <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="Emp Search..." />
         <button type="submit" class="btn btn-secondary ml-2">
-            <i class="fa fa-search"></i> »ÕÀ
+            <i class="fa fa-search"></i> Search
         </button>
     </form>
 </div>
@@ -48,8 +48,8 @@
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
                             <i class="fa fa-eye"></i> View
                         </a>
-                        <a asp-action="Import" asp-route-id="@item.Id" class="btn btn-sm btn-success">
-                            <i class="fa fa-import"></i> Import
+                        <a asp-action="Create" asp-route-id="@item.Id" class="btn btn-sm btn-success">
+                            <i class="fa fa-import"></i> Create
                         </a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
                             <i class="fa fa-trash"></i> Delete
